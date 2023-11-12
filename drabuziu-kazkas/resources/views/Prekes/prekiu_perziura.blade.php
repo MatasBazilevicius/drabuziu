@@ -63,13 +63,14 @@
         <!-- Add more product cards here -->
 
         <div>
-            <h2>Gryžti atgal i meniu</h2>
-            <a class="btn btn-primary" href="{{ route('meniu') }}">Menziu</a>
+
         </div>
 
         <div>
-            <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Krepšelis</h2>
+            <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12;">Krepšelis</h2>
             <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
+            <h2>Gryžti atgal i meniu</h2>
+            <a class="btn btn-primary" href="{{ route('meniu') }}">Menziu</a>
         </div>
 
     </div>
