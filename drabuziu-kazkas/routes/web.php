@@ -28,3 +28,42 @@ Route::put('/profile/update', [ProfileController::class, 'update'])->name('profi
 
 Route::get('/profile/delete', [ProfileController::class, 'showDeleteForm'])->name('profile.delete');
 Route::post('/profile/delete', [ProfileController::class, 'deleteProfile']);
+
+
+Route::get('/profile/kazkas', function () {
+    return view('profiles\kazkas');
+})->name('kazkas');
+
+
+Route::get('/Prekes/prekiu_perziura', function () {
+    return view('Prekes\prekiu_perziura');
+})->name('prekes');
+
+
+Route::get('/krepselis/krepselis', function () {
+    return view('krepselis\krepselis');
+})->name('krepsys');
+
+
+Route::get('/Kategorijos/kategorijos', function () {
+    return view('Kategorijos\Kategorijos');
+})->name('kategorijos');
+
+Route::get('/views/welcome', function () {
+    return view('welcome');
+})->name('meniu');
+
+Route::get('/Prekes/Prekiuinfo/preke1', function () {
+    return view('Prekes\Prekiuinfo\preke1');
+})->name('preke1');
+
+Route::get('/Prekes/Prekiuinfo/preke2', function () {
+    return view('Prekes\Prekiuinfo\preke2');
+})->name('preke2');
+
+
+
+// routes/web.php
+
+
+
