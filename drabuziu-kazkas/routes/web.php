@@ -97,6 +97,30 @@ Route::get('/Kategorijos/kategorijos_redagavimas/', function () {
     return view('Kategorijos\kategorijos_redagavimas');
 })->name('kategorijos_r');
 
+Route::get('/uzsakymai/visiuzsakymai', function () {
+    return view('uzsakymai\visiuzsakymai');
+})->name('visiuzsakymai');
+
+Route::get('/uzsakymai/ivykdytiuzsakymai', function () {
+    return view('uzsakymai\ivykdytiuzsakymai');
+})->name('ivykdytiuzsakymai');
+
+Route::get('/uzsakymai/sektiuzsakyma', function () {
+    return view('uzsakymai\sektiuzsakyma');
+})->name('sektiuzsakyma');
+
+Route::get('/uzsakymai/pildytiuzsakyma', function () {
+    return view('uzsakymai\pildytiuzsakyma');
+})->name('pildytiuzsakyma');
+
+Route::get('/uzsakymai/sektiuzsakymapvz', function () {
+    return view('uzsakymai\sektiuzsakymapvz');
+})->name('sektiuzsakymapvz');
+
+Route::get('/uzsakymai/pildytiuzsakymapvz', function () {
+    return view('uzsakymai\pildytiuzsakymapvz');
+})->name('pildytiuzsakymapvz');
+
 // routes/web.php
 
 
