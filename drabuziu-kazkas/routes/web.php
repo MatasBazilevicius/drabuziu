@@ -89,6 +89,14 @@ Route::get('/krepselis/autentifikavimas/', function () {
     return view('krepselis\autentifikavimas');
 })->name('autentifikavimas');
 
+Route::get('/Kategorijos/kategorijos_kurimas/', function () {
+    return view('Kategorijos\kategorijos_kurimas');
+})->name('kategorijos_k');
+
+Route::get('/Kategorijos/kategorijos_redagavimas/', function () {
+    return view('Kategorijos\kategorijos_redagavimas');
+})->name('kategorijos_r');
+
 // routes/web.php
 
 
