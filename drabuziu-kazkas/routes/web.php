@@ -65,6 +65,14 @@ Route::get('/krepselis/uzsakymas/', function () {
     return view('krepselis\uzsakymas');
 })->name('uzsakymas');
 
+Route::get('/Prekes/Prekiuinfo/prekeRedag', function () {
+    return view('Prekes\Prekiuinfo\prekeRedag');
+})->name('prekeRedag');
+
+Route::get('/Zinutes/zinutes/', function () {
+    return view('Zinutes\zinutes');
+})->name('zinut');
+
 
 // routes/web.php
 

@@ -9,7 +9,7 @@
 <body>
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Product Details</h1>
+    <h1 class="text-center mb-4">Produkto informacija</h1>
 
     <!-- Product Details Section -->
     <div class="row">
@@ -17,28 +17,33 @@
             <img src="https://via.placeholder.com/400" class="img-fluid" alt="Product Image">
         </div>
         <div class="col-md-6">
-            <h2>Product Name</h2>
-            <p>Description of the product.</p>
-            <p>Price: $19.99</p>
-            <p>Available Sizes: S, M, L, XL</p>
-            <p>Color: Blue</p>
-            <button class="btn btn-primary">Add to Cart</button>
+            <h2>Pavadinimas</h2>
+            <p>Aprašymas.</p>
+            <p>Kaina: $11,11</p>
+            <p>Lytis: Vyrams</p>
+            <p>Prekė turime nuo: Sausio 1, 2023</p>
+            <p>Medžiaga: Vilna</p>
+            <p>Galimi dydžiai: XL, L, M, S</p>
+            <p>Spalva: Mėlyna</p>
+            <p>Gamintojas: Nike</p>
+            <button class="btn btn-primary">Pridėti į krepšelį</button>
         </div>
     </div>
 
     <!-- Additional Product Information -->
     <div class="mt-4">
-        <h2>Additional Information</h2>
+        <h2>Papildoma informacija</h2>
         <ul>
-            <li>Material: Cotton</li>
-            <li>Brand: Example Brand</li>
-            <li>Category: Men's Clothing</li>
+             <li>Medžiaga: Vilna</li>
+            <li>Gamintojas: Nike</li>
         </ul>
     </div>
 
-        <!-- Back Button -->
-        <div class="container my-3 text-center">
+    <!-- Back Button -->
+    <div class="container my-3 text-center">
     <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
+        <a class="btn btn-warning" href="{{ route('prekeRedag') }}">Redaguoti prekę</a>
+        <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
         <a class="btn btn-warning" href="{{ route('prekes') }}">Gryžti į prekių peržiūrą</a>
     </div>
 

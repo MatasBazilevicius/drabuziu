@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Parduotuve AMMA</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -43,7 +43,7 @@
 <body>
     
     <div class="container my-5">
-        <h1 style="color: #e74c3c;">Parduotuve AMMA</h1>
+        <h1 style="color: #e74c3c;">Parduotuve AMMA V1.2</h1>
         
         <h2 style="color: #3498db; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Peržiūrėti prisijungimą{nebaigtas}</h2>
         <a class="btn btn-info" href="{{ route('kazkas') }}">Peržiūrėti</a>
@@ -53,7 +53,6 @@
 
         <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Krepšelis</h2>
         <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
-        <a class="btn btn-success" href="{{ route('prekes') }}">CBB </a>
     </div>
 </body>
 </html>
