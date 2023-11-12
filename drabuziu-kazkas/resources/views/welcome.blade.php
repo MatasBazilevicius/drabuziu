@@ -85,7 +85,8 @@
                             <a href="{{ route('profile.delete') }}">Ištrinti paskyrą</a>
                             <a href="{{ route('ivykdytiuzsakymai') }}">Peržiūrėti įvykdytus užsakymus</a>
                             <a href="{{ route('visiuzsakymai') }}">Administratoriui: visi užsakymai</a>
-                            <a href="{{ route('logout') }}"
+                            <a href="{{ route('zinut')}}">Pagalba klientams</a>
+                            <a href="{{ route('logout') }}"                            
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Atsijungti
                             </a>
@@ -117,10 +118,10 @@
 <body>
     
     <div class="container my-5">
-        <h1 style="color: #e74c3c;">Parduotuve AMMA V1.2</h1>
+        <h1 style="color: #e74c3c;">Drabužių parduotuvė AMMA V:0.5</h1>
 
         <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;">Prekės</h2>
-        <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti prekes</a>
+        <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
 
         <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Krepšelis</h2>
         <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>

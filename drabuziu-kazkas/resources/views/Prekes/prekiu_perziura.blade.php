@@ -78,60 +78,74 @@
 </div>
 <!-- Filter Modal -->
 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterModalLabel">Filter Products</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filter Products</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Price Range -->
+                <div class="mb-3">
+                    <label for="priceRange" class="form-label">Price Range:</label>
+                    <input type="range" class="form-range" id="priceRange" min="0" max="100" step="10">
                 </div>
-                <div class="modal-body">
-                    <!-- Price Range -->
-                    <div class="mb-3">
-                        <label for="priceRange" class="form-label">Price Range:</label>
-                        <input type="range" class="form-range" id="priceRange" min="0" max="100" step="10">
-                    </div>
 
-                    <!-- Size -->
-                    <div class="mb-3">
-                        <label for="sizeSelect" class="form-label">Size:</label>
-                        <select class="form-select" id="sizeSelect">
-                            <option value="small">Small</option>
-                            <option value="medium">Medium</option>
-                            <option value="large">Large</option>
-                        </select>
-                    </div>
-
-                    <!-- Brand -->
-                    <div class="mb-3">
-                        <label for="brandSelect" class="form-label">Brand:</label>
-                        <select class="form-select" id="brandSelect">
-                            <option value="brand1">Brand 1</option>
-                            <option value="brand2">Brand 2</option>
-                            <option value="brand3">Brand 3</option>
-                        </select>
-                    </div>
-
-                    <!-- Material -->
-                    <div class="mb-3">
-                        <label for="materialSelect" class="form-label">Material:</label>
-                        <select class="form-select" id="materialSelect">
-                            <option value="material1">Material 1</option>
-                            <option value="material2">Material 2</option>
-                            <option value="material3">Material 3</option>
-                        </select>
-                    </div>
-                     <!-- Message for No Products -->
-                     <div id="noProductsMessage" class="alert alert-warning" style="display: none;">
-                        No products found with selected filters.
-                    </div>
+                <!-- Size -->
+                <div class="mb-3">
+                    <label for="sizeSelect" class="form-label">Size:</label>
+                    <select class="form-select" id="sizeSelect">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+
+                <!-- Brand -->
+                <div class="mb-3">
+                    <label for="brandSelect" class="form-label">Brand:</label>
+                    <select class="form-select" id="brandSelect">
+                        <option value="brand1">Brand 1</option>
+                        <option value="brand2">Brand 2</option>
+                        <option value="brand3">Brand 3</option>
+                    </select>
                 </div>
+
+                <!-- Material -->
+                <div class="mb-3">
+                    <label for="materialSelect" class="form-label">Material:</label>
+                    <select class="form-select" id="materialSelect">
+                        <option value="material1">Material 1</option>
+                        <option value="material2">Material 2</option>
+                        <option value="material3">Material 3</option>
+                    </select>
+                </div>
+
+                <!-- Message for No Products -->
+                <div id="noProductsMessage" class="alert alert-warning" style="display: none;">
+                    No products found with selected filters.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
             </div>
         </div>
     </div>
+</div>
+
+<script>
+    function applyFilters() {
+        // For demonstration purposes, let's assume no products are found
+        displayNoProductsMessage();
+    }
+
+    function displayNoProductsMessage() {
+        // Display the no products message
+        document.getElementById('noProductsMessage').style.display = 'block';
+    }
+</script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
