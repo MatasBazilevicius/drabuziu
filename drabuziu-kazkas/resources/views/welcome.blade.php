@@ -53,6 +53,7 @@
 
         <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Krepšelis</h2>
         <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
+        <a class="btn btn-success" href="{{ route('prekes') }}">CBB </a>
     </div>
 </body>
 </html>

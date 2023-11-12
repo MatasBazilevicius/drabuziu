@@ -45,7 +45,7 @@
                     </li>
                 </ul>
 
-                <a href="#" class="btn btn-success mt-3">Proceed to Checkout</a>
+                <a href="{{ route('uzsakymas') }}" class="btn btn-success mt-3">Formuoti užsakymą</a>
                 <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
             </div>
         </div>
