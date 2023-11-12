@@ -69,6 +69,10 @@ Route::get('/Prekes/Prekiuinfo/prekeRedag', function () {
     return view('Prekes\Prekiuinfo\prekeRedag');
 })->name('prekeRedag');
 
+Route::get('/Prekes/Prekiuinfo/prekeKurt', function () {
+    return view('Prekes\Prekiuinfo\prekeKurt');
+})->name('prekekurt');
+
 Route::get('/Zinutes/zinutes/', function () {
     return view('Zinutes\zinutes');
 })->name('zinut');
@@ -76,9 +80,11 @@ Route::get('/Zinutes/zinutes/', function () {
 Route::get('/krepselis/uzsakymas/', function () {
     return view('krepselis\uzsakymas');
 })->name('uzsakymas');
+
 Route::get('/krepselis/apmokejimas/', function () {
     return view('krepselis\apmokejimas');
 })->name('apmokejimas');
+
 Route::get('/krepselis/autentifikavimas/', function () {
     return view('krepselis\autentifikavimas');
 })->name('autentifikavimas');

@@ -70,7 +70,8 @@
             <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12;">Krepšelis</h2>
             <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
             <h2>Gryžti atgal i meniu</h2>
-            <a class="btn btn-primary" href="{{ route('meniu') }}">Menziu</a>
+            <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+            <a class="btn btn-primary" href="{{ route('prekekurt') }}">Kurti naują prekę</a>
         </div>
 
     </div>
