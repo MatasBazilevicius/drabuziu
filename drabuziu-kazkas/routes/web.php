@@ -73,6 +73,15 @@ Route::get('/Zinutes/zinutes/', function () {
     return view('Zinutes\zinutes');
 })->name('zinut');
 
+Route::get('/krepselis/uzsakymas/', function () {
+    return view('krepselis\uzsakymas');
+})->name('uzsakymas');
+Route::get('/krepselis/apmokejimas/', function () {
+    return view('krepselis\apmokejimas');
+})->name('apmokejimas');
+Route::get('/krepselis/autentifikavimas/', function () {
+    return view('krepselis\autentifikavimas');
+})->name('autentifikavimas');
 
 // routes/web.php
 
