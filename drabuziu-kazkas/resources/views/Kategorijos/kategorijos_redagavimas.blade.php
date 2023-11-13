@@ -20,7 +20,8 @@
                 Klaida! Patikrinkite įvestus duomenis.
             </div>
             <!-- Edit Category Form -->
-            <form id="editCategoryForm" onsubmit="return validateEditForm()">
+            <form action="{{ route('kategorijos_r') }}" method="post" onsubmit="return validateForm()">
+                @csrf
                 <div class="form-group mb-3">
                     <label for="editedCategoryName" class="form-label">Redaguotas kategorijos pavadinimas:</label>
                     <input type="text" class="form-control" id="editedCategoryName" name="editedCategoryName" value="Category Name" required>
@@ -35,25 +36,22 @@
             <a class="btn btn-warning" href="{{ route('kategorijos') }}">Grįžti į Kategorijas</a>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        function validateEditForm() {
-            // Add your validation logic here
-            // For example, check if the entered data is valid
+<script>
+    function validateForm() {
+        // Add your validation logic here
+        // For example, check if the entered data is valid
 
-            // For demonstration purposes, let's assume the validation fails
-            displayErrorMessage();
-            return false; // Prevent form submission
-        }
+        // For demonstration purposes, let's assume the validation fails
+        displayErrorMessage();
+        return false; // Prevent form submission
+    }
 
-        function displayErrorMessage() {
-            // Display the error message
-            document.getElementById('errorMessage').style.display = 'block';
-        }
-    </script>
-
+    function displayErrorMessage() {
+        // Display the error message
+        document.getElementById('errorMessage').style.display = 'block';
+    }
+</script>
 </body>
-
 </html>

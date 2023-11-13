@@ -18,6 +18,8 @@
             <a class="btn btn-warning" href="{{ route('kategorijos_k') }}">Kurti kategoriją</a>
         </div>
 
+        
+
 
         <!-- Category Selection and Operations -->
         <div class="mb-4 mt-4">
@@ -30,7 +32,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#allModal">Visi</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="kategorijosredag">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
+
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>
@@ -39,7 +44,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#menModal">Vyrai</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>
@@ -48,7 +55,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#womenModal">Moterys</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>
@@ -57,7 +66,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#kidsModal">Vaikai</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>
@@ -66,7 +77,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#materialModal">Medžiaga</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>
@@ -75,7 +88,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#sizeModal">Dydis</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>
@@ -84,7 +99,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#brandModal">Prekės ženklas</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                        <div class="text-end">
+            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
+        </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>

@@ -26,7 +26,11 @@
             <button type="button" class="btn btn-secondary">Women</button>
             <button type="button" class="btn btn-secondary">Kids</button>
         </div>
+        <button type="button" class="btn btn-primary float-end mt-2 mr-2" data-bs-toggle="modal" data-bs-target="#filterModal">
+        Filtrai
+    </button>
     </div>
+    
 
     <!-- Product Display -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -75,14 +79,14 @@
         </div>
 
     </div>
-</div>
+
 <!-- Filter Modal -->
 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="filterModalLabel">Filter Products</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="filterModalLabel">Filtruoti prekes</h5>
+                <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Price Range -->
@@ -133,9 +137,19 @@
         </div>
     </div>
 </div>
+</div>
+
+<!-- Button to trigger the filter modal -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     function applyFilters() {
+        // Add your filtering logic here
+        // Retrieve selected options from the modal and update the product display accordingly
+        // For example, you can use document.getElementById or jQuery to get values from the modal elements
+
         // For demonstration purposes, let's assume no products are found
         displayNoProductsMessage();
     }
@@ -146,27 +160,6 @@
     }
 </script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        function applyFilters() {
-            // Add your filtering logic here
-            // Retrieve selected options from the modal and update the product display accordingly
-            // For example, you can use document.getElementById or jQuery to get values from the modal elements
-
-            // For demonstration purposes, let's assume no products are found
-            displayNoProductsMessage();
-        }
-
-        function displayNoProductsMessage() {
-            // Display the no products message
-            document.getElementById('noProductsMessage').style.display = 'block';
-        }
-    </script>
-</body>
-
-</html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
