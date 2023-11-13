@@ -5,18 +5,18 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-header">{{ __('Delete Profile') }}</div>
+        <div class="card-header">{{ __('Ištrinti profilį') }}</div>
 
         <div class="card-body">
             <p>
-                {{ __('Please enter your password to confirm the deletion of your profile.') }}
+                {{ __('Įveskite savo prisijungimo slaptažodį, tam kad ištrintumėte savo profilį.') }}
             </p>
 
             <form method="POST" action="{{ route('profile.delete') }}">
                 @csrf
 
                 <div class="form-group">
-                    <label for="password">{{ __('Password') }}</label>
+                    <label for="password">{{ __('Slaptažodis') }}</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
 
                     @error('password')
@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-danger">
-                        {{ __('Delete Profile') }}
+                        {{ __('Ištrinti profilį') }}
                     </button>
                 </div>
             </form>

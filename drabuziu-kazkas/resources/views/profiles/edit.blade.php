@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Edit Profile</div>
+                    <div class="card-header">Redaguoti profilį</div>
 
                     <div class="card-body">
                         @if(session('success'))
@@ -55,7 +55,7 @@
 
                             <!-- Add other profile fields as needed -->
 
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <button type="submit" class="btn btn-primary">Atnaujinti profilį</button>
                         </form>
                     </div>
                 </div>
