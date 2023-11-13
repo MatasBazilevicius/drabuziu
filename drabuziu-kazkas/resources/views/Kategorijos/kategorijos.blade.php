@@ -30,7 +30,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#allModal">Visi</button>
                         <div class="d-flex">
-                            <button class="btn btn-warning me-2" onclick="editCategory()">Redaguoti kategoriją</button>
+                            <button class="btn btn-warning me-2" onclick="kategorijosredag">Redaguoti kategoriją</button>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
                         </div>
                     </div>

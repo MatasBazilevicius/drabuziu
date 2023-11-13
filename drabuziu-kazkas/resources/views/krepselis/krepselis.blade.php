@@ -19,10 +19,12 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Product 1
                         <span class="badge bg-primary rounded-pill">$19.99</span>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem(1)">Delete</button>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Product 2
                         <span class="badge bg-primary rounded-pill">$24.99</span>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem(2)">Delete</button>
                     </li>
                     <!-- Add more cart items as needed -->
                 </ul>
@@ -52,5 +54,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function deleteItem(itemId) {
+            // Implement your logic to delete the item with the specified itemId
+            // You can use JavaScript to interact with the server or update the UI accordingly
+            console.log('Deleting item with ID ' + itemId);
+        }
+    </script>
 </body>
 </html>

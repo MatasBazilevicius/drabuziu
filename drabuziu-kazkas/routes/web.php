@@ -49,6 +49,10 @@ Route::get('/Kategorijos/kategorijos', function () {
     return view('Kategorijos\Kategorijos');
 })->name('kategorijos');
 
+Route::get('/Kategorijos/kategorijos_redagavimas', function () {
+    return view('Kategorijos\kategorijos_redagavimas');
+})->name('kategorijosredag');
+
 Route::get('/views/welcome', function () {
     return view('welcome');
 })->name('meniu');

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6">
             <h2>Užsakymas</h2>
             <form method="POST" action="{{ route('apmokejimas') }}">
                 @csrf
@@ -39,11 +39,40 @@
                     <input type="text" id="expiration_date" name="expiration_date" class="form-control" required>
                 </div>
                 {{-- Add more payment fields as needed --}}
-                <div class="d-flex justify-content-between">
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            {{-- Discount Code Section --}}
+            <div class="mt-4">
+                <h4>Nuolaidos kodas</h4>
+                <div class="input-group mb-3">
+                    <input type="text" id="discount_code" name="discount_code" class="form-control" placeholder="Įveskite kodą">
+                    <button class="btn btn-outline-secondary" type="button">Pritaikyti</button>
+                </div>
+            </div>
+
+            {{-- Order Summary --}}
+            <div class="mt-4">
+                <h2>Order Summary</h2>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Product 1
+                        <span class="badge bg-primary rounded-pill">$19.99</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Product 2
+                        <span class="badge bg-primary rounded-pill">$24.99</span>
+                    </li>
+                    <!-- Add more cart items as needed -->
+                </ul>
+            </div>
+
+            {{-- Payment and Navigation Buttons --}}
+            <div class="d-flex justify-content-between">
                 <a href="{{ route('apmokejimas') }}" class="btn btn-success mt-3 btn-block">Apmokėti užsakymą</a>
                 <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
-
-            </form>
+            </div>
         </div>
     </div>
 </div>
