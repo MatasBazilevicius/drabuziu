@@ -9,7 +9,7 @@
 <body>
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Edit Product</h1>
+    <h1 class="text-center mb-4">Redaguoti prekės informacija</h1>
 
     <!-- Product Details Section -->
     <div class="row">
@@ -18,41 +18,41 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="name">Product Name</label>
-                <input type="text" id="name" name="name" class="form-control" value="Fake Product Name" required>
+                <label for="name">Prekės pavadinimas</label>
+                <input type="text" id="name" name="name" class="form-control" value="Pavadinimas" required>
             </div>
 
             <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" required>Fake product description goes here.</textarea>
+                <label for="description">Aprašymas</label>
+                <textarea id="description" name="description" class="form-control" required>Aprašymas.</textarea>
             </div>
 
             <div class="form-group">
-                <label for="price">Price</label>
+                <label for="price">Kaina</label>
                 <input type="text" id="price" name="price" class="form-control" value="29.99" required>
             </div>
 
             <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Update Product</button>
+            <button type="submit" class="btn btn-primary">Atnaujinti prekę</button>
 
             <!-- Delete Button with Confirmation -->
-            <button type="button" class="btn btn-danger" id="deleteButton">Delete Product</button>
+            <button type="button" class="btn btn-danger" id="deleteButton">Ištrinti prekę</button>
 
             <!-- Delete Confirmation Modal -->
             <div class="modal" tabindex="-1" role="dialog" id="deleteConfirmationModal">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Delete Product</h5>
+                            <h5 class="modal-title">Ištrinti prekę</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure you want to delete this product?</p>
+                            <p>Ar tikrai norite ištrinti šią prekę?</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteButton">Ištrinti</button>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
 
     <!-- Back Button -->
     <div class="container my-3 text-center">
-        <a class="btn btn-warning" href="{{ route('prekes') }}">Back to Product List</a>
+        <a class="btn btn-warning" href="{{ route('prekes') }}">Grįžti į prekių sąrašą</a>
     </div>
 
 </div>

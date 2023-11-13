@@ -9,11 +9,11 @@
 <body>
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Clothing Shop</h1>
+    <h1 class="text-center mb-4">Drabužių parduotuvė AMMA</h1>
 
     <!-- Category Selection -->
     <div class="mb-4">
-        <h2>Select a Category</h2>
+        <h2>Pasirinkite kategoriją</h2>
         <!-- "Kategorijos" Section -->
         <div>
             <h2 style="color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Kategorijos</h2>
@@ -36,10 +36,10 @@
                 <div class="card h-100">
                     <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product 1">
                     <div class="card-body">
-                        <h5 class="card-title">Product 1</h5>
-                        <p class="card-text">Description of Product 1.</p>
+                        <h5 class="card-title">Drabužis 1</h5>
+                        <p class="card-text">Aprašymas prekės 1.</p>
                         <p class="card-text">$19.99</p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                        <a href="#" class="btn btn-primary">Pridėti į krepšelį</a>
                     </div>
                 </div>
             </a>
@@ -51,10 +51,10 @@
                 <div class="card h-100">
                     <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product 2">
                     <div class="card-body">
-                        <h5 class="card-title">Product 2</h5>
-                        <p class="card-text">Description of Product 2.</p>
+                        <h5 class="card-title">Drabužis 2</h5>
+                        <p class="card-text">Aprašymas 2.</p>
                         <p class="card-text">$24.99</p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                        <a href="#" class="btn btn-primary">Pridėti į krepšelį</a>
                     </div>
                 </div>
             </a>
