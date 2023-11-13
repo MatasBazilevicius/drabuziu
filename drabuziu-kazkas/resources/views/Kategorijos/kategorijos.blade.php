@@ -11,7 +11,7 @@
 <body>
 
     <div class="container my-5">
-        <h1 class="text-center mb-4">Clothing Shop</h1>
+        <h1 class="text-center mb-4">Drabužių parduotuvė AMMA</h1>
 
         <!-- Kurti kategoriją Button (Top-Right) -->
         <div class="text-end">
