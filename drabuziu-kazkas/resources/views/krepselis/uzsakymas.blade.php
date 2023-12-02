@@ -70,8 +70,9 @@
 
             {{-- Payment and Navigation Buttons --}}
             <div class="d-flex justify-content-between">
+                <button type ="submit"> Apmokėti su Paypal </button>
                 <a href="{{ route('apmokejimas') }}" class="btn btn-success mt-3 btn-block">Apmokėti užsakymą</a>
-                <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
+                <a href="{{ route('krepsys') }}" class="btn btn-succes smt-3 btn-block">Peržiūrėti krepšelį</a>
             </div>
         </div>
     </div>
