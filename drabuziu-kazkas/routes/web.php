@@ -89,9 +89,13 @@ Route::get('/krepselis/apmokejimas/', function () {
     return view('krepselis\apmokejimas');
 })->name('apmokejimas');
 
-Route::get('/krepselis/autentifikavimas/', function () {
-    return view('krepselis\autentifikavimas');
-})->name('autentifikavimas');
+Route::get('/krepselis/PavAutentifikacija/', function () {
+    return view('krepselis\PavAutentifikacija');
+})->name('PavAutentifikacija');
+
+Route::get('/krepselis/NePavAutentifikacija/', function () {
+    return view('krepselis\NePavAutentifikacija');
+})->name('NePavAutentifikacija');
 
 Route::get('/Kategorijos/kategorijos_kurimas/', function () {
     return view('Kategorijos\kategorijos_kurimas');
@@ -125,6 +129,11 @@ Route::get('/uzsakymai/pildytiuzsakymapvz', function () {
     return view('uzsakymai\pildytiuzsakymapvz');
 })->name('pildytiuzsakymapvz');
 
+use App\Http\Controllers\PaypalController;
+
+Route::post('paypal/payment',[PaypalController::class, 'payment'])->name('paypal');
+Route::get('paypal/success',[PaypalController::class, 'success'])->name('paypal.success');
+Route::get('paypal/cancel',[PaypalController::class, 'cancel'])->name('paypal.cancel');
 // routes/web.php
 
 
