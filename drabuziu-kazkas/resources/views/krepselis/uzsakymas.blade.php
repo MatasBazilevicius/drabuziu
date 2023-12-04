@@ -70,8 +70,12 @@
 
             {{-- Payment and Navigation Buttons --}}
             <div class="d-flex justify-content-between">
+                <form action="{{ route('paypal')}}" method="post">
+                @csrf 
+                <input type="hidden" name="price" value ="0.1">
                 <button type ="submit"> Apmokėti su Paypal </button>
-                <a href="{{ route('apmokejimas') }}" class="btn btn-success mt-3 btn-block">Apmokėti užsakymą</a>
+                </form>
+                <a href="{{ route('apmokejimas') }}" class="btn btn-success smt-3 btn-block">Apmokėti užsakymą</a>
                 <a href="{{ route('krepsys') }}" class="btn btn-succes smt-3 btn-block">Peržiūrėti krepšelį</a>
             </div>
         </div>
