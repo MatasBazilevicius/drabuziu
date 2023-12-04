@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-                    
+                        
                 </div>
                 </div>
                 <h2 style="color: #404040; border-bottom: 2px solid #404040; padding-bottom: 5px;"> </h2>
