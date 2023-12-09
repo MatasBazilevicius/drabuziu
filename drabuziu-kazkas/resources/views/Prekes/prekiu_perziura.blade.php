@@ -70,7 +70,7 @@ if ($conn->connect_error) {
                                     <h5 class="card-title"><?php echo $row['Pavadinimas']; ?></h5>
                                     <p class="card-text"><?php echo $row['Aprasas']; ?></p>
                                     <p class="card-text">$<?php echo $row['Kaina']; ?></p>
-                                    <a href="{{route('preke1')}}" class="btn btn-primary">Perzireti preke</a>
+                                    <a href="{{route('preke3', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Perzireti preke</a>
                                     <a href="{{route('krepsys')}}" class="btn btn-primary">Prideti i krepseli</a>
                                 </div>
                             </div>
