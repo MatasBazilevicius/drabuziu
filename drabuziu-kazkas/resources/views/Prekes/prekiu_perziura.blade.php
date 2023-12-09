@@ -70,7 +70,8 @@ if ($conn->connect_error) {
                                     <h5 class="card-title"><?php echo $row['Pavadinimas']; ?></h5>
                                     <p class="card-text"><?php echo $row['Aprasas']; ?></p>
                                     <p class="card-text">$<?php echo $row['Kaina']; ?></p>
-                                    <a href="#" class="btn btn-primary">Pridėti į krepšelį</a>
+                                    <a href="{{route('preke1')}}" class="btn btn-primary">Perzireti preke</a>
+                                    <a href="{{route('krepsys')}}" class="btn btn-primary">Prideti i krepseli</a>
                                 </div>
                             </div>
                         </a>
@@ -114,6 +115,7 @@ if ($conn->connect_error) {
     </script>
 
 <div>
+            <!--Cia mygtukai sudeti gryzti i meniu -->
             <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12;">Krepšelis</h2>
             <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
             <h2>Grįžti atgal i meniu</h2>

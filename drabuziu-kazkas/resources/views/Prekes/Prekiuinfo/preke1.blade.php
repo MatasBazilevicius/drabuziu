@@ -1,54 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
-<body>
+<?php
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-<div class="container my-5">
-    <h1 class="text-center mb-4">Produkto informacija</h1>
+$sql = "SELECT * FROM drabuziai WHERE id_Drabuzis = 1"; // Change the condition as needed
+$result = $conn->query($sql);
 
-    <!-- Product Details Section -->
-    <div class="row">
-        <div class="col-md-6">
-            <img src="https://via.placeholder.com/400" class="img-fluid" alt="Product Image">
-        </div>
-        <div class="col-md-6">
-            <h2>Pavadinimas</h2>
-            <p>Aprašymas.</p>
-            <p>Kaina: $11,11</p>
-            <p>Lytis: Vyrams</p>
-            <p>Prekė turime nuo: Sausio 1, 2023</p>
-            <p>Medžiaga: Vilna</p>
-            <p>Galimi dydžiai: XL, L, M, S</p>
-            <p>Spalva: Mėlyna</p>
-            <p>Gamintojas: Nike</p>
-            <button class="btn btn-primary">Pridėti į krepšelį</button>
+// Check if there is a product with id_Drabuzis=1
+if ($result->num_rows > 0) {
+    // Fetch the data for the specific product
+    $row = $result->fetch_assoc();
+?>
+    <!-- Product Card -->
+    <div class="col">
+        <div class="card h-100">
+            <img src="data:image/png;base64,<?php echo base64_encode($row['Nuotrauka']); ?>" class="card-img-top" alt="<?php echo $row['Pavadinimas']; ?>">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $row['Pavadinimas']; ?></h5>
+                <p class="card-text"><?php echo $row['Aprasas']; ?></p>
+                <p class="card-text">Price: $<?php echo $row['Kaina']; ?></p>
+                <p class="card-text">Quantity: <?php echo $row['Kiekis']; ?></p>
+                <p class="card-text">Creation Date: <?php echo $row['Sukurimo_data']; ?></p>
+                <p class="card-text">Gender: <?php echo $row['Lytis']; ?></p>
+                <!-- Add more details as needed -->
+                <a href="{{ route('preke', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-primary">Pridėti į krepšelį</a>
+            </div>
         </div>
     </div>
-
-    <!-- Additional Product Information -->
-    <div class="mt-4">
-        <h2>Papildoma informacija</h2>
-        <ul>
-             <li>Medžiaga: Vilna</li>
-            <li>Gamintojas: Nike</li>
-        </ul>
-    </div>
-
-    <!-- Back Button -->
-    <div class="container my-3 text-center">
-    <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
-        <a class="btn btn-warning" href="{{ route('prekeRedag') }}">Redaguoti prekę</a>
-        <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
-        <a class="btn btn-warning" href="{{ route('prekes') }}">Gryžti į prekių peržiūrą</a>
-    </div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+} else {
+    // Display a message if the product is not found
+    echo '<p>No product found with id_Drabuzis=1.</p>';
+}
+?>

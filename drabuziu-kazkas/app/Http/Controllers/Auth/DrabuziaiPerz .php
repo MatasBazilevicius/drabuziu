@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Drabuziai; // Replace Drabuziai with the actual model name
 
-class YourController extends Controller
+class DrabuziaiPerz extends Controller
 {
     public function preke($id)
     {
