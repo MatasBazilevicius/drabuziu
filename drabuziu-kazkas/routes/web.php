@@ -138,9 +138,9 @@ Route::get('paypal/cancel',[PaypalController::class, 'cancel'])->name('paypal.ca
 
 
 //bandau duomenu baze prijugnti cia 
-Route::get('/preke/{id}', [YourController::class, 'preke'])->name('preke');
+Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 
-Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
+//Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
 
 
 
