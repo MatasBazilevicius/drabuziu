@@ -7,7 +7,7 @@
     <h1 class="text-center mb-4">Kurti naują prekę</h1>
 
     <!-- Product Creation Form -->
-    <form method="post" action="{{ route('meniu') }}">
+    <form method="post" action="{{ route('createProduct') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Product Details Section -->
@@ -15,68 +15,49 @@
             <div class="col-md-6">
                 <!-- Product Image -->
                 <div class="mb-3">
-                    <label for="image" class="form-label">Prekės nuotrauka</label>
-                    <input type="text" id="image" name="image" class="form-control" placeholder="Image URL" required>
+                    <label for="Nuotrauka" class="form-label">Prekės nuotrauka</label>
+                    <input type="file" id="Nuotrauka" name="Nuotrauka" class="form-control" required>
                 </div>
-                <img id="previewImage" class="img-fluid" alt="Preview Image" style="max-height: 200px;">
             </div>
             <div class="col-md-6">
                 <!-- Product Name -->
                 <div class="mb-3">
-                    <label for="name" class="form-label">Prekės pavadinimas</label>
-                    <input type="text" id="name" name="name" class="form-control" required>
+                    <label for="Pavadinimas" class="form-label">Prekės pavadinimas</label>
+                    <input type="text" id="Pavadinimas" name="Pavadinimas" class="form-control" required>
                 </div>
 
                 <!-- Description -->
                 <div class="mb-3">
-                    <label for="description" class="form-label">Aprašymas</label>
-                    <textarea id="description" name="description" class="form-control" required></textarea>
+                    <label for="Aprasas" class="form-label">Aprašymas</label>
+                    <textarea id="Aprasas" name="Aprasas" class="form-control" required></textarea>
                 </div>
 
                 <!-- Price -->
                 <div class="mb-3">
-                    <label for="price" class="form-label">Kaina</label>
-                    <input type="text" id="price" name="price" class="form-control" required>
+                    <label for="Kaina" class="form-label">Kaina</label>
+                    <input type="text" id="Kaina" name="Kaina" class="form-control" required>
                 </div>
 
                 <!-- Gender -->
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Lytis</label>
-                    <select id="gender" name="gender" class="form-control" required>
-                        <option value="men">Men</option>
-                        <option value="women">Women</option>
+                    <label for="Lytis" class="form-label">Lytis</label>
+                    <select id="Lytis" name="Lytis" class="form-control" required>
+                        <option value="1">Men</option>
+                        <option value="2">Women</option>
                         <!-- Add more options if needed -->
                     </select>
                 </div>
 
                 <!-- Date of Creation -->
                 <div class="mb-3">
-                    <label for="dateOfCreation" class="form-label">Gavimo data</datagrid></label>
-                    <input type="text" id="dateOfCreation" name="dateOfCreation" class="form-control" placeholder="Sausio 1, 2023" required>
+                    <label for="Sukurimo_data" class="form-label">Gavimo data</label>
+                    <input type="date" id="Sukurimo_data" name="Sukurimo_data" class="form-control" required>
                 </div>
 
-                <!-- Material -->
+                <!-- Manufacturer ID -->
                 <div class="mb-3">
-                    <label for="material" class="form-label">Medžiaga</label>
-                    <input type="text" id="material" name="material" class="form-control" required>
-                </div>
-
-                <!-- Sizes -->
-                <div class="mb-3">
-                    <label for="sizes" class="form-label">Dydžiai</label>
-                    <input type="text" id="sizes" name="sizes" class="form-control" placeholder="XL, L, M, S" required>
-                </div>
-
-                <!-- Color -->
-                <div class="mb-3">
-                    <label for="color" class="form-label">Spalva</label>
-                    <input type="text" id="color" name="color" class="form-control" required>
-                </div>
-
-                <!-- Brand -->
-                <div class="mb-3">
-                    <label for="brand" class="form-label">Gamintojas</label>
-                    <input type="text" id="brand" name="brand" class="form-control" required>
+                    <label for="fk_Gamintojasid_Gamintojas" class="form-label">Gamintojo ID</label>
+                    <input type="text" id="fk_Gamintojasid_Gamintojas" name="fk_Gamintojasid_Gamintojas" class="form-control" required>
                 </div>
 
                 <!-- Submit Button -->
@@ -94,9 +75,51 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Preview Image
-    document.getElementById('image').addEventListener('input', function () {
+    document.getElementById('Nuotrauka').addEventListener('input', function () {
         var previewImage = document.getElementById('previewImage');
         previewImage.src = this.value || 'https://via.placeholder.com/400';
     });
 </script>
 @endsection
+
+<?php
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = ""; 
+$dbname = "parde";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $image = $_FILES['Nuotrauka']['tmp_name'];
+    $imageContent = addslashes(file_get_contents($image));
+    $name = $_POST['Pavadinimas'];
+    $description = $_POST['Aprasas'];
+    $price = $_POST['Kaina'];
+    $quantity = $_POST['Kiekis'];
+    $dateOfCreation = $_POST['Sukurimo_data'];
+    $gender = $_POST['Lytis'];
+    $manufacturerID = $_POST['fk_Gamintojasid_Gamintojas'];
+
+    // SQL query to insert data into the table
+    $sql = "INSERT INTO drabuziai (Pavadinimas, Aprasas, Nuotrauka, Kaina, Kiekis, Sukurimo_data, Lytis, fk_Gamintojasid_Gamintojas)
+            VALUES ('$name', '$description', '$imageContent', $price, $quantity, '$dateOfCreation', $gender, $manufacturerID)";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>

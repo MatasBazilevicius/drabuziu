@@ -142,6 +142,11 @@ Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 
 //Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
 
+// Add this route in your web.php or routes.php file
+
+//Cia del produktu kurimo
+Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
+Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
 
 
 

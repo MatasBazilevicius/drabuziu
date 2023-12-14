@@ -1,23 +1,31 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";// Replace with your actual database password
+$password = ""; // Replace with your actual database password
 $dbname = "parde"; // Replace with your actual database name
-
-
-// Using the request() helper function
-$product_id = request('id');
 
 // Using the Illuminate\Http\Request instance
 use Illuminate\Http\Request;
 
+// Get the product ID from the URL
+$product_id = request('id');
 
+// Create a database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$product_id = request()->route('id'); // Get the product ID from the route parameters
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$sql = "SELECT * FROM drabuziai WHERE id_Drabuzis = 01";
-$result = $conn->query($sql);
+// Use prepared statement to prevent SQL injection
+$sql = "SELECT * FROM drabuziai WHERE id_Drabuzis = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $product_id);
+$stmt->execute();
+
+// Get the result
+$result = $stmt->get_result();
 
 // Check if there is a product with the given id_Drabuzis
 if ($result->num_rows > 0) {
@@ -40,12 +48,16 @@ if ($result->num_rows > 0) {
             </div>
         </div>
     </div>
-<div>
-    <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
-</div>
+    <div>
+        <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
+    </div>
 <?php
 } else {
     // Display a message if the product is not found
-    echo '<p>No product found with id_Drabuzis=1.</p>';
+    echo '<p>No product found with id_Drabuzis=' . $product_id . '.</p>';
 }
+
+// Close the prepared statement and the connection
+$stmt->close();
+$conn->close();
 ?>
