@@ -130,6 +130,7 @@ Route::get('/uzsakymai/pildytiuzsakymapvz', function () {
 })->name('pildytiuzsakymapvz');
 
 use App\Http\Controllers\PaypalController;
+//Apmokejimo 
 
 Route::post('paypal/payment',[PaypalController::class, 'payment'])->name('paypal');
 Route::get('paypal/success',[PaypalController::class, 'success'])->name('paypal.success');
@@ -147,6 +148,13 @@ Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 //Cia del produktu kurimo
 Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
+
+// Pridejimas i krepseli prekes
+
+use App\Http\Controllers\CartController;
+
+Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('addToCart');
+
 
 
 

@@ -1,7 +1,9 @@
+<?php
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Manufacturer; // Import the Manufacturer model
 use App\Models\Drabuziai; // Import the Drabuziai model
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -47,6 +49,23 @@ class ProductController extends Controller
             'fk_Gamintojasid_Gamintojas' => $manufacturerID,
         ]);
 
+        
+
         return redirect()->route('prekes')->with('success', 'Product created successfully!');
+    }
+    
+
+    public function addcart(Request $request, $manufacturerID)
+    {  
+    
+        if(Auth::id())
+        {
+        return redirect()->back();
+
+        }
+        else 
+        {
+        return redirect('home');
+        }
     }
 }

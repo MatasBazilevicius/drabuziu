@@ -71,7 +71,15 @@ if ($conn->connect_error) {
                                     <p class="card-text"><?php echo $row['Aprasas']; ?></p>
                                     <p class="card-text">$<?php echo $row['Kaina']; ?></p>
                                     <a href="{{route('preke1', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Perziureti preke</a>
-                                    <a href="{{route('krepsys')}}" class="btn btn-primary">Prideti i krepseli</a>
+                                    <form id="addToCartForm" action="{{ route('addToCart', ['productId' => 'id_Drabuzis']) }}" method="POST">
+                                        @csrf <!-- Add this line to include the CSRF token -->
+                                
+
+                                        <!-- You can add other form fields or details here if needed -->
+
+                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                    </form>
+      
                                 </div>
                             </div>
                         </a>
