@@ -136,23 +136,21 @@ Route::post('paypal/payment',[PaypalController::class, 'payment'])->name('paypal
 Route::get('paypal/success',[PaypalController::class, 'success'])->name('paypal.success');
 Route::get('paypal/cancel',[PaypalController::class, 'cancel'])->name('paypal.cancel');
 // routes/web.php
-
-
+use App\Http\Controllers\ProductController1;
+use App\Http\Controllers\DrabuziaiPerz;
 //bandau duomenu baze prijugnti cia 
 Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 
 //Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
 
 // Add this route in your web.php or routes.php file
-use App\Http\Controllers\Product1Controller;
 //Cia del produktu kurimo
 Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
 
 // Pridejimas i krepseli prekes
-
-
-Route::get('/product/{id}', [ProductController1::class, 'addProducttoCart'])->name('addproduct.to.cart');
+use App\Http\Controllers\CartController;
+Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
 
 
 

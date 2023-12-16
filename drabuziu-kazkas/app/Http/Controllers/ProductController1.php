@@ -5,7 +5,7 @@ use App\Models\Manufacturer; // Import the Manufacturer model
 use App\Models\Drabuziai; // Import the Drabuziai model
 use Illuminate\Support\Facades\Auth;
 
-class ProductController extends Controller
+class ProductController1 extends Controller
 {
     
     public function showCreateForm()
@@ -54,39 +54,6 @@ class ProductController extends Controller
 
         return redirect()->route('prekes')->with('success', 'Product created successfully!');
     }
-    public function index()
-    {
-        $drabuziai = Drabuziai::all();
-        return view('products', compact('drabuziai'));
-    }
 
-    public function addProductoCart($id)
-{
-    // Add the product to the cart (you should implement your logic here)
-
-    // For example, using session to store the cart
     
-    $product = Drabuziai::findOrFail($id);
-    $cart = session()->get('cart', []);
-    if(isset($cart[$id])){
-        $cart[$id]['Kiekis']++;
-    } else {
-        $cart[$id] = [
-            "Pavadinimas" => $product->Pavadinimas,
-            "Kiekis" => 1,
-            "Kaina" => $product->Kaina,
-            "Nuotrauka" => $product->Nuotrauka
-        ];
-    }
-    session()->put('cart', $cart);
-
-    return redirect()->back()->with('success', 'Prekė buvo pridėta į krepšelį');
-}
-
-
-    public function ProductCart()
-    {
-        return view('cart');
-
-    }
 }
