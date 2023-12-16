@@ -127,21 +127,13 @@ if ($conn->connect_error) {
 <div>
             <!--Cia mygtukai sudeti gryzti i meniu -->
             <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12;">Krepšelis</h2>
-            <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
-            <h2>Grįžti atgal i meniu</h2>
+            <a class="btn btn-success" href="{{ route('shopping.cart') }}">Peržiūrėti krepšelį</a>
+            <h2>Grįžti atgal į meniu</h2>
             <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
             <a class="btn btn-primary" href="{{ route('prekekurt') }}">Kurti naują prekę</a>
-</div>
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @yield('content')
+    </div>
 </div>
 </body>
-
-
 </html>
 
 <?php

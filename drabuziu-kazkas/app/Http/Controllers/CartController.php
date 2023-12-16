@@ -34,6 +34,11 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Prekė buvo pridėta į krepšelį');
     }
+
+    public function ProductCart()
+    {
+        return view('cart');
+    }
 }
 
 
