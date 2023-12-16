@@ -25,6 +25,14 @@ if ($conn->connect_error) {
 </head>
 
 <body>
+     <!-- Sekmes pranesimas -->
+@if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @yield('content')
+
 
     <div class="container my-5">
         <h1 class="text-center mb-4">Drabužių parduotuvė AMMA</h1>
@@ -71,15 +79,10 @@ if ($conn->connect_error) {
                                     <p class="card-text"><?php echo $row['Aprasas']; ?></p>
                                     <p class="card-text">$<?php echo $row['Kaina']; ?></p>
                                     <a href="{{route('preke1', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Perziureti preke</a>
-                                    <form id="addToCartForm" action="{{ route('addToCart', ['productId' => 'id_Drabuzis']) }}" method="POST">
-                                        @csrf <!-- Add this line to include the CSRF token -->
-                                
+                                    <p class="btn-holder">
+                                    <a href="{{ route('addproduct.to.cart', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-outline-danger">Pridek i krepseli</a>
 
-                                        <!-- You can add other form fields or details here if needed -->
-
-                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                                    </form>
-      
+                                        </p>
                                 </div>
                             </div>
                         </a>
@@ -129,9 +132,16 @@ if ($conn->connect_error) {
             <h2>Grįžti atgal i meniu</h2>
             <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
             <a class="btn btn-primary" href="{{ route('prekekurt') }}">Kurti naują prekę</a>
+</div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
-
+    @endif
+    @yield('content')
+</div>
 </body>
+
 
 </html>
 

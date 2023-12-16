@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    
     public function showCreateForm()
     {
         // Fetch manufacturers for dropdown
@@ -53,19 +54,39 @@ class ProductController extends Controller
 
         return redirect()->route('prekes')->with('success', 'Product created successfully!');
     }
-    
+    public function index()
+    {
+        $drabuziai = Drabuziai::all();
+        return view('products', compact('drabuziai'));
+    }
 
-    public function addcart(Request $request, $manufacturerID)
-    {  
-    
-        if(Auth::id())
-        {
-        return redirect()->back();
+    public function addProductoCart($id)
+{
+    // Add the product to the cart (you should implement your logic here)
 
-        }
-        else 
-        {
-        return redirect('home');
-        }
+    // For example, using session to store the cart
+    
+    $product = Drabuziai::findOrFail($id);
+    $cart = session()->get('cart', []);
+    if(isset($cart[$id])){
+        $cart[$id]['Kiekis']++;
+    } else {
+        $cart[$id] = [
+            "Pavadinimas" => $product->Pavadinimas,
+            "Kiekis" => 1,
+            "Kaina" => $product->Kaina,
+            "Nuotrauka" => $product->Nuotrauka
+        ];
+    }
+    session()->put('cart', $cart);
+
+    return redirect()->back()->with('success', 'Prekė buvo pridėta į krepšelį');
+}
+
+
+    public function ProductCart()
+    {
+        return view('cart');
+
     }
 }

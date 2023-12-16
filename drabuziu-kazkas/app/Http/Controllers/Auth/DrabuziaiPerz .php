@@ -19,4 +19,6 @@ class DrabuziaiPerz extends Controller
         // Pass the product data to the view
         return view('preke')->with('product', $product);
     }
+
+    
 }

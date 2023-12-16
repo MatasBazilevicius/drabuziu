@@ -9,25 +9,30 @@
 </head>
 <body>
     
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Krepšelis</h1>
 
-        <div class="row">
-            <div class="col-md-8">
-                <h2>Cart Items</h2>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Product 1
-                        <span class="badge bg-primary rounded-pill">$19.99</span>
-                        <button class="btn btn-danger btn-sm" onclick="deleteItem(1)">Delete</button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Product 2
-                        <span class="badge bg-primary rounded-pill">$24.99</span>
-                        <button class="btn btn-danger btn-sm" onclick="deleteItem(2)">Delete</button>
-                    </li>
-                    <!-- Add more cart items as needed -->
-                </ul>
+        <div class="container my-5">
+    <h1 class="text-center mb-4">Krepšelis</h1>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>Cart Items</h2>
+                            <ul class="list-group">
+                                @forelse ($cartItems as $cartItem)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ $cartItem->productName }} {{-- Replace with the actual product name --}}
+                                        <span class="badge bg-primary rounded-pill">${{ $cartItem->price }}</span>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteItem({{ $cartItem->id }})">Delete</button>
+                                    </li>
+                                @empty
+                                    <li class="list-group-item">
+                                        Your cart is empty.
+                                    </li>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-md-4">
