@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -153,8 +154,15 @@ use App\Http\Controllers\CartController;
 Route::get('/shopping-cart', [CartController::class, 'ProductCart'])->name('shopping.cart');
 Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
 
-
-
+//Kategorijos
+/*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');
+Route::post('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'createCategory'])->name('createCategory');*/
+Route::get('/kategorija', [CategoryController::class, 'index'])->name('kategorija.index');
+Route::get('/kategorija/create', [CategoryController::class, 'create'])->name('kategorija.create');
+Route::post('/kategorija', [CategoryController::class, 'store'])->name('kategorija.store');
+Route::get('/kategorija/{kategorija}/edit', [CategoryController::class, 'edit'])->name('kategorija.edit');
+Route::put('/kategorija/{kategorija}/update', [CategoryController::class, 'update'])->name('kategorija.update');
+Route::delete('/kategorija/{kategorija}/destroy', [CategoryController::class, 'destroy'])->name('kategorija.destroy');
 
 
 
