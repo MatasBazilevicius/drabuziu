@@ -17,24 +17,31 @@
             <img src="https://via.placeholder.com/400" class="img-fluid" alt="Product Image">
         </div>
         <div class="col-md-6">
-            <div class="form-group">
-                <label for="name">Prekės pavadinimas</label>
-                <input type="text" id="name" name="name" class="form-control" value="Pavadinimas" required>
-            </div>
+            <form method="post" action="{{ route('updateProduct') }}" enctype="multipart/form-data">
+                @csrf
+                <!-- Product Name -->
+                <div class="form-group">
+                    <label for="name">Prekės pavadinimas</label>
+                    <input type="text" id="name" name="name" class="form-control" value="Pavadinimas" required>
+                </div>
 
-            <div class="form-group">
-                <label for="description">Aprašymas</label>
-                <textarea id="description" name="description" class="form-control" required>Aprašymas.</textarea>
-            </div>
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Aprašymas</label>
+                    <textarea id="description" name="description" class="form-control" required>Aprašymas.</textarea>
+                </div>
 
-            <div class="form-group">
-                <label for="price">Kaina</label>
-                <input type="text" id="price" name="price" class="form-control" value="29.99" required>
-            </div>
+                <!-- Price -->
+                <div class="form-group">
+                    <label for="price">Kaina</label>
+                    <input type="text" id="price" name="price" class="form-control" value="29.99" required>
+                </div>
 
-            <!-- Add other fields as needed -->
+                <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Atnaujinti prekę</button>
+                <button type="submit" class="btn btn-primary">Atnaujinti prekę</button>
+
+            </form>
 
             <!-- Delete Button with Confirmation -->
             <button type="button" class="btn btn-danger" id="deleteButton">Ištrinti prekę</button>
@@ -88,4 +95,3 @@
 </script>
 </body>
 </html>
-    
