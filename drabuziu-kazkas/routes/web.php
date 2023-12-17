@@ -166,6 +166,7 @@ use App\Http\Controllers\CartController;
 Route::get('/shopping-cart', [CartController::class, 'ProductCart'])->name('shopping.cart');
 Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
 Route::delete('/delete-cart-product', [CartController::class, 'deleteProduct'])->name('delete.cart.product');
+Route::post('/apply/discount', [CartController::class, 'applyDiscount'])->name('apply.discount');
 
 // Uzsakymas 
 use App\Http\Controllers\PaymentController;
