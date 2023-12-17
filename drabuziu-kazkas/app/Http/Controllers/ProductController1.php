@@ -1,34 +1,35 @@
 <?php
+
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Manufacturer; // Import the Manufacturer model
-use App\Models\Drabuziai; // Import the Drabuziai model
+use App\Models\Manufacturer;
+use App\Models\Drabuziai;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController1 extends Controller
 {
-    
-    public function showCreateForm()
-    {
-        // Fetch manufacturers for dropdown
-        $manufacturers = Manufacturer::all();
+    private $conn;
 
-        return view('products.create', ['manufacturers' => $manufacturers]);
+    public function __construct()
+    {
+        // Database connection parameters
+        $servername = "localhost";
+        $username = "root";
+        $password = ""; // Replace with your actual database password
+        $dbname = "parde"; // Replace with your actual database name
+
+        // Create connection
+        $this->conn = new \mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
     }
 
     public function createProduct(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'Nuotrauka' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'Pavadinimas' => 'required',
-            'Aprasas' => 'required',
-            'Kaina' => 'required|numeric',
-            'Lytis' => 'required',
-            'Sukurimo_data' => 'required|date',
-            'fk_Gamintojasid_Gamintojas' => 'required|exists:manufacturers,id_Gamintojas',
-        ]);
-
         // Retrieve form data
         $image = $request->file('Nuotrauka');
         $imageContent = addslashes(file_get_contents($image->getRealPath()));
@@ -40,20 +41,18 @@ class ProductController1 extends Controller
         $manufacturerID = $request->input('fk_Gamintojasid_Gamintojas');
 
         // Insert data into the database
-        Drabuziai::create([
-            'Pavadinimas' => $name,
-            'Aprasas' => $description,
-            'Nuotrauka' => $imageContent,
-            'Kaina' => $price,
-            'Lytis' => $gender,
-            'Sukurimo_data' => $dateOfCreation,
-            'fk_Gamintojasid_Gamintojas' => $manufacturerID,
-        ]);
-
-        
+        $query = "INSERT INTO drabuziai (Pavadinimas, Aprasas, Nuotrauka, Kaina, Lytis, Sukurimo_data, fk_Gamintojasid_Gamintojas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("sssdiss", $name, $description, $imageContent, $price, $gender, $dateOfCreation, $manufacturerID);
+        $stmt->execute();
+        $stmt->close();
 
         return redirect()->route('prekes')->with('success', 'Product created successfully!');
     }
 
-    
+    public function __destruct()
+    {
+        // Close the database connection when the controller is destroyed
+        $this->conn->close();
+    }
 }
