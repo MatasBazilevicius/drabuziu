@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */
+    protected $namespace = 'App\Http\Controllers';
     public function boot(): void
     {
         RateLimiter::for('api', function (Request $request) {

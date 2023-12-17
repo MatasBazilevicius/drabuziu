@@ -77,10 +77,12 @@ if ($conn->connect_error) {
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['Pavadinimas']; ?></h5>
                                     <p class="card-text"><?php echo $row['Aprasas']; ?></p>
-                                    <p class="card-text">$<?php echo $row['Kaina']; ?></p>
-                                    <a href="{{route('preke1', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Perziureti preke</a>
-                                    <p class="btn-holder">
+                                    <p class="card-text">$<?php echo $row['Kaina']; ?></p>                                    
+                                    <a href="{{route('preke1', ['id' => $row['id_Drabuzis']])}}" class="btn btn-success">Perziureti preke</a>
                                     <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
+                                    <p class="btn-holder">
+                                    <a href="{{route('prekeRedag', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Redaguoti preke</a>
+                                    <p class="btn-holder">
                                     </p>
                                 </div>
                             </div>

@@ -54,6 +54,54 @@ class CartController extends Controller
         }
     }
 
+    public function calculateCartTotal()
+{
+    $total = 0;
+
+    if (session()->has('cart')) {
+        foreach (session('cart') as $id => $details) {
+            $total += $details['Kaina'] * $details['Kiekis'];
+        }
+    }
+
+    return $total;
 }
+
+public function showPaymentPage()
+{
+    if (session('cart')) {
+        // If there are items in the cart, proceed to the payment page
+        return view('payment');  // Replace 'payment' with the actual name of your payment blade file
+    } else {
+        // If there are no items in the cart, set a flag and proceed to the payment page
+        session()->flash('empty_cart', true);
+        return view('payment');  // Replace 'payment' with the actual name of your payment blade file
+    }
+}
+
+public function applyDiscount(Request $request)
+    {
+        $discountCode = $request->input('discount_code');
+
+        // Fetch the discount from the database
+        $discount = DB::table('nuolaidu_kodai')
+            ->where('Kodas', $discountCode)
+            ->first();
+
+        // Assume $cartTotal is calculated somewhere in your controller
+        $cartTotal = $this->calculateCartTotal();
+
+        if ($discount) {
+            // Apply the discount to $cartTotal
+            $cartTotal = $cartTotal - $discount->Nuolaidos_kiekis;
+        }
+
+        // Return the updated cart total directly
+        return response()->json(['cartTotal' => $cartTotal]);
+    }
+}
+
+
+
 
 
