@@ -152,6 +152,7 @@ Route::post('/create-product', [ProductController1::class, 'createProduct'])->na
 use App\Http\Controllers\CartController;
 Route::get('/shopping-cart', [CartController::class, 'ProductCart'])->name('shopping.cart');
 Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
+Route::delete('/delete-cart-product', [CartController::class, 'deleteProduct'])->name('delete.cart.product');
 
 
 

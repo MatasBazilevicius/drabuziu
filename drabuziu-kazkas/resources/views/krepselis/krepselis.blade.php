@@ -7,11 +7,10 @@
     <title>Krepšelis</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-ezlk1owX1BI3cZLl1V/I+CVRZC5zNApLxvwg+Sdmc+fuBE1RyN3TpPPsjIVpE0UH" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     
-
         <div class="container my-5">
     <h1 class="text-center mb-4">Krepšelis</h1>
 
@@ -40,8 +39,6 @@
 
                                     <h4 class="nomargin">{{ $details['Pavadinimas'] }}</h4>
 
-                                </div>
-                           </div>
                         </td>
 
                         <td data-th="Kaina">${{ $details['Kaina'] }}</td>
@@ -50,7 +47,7 @@
 
                         <td class="actions">
 
-                        <button class="btn btn-delete" style="background-color: red; color: white;" onclick="deleteItem()">Delete</button>
+                            <a class =" btn btn-outline-danger btn-sm delete-product"><i class = "fa fa-trash-o"></i><a/a>
 
                         </td>
 
@@ -62,9 +59,8 @@
 
                     </tbody>
                 </table>
-                        
-                
-
+  
+            
             </div>
 
             <div class="col-md-4">
@@ -89,7 +85,10 @@
             </div>
         </div>
     </div>
-
+    
+    
+    
+ 
     <script>
     function deleteItem() {
         // Add your delete item logic here
@@ -97,6 +96,32 @@
     }
     </script>
 
+
+    @section ('scripts')
+        <script type = "text/javascript">
+        $(".delete-product").click(function(e) {
+            e.preventDefault();
+            var ele = $(this);
+            if (confirm("Ar tikrai nori ištrinti?")) {
+                $.ajax({
+                    url: '{{ route('delete.cart.product') }}',
+                    method: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: ele.parents("tr").attr("rowId")
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+
+
+
+
+
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function deleteItem(itemId) {
