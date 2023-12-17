@@ -70,7 +70,7 @@ if (isset($_SESSION['username'])) {
     <script>
         // jQuery document ready function
         $(document).ready(function(){
-            // Handle input in the search bar
+            // Handle input in the search bar ....
             $("#searchText").on("input", function(){
                 var searchText = $(this).val();
                 if(searchText == "") return;
