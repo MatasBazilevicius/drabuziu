@@ -18,7 +18,12 @@
     <h1 class="text-center mb-4">Krepšelis</h1>
 
     <div class="mt-3">
+    @if(session('cart'))
         <a href="{{ route('uzsakymas') }}" class="btn btn-success btn-lg">Formuoti užsakymą</a>
+        @else
+    <p>Your cart is empty. Add items to proceed to payment.</p>
+        @endif
+
         <a href="{{ route('meniu') }}" class="btn btn-primary btn-lg">Meniu</a>
     </div>
 </div>
