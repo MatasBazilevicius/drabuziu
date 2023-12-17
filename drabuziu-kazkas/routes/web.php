@@ -150,6 +150,7 @@ Route::post('/create-product', [ProductController1::class, 'createProduct'])->na
 
 // Pridejimas i krepseli prekes
 use App\Http\Controllers\CartController;
+Route::get('/shopping-cart', [CartController::class, 'ProductCart'])->name('shopping.cart');
 Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
 
 
