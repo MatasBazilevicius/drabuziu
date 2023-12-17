@@ -87,6 +87,7 @@
                     $cartTotal = app('App\Http\Controllers\CartController')->calculateCartTotal();
                 @endphp 
                 <div class="mt-3">
+        <div id="totalAmount"></div>
         <p><strong>Iš viso:</strong> ${{ $cartTotal }}</p>
     </div>
     
@@ -135,8 +136,9 @@
                 success: function (response) {
                     // Update the total amount directly
                     var updatedTotal = response.cartTotal;
-                    // Display the updated total wherever it needs to be shown
-                    console.log('Updated Total:', updatedTotal);
+
+                    // Update the displayed total in the HTML
+                    document.getElementById('totalAmount').innerHTML = '<strong>Kaina su nuolaida:</strong> $' + updatedTotal;
                 },
                 error: function (error) {
                     console.error('Error applying discount:', error);
