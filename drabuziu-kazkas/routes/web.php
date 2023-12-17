@@ -66,10 +66,6 @@ Route::get('/Prekes/Prekiuinfo/preke2', function () {
     return view('Prekes\Prekiuinfo\preke2');
 })->name('preke2');
 
-Route::get('/krepselis/uzsakymas/', function () {
-    return view('krepselis\uzsakymas');
-})->name('uzsakymas');
-
 Route::get('/Prekes/Prekiuinfo/prekeRedag', function () {
     return view('Prekes\Prekiuinfo\prekeRedag');
 })->name('prekeRedag');

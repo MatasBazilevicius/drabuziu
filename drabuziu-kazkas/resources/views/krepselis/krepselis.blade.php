@@ -18,11 +18,13 @@
     <h1 class="text-center mb-4">Krepšelis</h1>
 
     <div class="mt-3">
-    @if(session('cart'))
-        <a href="{{ route('uzsakymas') }}" class="btn btn-success btn-lg">Formuoti užsakymą</a>
-        @else
-    <p>Your cart is empty. Add items to proceed to payment.</p>
-        @endif
+    <a href="{{ route('uzsakymas') }}" class="btn btn-success btn-lg" id="formuotiButton">Kurti užsakymą</a>
+    <p id="emptyCartMessage" style="display:none;"> Tavo krepšelis tusčias. Pridėk prekių, jeigu nori kurti užsakymą. </p>
+</div>
+
+
+
+
 
         <a href="{{ route('meniu') }}" class="btn btn-primary btn-lg">Meniu</a>
     </div>
@@ -77,16 +79,28 @@
     
  
     <script>
-    function deleteItem() {
-        // Add your delete item logic here
-        alert("Item deleted!");
-    }
-    </script>
+    $(document).ready(function () {
+        document.getElementById('formuotiButton').addEventListener('click', function (event) {
+            var emptyCartMessage = document.getElementById('emptyCartMessage');
+            
+            if (emptyCartMessage) {
+                // Check if the cart is empty
+                var cartIsEmpty = @json(!session('cart'));
 
+                // Show/hide the message accordingly
+                emptyCartMessage.style.display = cartIsEmpty ? 'block' : 'none';
 
-    @section ('scripts')
-        <script type = "text/javascript">
-        $(".delete-product").click(function(e) {
+                // Prevent the default behavior (e.g., page reload)
+                event.preventDefault();
+                
+                // Redirect to the 'uzsakymas' route if the cart is not empty
+                if (!cartIsEmpty) {
+                    window.location.href = '{{ route('uzsakymas') }}';
+                }
+            }
+        });
+
+        $(".delete-product").click(function (e) {
             e.preventDefault();
             var ele = $(this);
             if (confirm("Ar tikrai nori ištrinti?")) {
@@ -97,24 +111,13 @@
                         _token: '{{ csrf_token() }}',
                         id: ele.parents("tr").attr("rowId")
                     },
-                    success: function(response) {
+                    success: function (response) {
                         window.location.reload();
                     }
                 });
             }
         });
-
-
-       
-
-        </script>
-
-    <script>
-        function deleteItem(itemId) {
-            // Implement your logic to delete the item with the specified itemId
-            // You can use JavaScript to interact with the server or update the UI accordingly
-            console.log('Deleting item with ID ' + itemId);
-        }
-    </script>
+    });
+</script>
 </body>
 </html>
