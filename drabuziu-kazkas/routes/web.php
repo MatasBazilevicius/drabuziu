@@ -139,8 +139,10 @@ Route::get('/uzsakymai/pildytiuzsakymapvz', function () {
     return view('uzsakymai\pildytiuzsakymapvz');
 })->name('pildytiuzsakymapvz');
 
+
 use App\Http\Controllers\PaypalController;
-//Apmokejimo 
+
+//Apmokejimas
 
 Route::post('paypal/payment',[PaypalController::class, 'payment'])->name('paypal');
 Route::get('paypal/success',[PaypalController::class, 'success'])->name('paypal.success');
@@ -157,11 +159,18 @@ Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
 
-// Pridejimas i krepseli prekes
+// Krepselis
+
 use App\Http\Controllers\CartController;
+
 Route::get('/shopping-cart', [CartController::class, 'ProductCart'])->name('shopping.cart');
 Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
 Route::delete('/delete-cart-product', [CartController::class, 'deleteProduct'])->name('delete.cart.product');
+
+// Uzsakymas 
+use App\Http\Controllers\PaymentController;
+
+Route::get('payment',[PaymentController::class, 'index'])->name('payment');
 
 //Kategorijos
 /*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');
