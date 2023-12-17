@@ -80,7 +80,7 @@ if ($conn->connect_error) {
                                     <p class="card-text">$<?php echo $row['Kaina']; ?></p>
                                     <a href="{{route('preke1', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Perziureti preke</a>
                                     <p class="btn-holder">
-                                    <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridek i krepseli</a>
+                                    <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                                     </p>
                                 </div>
                             </div>

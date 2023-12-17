@@ -44,7 +44,7 @@ if ($result->num_rows > 0) {
                 <p class="card-text">Creation Date: <?php echo $row['Sukurimo_data']; ?></p>
                 <p class="card-text">Gender: <?php echo $row['Lytis']; ?></p>
                 <!-- Add more details as needed -->
-                <a href="{{ route('krepsys', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-primary">Pridėti į krepšelį</a>
+                <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
             </div>
         </div>
     </div>
