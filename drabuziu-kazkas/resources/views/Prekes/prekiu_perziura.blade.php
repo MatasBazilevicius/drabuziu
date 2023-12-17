@@ -32,7 +32,7 @@ if ($conn->connect_error) {
         </div>
     @endif
     @yield('content')
-
+    @yield ('scripts')
 
     <div class="container my-5">
         <h1 class="text-center mb-4">Drabužių parduotuvė AMMA</h1>
@@ -80,7 +80,7 @@ if ($conn->connect_error) {
                                     <p class="card-text">$<?php echo $row['Kaina']; ?></p>
                                     <a href="{{route('preke1', ['id' => $row['id_Drabuzis']])}}" class="btn btn-primary">Perziureti preke</a>
                                     <p class="btn-holder">
-                                    <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridek i krepseli</a>
+                                    <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                                     </p>
                                 </div>
                             </div>
@@ -127,12 +127,13 @@ if ($conn->connect_error) {
 <div>
             <!--Cia mygtukai sudeti gryzti i meniu -->
             <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12;">Krepšelis</h2>
-            <a class="btn btn-success" href="{{ route('shopping.cart') }}">Peržiūrėti krepšelį</a>
+            <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
             <h2>Grįžti atgal į meniu</h2>
             <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
             <a class="btn btn-primary" href="{{ route('prekekurt') }}">Kurti naują prekę</a>
     </div>
 </div>
+@yield ('scripts')
 </body>
 </html>
 

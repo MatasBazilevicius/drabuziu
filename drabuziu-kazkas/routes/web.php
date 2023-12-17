@@ -78,9 +78,22 @@ Route::get('/Prekes/Prekiuinfo/prekeKurt', function () {
     return view('Prekes\Prekiuinfo\prekeKurt');
 })->name('prekekurt');
 
+//cia zinutes yra
 Route::get('/Zinutes/zinutes/', function () {
     return view('Zinutes\zinutes');
 })->name('zinut');
+//workin progress zinuciu
+Route::get('/Zinutes/zinutes1/', function () {
+    return view('Zinutes\zinutes1');
+})->name('zinut1');
+
+Route::get('/Zinutes/homezinut/', function () {
+    return view('Zinutes\homezinut');
+})->name('homezinut');
+
+
+
+
 
 Route::get('/krepselis/uzsakymas/', function () {
     return view('krepselis\uzsakymas');
@@ -144,7 +157,6 @@ Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 
 //Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
 
-// Add this route in your web.php or routes.php file
 //Cia del produktu kurimo
 Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
@@ -153,6 +165,7 @@ Route::post('/create-product', [ProductController1::class, 'createProduct'])->na
 use App\Http\Controllers\CartController;
 Route::get('/shopping-cart', [CartController::class, 'ProductCart'])->name('shopping.cart');
 Route::get('/drabuzis/{id}', [CartController::class, 'addProducttoCart'])->name('adddrabuzis.to.cart');
+Route::delete('/delete-cart-product', [CartController::class, 'deleteProduct'])->name('delete.cart.product');
 
 //Kategorijos
 /*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');

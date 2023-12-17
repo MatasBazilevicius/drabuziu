@@ -39,6 +39,47 @@ class CartController extends Controller
     {
         return view('cart');
     }
+
+
+        public function deleteProduct(Request $request)
+    {
+        if ($request->id) {
+            $cart = session()->get('cart');
+            if (isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+
+            session()->flash('success', 'Prekė sėkmingai ištrinta.');
+        }
+    }
+
+    public function calculateCartTotal()
+{
+    $total = 0;
+
+    if (session()->has('cart')) {
+        foreach (session('cart') as $id => $details) {
+            $total += $details['Kaina'] * $details['Kiekis'];
+        }
+    }
+
+    return $total;
+}
+
+public function showPaymentPage()
+{
+    if (session('cart')) {
+        // If there are items in the cart, proceed to the payment page
+        return view('payment');  // Replace 'payment' with the actual name of your payment blade file
+    } else {
+        // If there are no items in the cart, set a flag and proceed to the payment page
+        session()->flash('empty_cart', true);
+        return view('payment');  // Replace 'payment' with the actual name of your payment blade file
+    }
+}
+
+
 }
 
 
