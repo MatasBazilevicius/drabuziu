@@ -54,6 +54,19 @@ class CartController extends Controller
         }
     }
 
+    public function calculateCartTotal()
+{
+    $total = 0;
+
+    if (session()->has('cart')) {
+        foreach (session('cart') as $id => $details) {
+            $total += $details['Kaina'] * $details['Kiekis'];
+        }
+    }
+
+    return $total;
+}
+
 }
 
 
