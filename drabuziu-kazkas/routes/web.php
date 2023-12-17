@@ -77,9 +77,22 @@ Route::get('/Prekes/Prekiuinfo/prekeKurt', function () {
     return view('Prekes\Prekiuinfo\prekeKurt');
 })->name('prekekurt');
 
+//cia zinutes yra
 Route::get('/Zinutes/zinutes/', function () {
     return view('Zinutes\zinutes');
 })->name('zinut');
+//workin progress zinuciu
+Route::get('/Zinutes/zinutes1/', function () {
+    return view('Zinutes\zinutes1');
+})->name('zinut1');
+
+Route::get('/Zinutes/homezinut/', function () {
+    return view('Zinutes\homezinut');
+})->name('homezinut');
+
+
+
+
 
 Route::get('/krepselis/uzsakymas/', function () {
     return view('krepselis\uzsakymas');

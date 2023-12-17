@@ -125,6 +125,12 @@
 
         <h2 style="color: #f39c12; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Krepšelis</h2>
         <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
+
+        <div>
+        <a class="btn btn-success" href="{{ route('zinut1') }}">zinut1</a>
+        <a class="btn btn-success" href="{{ route('homezinut') }}">homezinut</a>
+    </div>
+
     </div>
 </body>
 </html>
