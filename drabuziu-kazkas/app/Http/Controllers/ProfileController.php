@@ -52,7 +52,7 @@ class ProfileController extends Controller
                 'update_data' => $updateData,
             ]);
     
-            return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+            return redirect()->route('profile.edit')->with('success', 'Duomenys sėkmingai atnaujinti!');
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Error updating profile: ' . $e->getMessage());
             return redirect()->route('profile.edit')->with('error', 'An error occurred while updating the profile.');
@@ -70,16 +70,21 @@ class ProfileController extends Controller
         $request->validate([
             'password' => 'required|string',
         ]);
-
+    
         $user = Auth::user();
-
+    
         if (Hash::check($request->password, $user->password)) {
+            // Delete entries from both 'users' and 'naudotojai' tables
             $user->delete();
+    
+            // Assuming 'Naudotojai' model is used for the 'naudotojai' table
+            Naudotojai::where('id_Naudotojas', $user->id)->delete();
+    
             Auth::logout();
-
+    
             return redirect('/')->with('success', 'Your profile has been deleted.');
         }
-
+    
         return redirect()->back()->with('error', 'Incorrect password. Please try again.');
     }
 }

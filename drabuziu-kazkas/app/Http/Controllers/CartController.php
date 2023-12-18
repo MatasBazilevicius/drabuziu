@@ -79,26 +79,37 @@ public function showPaymentPage()
     }
 }
 
-public function applyDiscount(Request $request)
-    {
-        $discountCode = $request->input('discount_code');
 
-        // Fetch the discount from the database
-        $discount = DB::table('nuolaidu_kodai')
-            ->where('Kodas', $discountCode)
-            ->first();
+                public function applyDiscount(Request $request)
+                {
+                    $discountCode = $request->input('discount_code');
 
-        // Assume $cartTotal is calculated somewhere in your controller
-        $cartTotal = $this->calculateCartTotal();
+                    // Fetch the discount from the database
+                    $discount = DB::table('nuolaidu_kodai')
+                        ->where('Kodas', $discountCode)
+                        ->first();
 
-        if ($discount) {
-            // Apply the discount to $cartTotal
-            $cartTotal = $cartTotal - $discount->Nuolaidos_kiekis;
-        }
+                    // Assume $cartTotal is calculated somewhere in your controller
+                    $cartTotal = $this->calculateCartTotal();
 
-        // Return the updated cart total directly
-        return response()->json(['cartTotal' => $cartTotal]);
-    }
+                    if ($discount) {
+                        // Apply the fixed discount amount to $cartTotal
+                        $cartTotal -= $discount->Nuolaidos_kiekis;
+
+                        // Store the current discount amount in session or wherever you prefer
+                        session()->put('current_discount', $discount->Nuolaidos_kiekis);
+
+                        // Optionally, reset the previously accumulated discounts
+                        session()->put('discounts', []);
+
+                        // Return the updated cart total directly
+                        return response()->json(['cartTotal' => $cartTotal]);
+                    } else {
+                        // Return an error response for an incorrect discount code
+                        return response()->json(['error' => 'Neteisingas nuolaidos kodas'], 422);
+                    }
+                }
+    
 }
 
 

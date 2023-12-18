@@ -34,12 +34,14 @@ class PaypalController extends Controller
       ]);
 
       //dd($response);
-      if(isset($response['id']) && $response['id'] != null )
+       if(isset($response['id']) && $response['id'] != null )
       {
             foreach($response['links'] as $link)
             {
-                if($link['rel'] === 'approve')
-                return redirect()-> away($link['href']);
+                if($link['rel'] === 'approve'){
+                  return redirect()-> away($link['href']);
+                }
+               
 
             }
       } else {
@@ -57,17 +59,23 @@ class PaypalController extends Controller
       $paypalToken = $provider->getAccessToken();
       $response = $provider->capturePaymentOrder($request->token);
 
-      //dd($response);
-        if(isset($response['status']) && $response['status'] == 'COMPLETED') {
-            return redirect()-> route('PavAutentifikacija');
-        } else {
-            return redirect()->route('NePavAutentifikacija');
-        }
-
-    
+      if(isset($response['status']) && $response['status'] == 'COMPLETED') {
+        return redirect()-> route('PavAutentifikacija');
+    } else {
+        return redirect()->route('NePavAutentifikacija');
     }
 
-    public function cancel(){
-        return redirect()->route('NePavAutentifikacija');
-        }
+
 }
+
+public function cancel()
+
+    {
+    return redirect()->route('NePavAutentifikacija');
+    }
+  
+  
+}
+
+     
+ 
