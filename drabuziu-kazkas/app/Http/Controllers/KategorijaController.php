@@ -24,10 +24,10 @@ class KategorijaController extends Controller
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
-    public function index(){
-        $kategorijos = Kategorija::all();
+    public function index(Kategorija $kategorijaModel)
+    {
+        $kategorijos = $kategorijaModel::all();
         return view('kategorijos.index', ['kategorijos' => $kategorijos]);
-        
     }
 
     public function create(){

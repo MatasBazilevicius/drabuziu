@@ -176,7 +176,7 @@ use App\Http\Controllers\PaymentController;
 
 Route::get('payment',[PaymentController::class, 'index'])->name('payment');
 
-use App\Http\Controllers\CategoryController;
+
 //Kategorijos
 /*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');
 Route::post('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'createCategory'])->name('createCategory');*/
