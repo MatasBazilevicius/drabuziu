@@ -7,11 +7,11 @@
       
       <form action="{{ url('kategorija') }}" method="post">
         {!! csrf_field() !!}
-        <label>Name</label></br>
+        <label>Kategorijos Pavadinimas</label></br>
         <input type="text" name="pavadinimas" id="pavadinimas" class="form-control"></br>
-        <label>Address</label></br>
+        <label>Aprasymas</label></br>
         <input type="text" name="aprasymas" id="aprasymas" class="form-control"></br>
-        <label>Mobile</label></br>
+        <label>fk_Kategorijaid_Kategorija</label></br>
         <input type="text" name="fk_Kategorijaid_Kategorija" id="fk_Kategorijaid_Kategorija" class="form-control"></br>
         <input type="submit" value="Save" class="btn btn-success"></br>
     </form>

@@ -173,9 +173,9 @@ use App\Http\Controllers\PaymentController;
 Route::get('payment',[PaymentController::class, 'index'])->name('payment');
 
 use App\Http\Controllers\KategorijaPerz;
-Route::get('/kategorija/{id}', [KategorijaPerz::class, 'kategorija'])->name('kategorija');
+/*Route::get('/kategorija/{id}', [KategorijaPerz::class, 'kategorija'])->name('kategorija');
 Route::get('/kategorija/{id}/edit', [KategorijaController::class, 'showEditForm'])->name('editKategorija');
 Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])->name('showCreateForm');
-Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');
+Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');*/
 
 Route::resource("/kategorija", KategorijaController::class);
