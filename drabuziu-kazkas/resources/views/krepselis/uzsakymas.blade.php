@@ -96,13 +96,17 @@
 
             {{-- Payment and Navigation Buttons --}}
             <div class="d-flex justify-content-between">
-                <form action="{{ route('paypal')}}" method="post" class="mr-2">
-                    @csrf 
-                    <button type="submit" class="btn btn-success btn-block">Apmokėti su Paypal</button>
-                </form>
+            <div class="d-flex justify-content-between">    
+    <form action="{{ route('paypal')}}" method="post" class="mr-2">
+        @csrf 
+        <!-- Add a hidden input field for the amount -->
+        <input type="hidden" name="price" value="20">
+        <button type="submit" class="btn btn-success btn-block">Apmokėti su Paypal</button>
+    </form>
 
-                <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
-            </div>
+    <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
+</div>
+
 
         </div>
     </div>
@@ -114,40 +118,33 @@
    function applyDiscount() {
     var discountCode = document.getElementById('discount_code').value;
 
-    // Create a promise to handle the confirm dialog
-    var confirmPromise = new Promise(function(resolve) {
-        if (confirm("Ar tikrai nori pritaikyti nuolaidos kodą?")) {
-            resolve(true);
-        } else {
-            resolve(false);
-        }
-    });
+    // Make the AJAX call without using a confirm promise
+    $.ajax({
+        url: '{{ route('apply.discount') }}',
+        method: "POST",
+        data: {
+            _token: '{{ csrf_token() }}',
+            discount_code: discountCode
+        },
+        success: function (response) {
+            // Handle success
+            document.getElementById('totalAmount').innerHTML = '<strong>Su pritaikyta nuolaida:</strong> $' + response.cartTotal;
 
-    // Use the promise to handle the AJAX call
-    confirmPromise.then(function(userConfirmed) {
-        if (userConfirmed) {
-            $.ajax({
-                url: '{{ route('apply.discount') }}',
-                method: "POST",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    discount_code: discountCode
-                },
-                success: function (response) {
-        // Handle success
-                        document.getElementById('totalAmount').innerHTML = '<strong>Su pritaikyta nuolaida:</strong> $' + response.cartTotal;
-                    },
-                    error: function (xhr) {
-                        // Handle error and display a notification
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            alert('Error: ' + xhr.responseJSON.error);
-                        } else {
-                            alert('An unexpected error occurred.');
-                        }
-                    }
-            });
+            // Display a success notification
+            alert('Nuolaida pritaikyta sėkmingai!');
+        },
+        error: function (xhr) {
+            // Handle error and display a notification
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                alert('Error: ' + xhr.responseJSON.error);
+            } else {
+                alert('Nuolaida nebuvo pritaikyta.');
+            }
         }
     });
 }
+
+
+
 </script>
 
