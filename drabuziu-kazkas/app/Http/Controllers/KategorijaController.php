@@ -11,6 +11,24 @@ use Illuminate\View\View;
 class KategorijaController extends Controller
 {
 
+    private $conn;
+    public function __construct()
+    {
+        // Database connection parameters
+        $servername = "localhost";
+        $username = "root";
+        $password = ""; // Replace with your actual database password
+        $dbname = "parde"; // Replace with your actual database name
+
+        // Create connection
+        $this->conn = new \mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
+
     public function index(): View
     {
         $kategorijos = Kategorija::all();
@@ -56,5 +74,10 @@ class KategorijaController extends Controller
     {
         Kategorija::destroy($id);
         return redirect('kategorija')->with('flash_message', 'Student deleted!'); 
+    }
+    public function __destruct()
+    {
+        // Close the database connection when the controller is destroyed
+        $this->conn->close();
     }
 }
