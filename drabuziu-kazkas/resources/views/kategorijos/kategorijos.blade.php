@@ -1,3 +1,19 @@
+<?php
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";// Replace with your actual database password
+$dbname = "parde"; // Replace with your actual database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,106 +25,93 @@
 </head>
 
 <body>
+     <!-- Sekmes pranesimas -->
+@if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @yield('content')
+    @yield ('scripts')
 
     <div class="container my-5">
-        <h1 class="text-center mb-4">Drabužių parduotuvė AMMA</h1>
+        <h1 class="text-center mb-4">Drabužių parduotuvės AMMA kategorijos</h1>
+        </div>
+        <!-- Category Display -->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php
+            // Query to fetch kategorijos from the database
+            $sql = "SELECT * FROM kategorijos";
+            $result = $conn->query($sql);
 
-        <!-- Kurti kategoriją Button (Top-Right) -->
-        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_k') }}">Kurti kategoriją</a>
+            // Check if there are any kategorijos
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while ($row = $result->fetch_assoc()) {
+            ?>
+                    <!-- Product Card -->
+                    <div class="col">
+                        <a href="{{ route('kategorija', ['id' => $row['id_Kategorija']]) }}">
+                            <div class="card h-100">
+                                    <h5 class="card-title"><?php echo $row['pavadinimas']; ?></h5>
+                                    <p class="card-text"><?php echo $row['aprasymas']; ?></p>
+                                    <a href="{{route('kategorijos_r', ['id' => $row['id_Kategorija']])}}" class="btn btn-primary">Redaguoti kategorija</a>
+                                    <p class="btn-holder">
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            <?php
+                }
+            } else {
+                // Display a message if no products are found
+                echo '<p>No categories found.</p>';
+            }
+            ?>
         </div>
 
-        
+        <!-- Existing content -->
 
+    </div>
 
-        <!-- Category Selection and Operations -->
-        <div class="mb-4 mt-4">
-            <h2 class="text-center" style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;">Kategorijų langas</h2>
-            <div class="d-flex flex-column">
-                <!-- Categories (Left) -->
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <!-- Modal content -->
 
+    </div>
 
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#allModal">Visi</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
+    <!-- Bootstrap JS and additional scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#menModal">Vyrai</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#womenModal">Moterys</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#kidsModal">Vaikai</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#materialModal">Medžiaga</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#sizeModal">Dydis</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn-category" data-bs-toggle="modal" data-bs-target="#brandModal">Prekės ženklas</button>
-                        <div class="d-flex">
-                        <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_r') }}">Redaguoti kategoriją</a>
-        </div>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Šalinti kategoriją</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more categories as needed -->
-            </div>
-        </div>
-        <div class="text-start mb-3">
-        <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+    <script>
+        function applyFilters() {
+            // Add your filtering logic here
+            // Retrieve selected options from the modal and update the product display accordingly
+            // For example, you can use document.getElementById or jQuery to get values from the modal elements
+
+            // For demonstration purposes, let's assume no products are found
+            displayNoProductsMessage();
+        }
+
+        function displayNoProductsMessage() {
+            // Display the no products message
+            document.getElementById('noCategoriesMessage').style.display = 'block';
+        }
+    </script>
+
+<div>
+    <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+    <a class="btn btn-primary" href="{{ route('kategorijos_k') }}">Kurti naują kategorija</a>
+    
 </div>
+
+</div>
+@yield ('scripts')
+</body>
+</html>
+
+<?php
+// Close the database connection
+$conn->close();
+?>
