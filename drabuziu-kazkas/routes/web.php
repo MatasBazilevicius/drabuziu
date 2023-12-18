@@ -153,7 +153,8 @@ use App\Http\Controllers\ProductController1;
 use App\Http\Controllers\DrabuziaiPerz;
 //bandau duomenu baze prijugnti cia 
 Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
-
+//Prekiu editinimas 
+Route::get('/prekes/{id}/edit', [ProductController1::class, 'showEditForm'])->name('editProduct');
 //Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
 
 //Cia del produktu kurimo
