@@ -63,6 +63,7 @@ INSERT INTO `apmokejimo_budas` (`id_Apmokejimo_budas`) VALUES
 --
 
 CREATE TABLE `drabuziai` (
+  `id_Drabuzis` int(11) NOT NULL AUTO_INCREMENT,
   `Pavadinimas` varchar(255) DEFAULT NULL,
   `Aprasas` varchar(255) DEFAULT NULL,
   `Nuotrauka` longblob DEFAULT NULL,
@@ -70,9 +71,10 @@ CREATE TABLE `drabuziai` (
   `Kiekis` int(11) DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
   `Lytis` int(11) DEFAULT NULL,
-  `id_Drabuzis` int(11) NOT NULL,
-  `fk_Gamintojasid_Gamintojas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `fk_Gamintojasid_Gamintojas` int(11) NOT NULL,
+  PRIMARY KEY (`id_Drabuzis`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2;
+
 
 --
 -- Dumping data for table `drabuziai`
