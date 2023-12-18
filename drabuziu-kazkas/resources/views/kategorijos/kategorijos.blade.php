@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clothing Shop</title>
+    <title>Category page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
 </head>
 
@@ -15,7 +15,7 @@
 
         <!-- Kurti kategoriją Button (Top-Right) -->
         <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos') }}">Kurti kategoriją</a>
+            <a class="btn btn-warning" href="{{ route('kategorijos_k') }}">Kurti kategoriją</a>
         </div>
 
         

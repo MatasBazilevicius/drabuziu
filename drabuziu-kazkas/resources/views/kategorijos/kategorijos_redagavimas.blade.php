@@ -1,55 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- resources/views/products/edit.blade.php -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kategorijos Redagavimas</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
+@extends('layouts.app')
 
-<body>
+@section('content')
+<div class="container my-5">
+    <h1 class="text-center mb-4">Redaguoti kategorijos informacija</h1>
 
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Kategorijos Redagavimas</h1>
+    <!-- Edit Product Form -->
+    <form method="post" action="{{ route('updateProduct', $row['id_Drabuzis']) }}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-        <div class="mb-4">
-            <h2 class="text-center">Redaguoti kategoriją</h2>
-            <!-- Error Message -->
-            <div id="errorMessage" class="alert alert-danger" style="display: none;">
-                Klaida! Patikrinkite įvestus duomenis.
-            </div>
-            <!-- Edit Category Form -->
-            <form id="editCategoryForm" onsubmit="return validateEditForm()">
-                <div class="form-group mb-3">
-                    <label for="editedCategoryName" class="form-label">Redaguotas kategorijos pavadinimas:</label>
-                    <input type="text" class="form-control" id="editedCategoryName" name="editedCategoryName" value="Category Name" required>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Product Image -->
+                <div class="mb-3">
+                    <label for="Nuotrauka" class="form-label">Prekės nuotrauka</label>
+                    <input type="file" id="Nuotrauka" name="Nuotrauka" class="form-control">
+                    <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" class="img-fluid" alt="{{ $row['Pavadinimas'] }}">
                 </div>
-                <button type="submit" class="btn btn-primary">Atnaujinti kategoriją</button>
-            </form>
-        </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Product Name -->
+                <div class="mb-3">
+                    <label for="Pavadinimas" class="form-label">Prekės pavadinimas</label>
+                    <input type="text" id="Pavadinimas" name="Pavadinimas" class="form-control" value="{{ $row['Pavadinimas'] }}" required>
+                </div>
 
-        <!-- Back Button -->
-        <div class="container my-3 text-center">
-            <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
-            <a class="btn btn-warning" href="{{ route('kategorijos') }}">Grįžti į Kategorijas</a>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="Aprasas" class="form-label">Aprašymas</label>
+                    <textarea id="Aprasas" name="Aprasas" class="form-control" required>{{ $row['Aprasas'] }}</textarea>
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="Kaina" class="form-label">Kaina</label>
+                    <input type="text" id="Kaina" name="Kaina" class="form-control" value="{{ $row['Kaina'] }}" required>
+                </div>
+
+                <!-- Add other fields as needed -->
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Atnaujinti prekę</button>
+            </div>
         </div>
+    </form>
+
+    <!-- Back Button -->
+    <div class="container my-3 text-center">
+        <a class="btn btn-warning" href="{{ route('prekes') }}">Grįžti į prekių sąrašą</a>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        function validateEditForm() {
-            // Add your validation logic here
-            // For example, check if the entered data is valid
-            // For demonstration purposes, let's assume the validation fails
-            displayErrorMessage();
-            return false; // Prevent form submission
-        }
-        function displayErrorMessage() {
-            // Display the error message
-            document.getElementById('errorMessage').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+</div>
+@endsection

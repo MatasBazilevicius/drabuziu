@@ -89,10 +89,6 @@ Route::get('/Zinutes/homezinut/', function () {
     return view('Zinutes\homezinut');
 })->name('homezinut');
 
-
-
-
-
 Route::get('/krepselis/uzsakymas/', function () {
     return view('krepselis\uzsakymas');
 })->name('uzsakymas');
@@ -176,16 +172,6 @@ use App\Http\Controllers\PaymentController;
 
 Route::get('payment',[PaymentController::class, 'index'])->name('payment');
 
-
-//Kategorijos
-/*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');
-Route::post('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'createCategory'])->name('createCategory');*/
-/*Route::get('/kategorija', [KategorijaController::class, 'index'])->name('kategorija.index');
-Route::get('/kategorija/create', [KategorijaController::class, 'create'])->name('kategorija.create');
-Route::post('/kategorija', [KategorijaController::class, 'store'])->name('kategorija.store');
-Route::get('/kategorija/{kategorija}/edit', [KategorijaController::class, 'edit'])->name('kategorija.edit');
-Route::put('/kategorija/{kategorija}/update', [KategorijaController::class, 'update'])->name('kategorija.update');
-Route::delete('/kategorija/{kategorija}/destroy', [KategorijaController::class, 'destroy'])->name('kategorija.destroy');*/
 use App\Http\Controllers\KategorijaPerz;
 Route::get('/kategorija/{id}', [KategorijaPerz::class, 'kategorija'])->name('kategorija');
 Route::get('/kategorija/{id}/edit', [KategorijaController::class, 'showEditForm'])->name('editKategorija');
