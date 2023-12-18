@@ -15,7 +15,7 @@
 
         <!-- Kurti kategoriją Button (Top-Right) -->
         <div class="text-end">
-            <a class="btn btn-warning" href="{{ route('kategorijos_k') }}">Kurti kategoriją</a>
+            <a class="btn btn-warning" href="{{ route('kategorijos') }}">Kurti kategoriją</a>
         </div>
 
         
@@ -109,3 +109,6 @@
                 <!-- Add more categories as needed -->
             </div>
         </div>
+        <div class="text-start mb-3">
+        <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+</div>

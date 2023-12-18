@@ -8,6 +8,7 @@ use App\Models\Kategorija;
 class KategorijaController extends Controller
 {
     private $conn;
+
     public function __construct()
     {
         // Database connection parameters
@@ -24,21 +25,29 @@ class KategorijaController extends Controller
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
-    public function createProduct(Request $request)
+
+    public function createKategorija(Request $request)
     {
         // Retrieve form data
-        $name = $request->input('Pavadinimas');
-        $description = $request->input('Aprasas');
-        $manufacturerID = $request->input('fk_Gamintojasid_Gamintojas');
+        $name = $request->input('pavadinimas');
+        $description = $request->input('aprasymas');
+        $manufacturerID = $request->input('fk_Kategorijaid_Kategorija');
 
         // Insert data into the database
-        $query = "INSERT INTO kategorijos (Pavadinimas, Aprasas, fk_Gamintojasid_Gamintojas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO kategorijos (pavadinimas, aprasymas, fk_Kategorijaid_Kategorija) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sssdiss", $name, $description, $manufacturerID);
+
+        // Bind parameters
+        $stmt->bind_param("sss", $name, $description, $manufacturerID);
+
+        // Execute the statement
         $stmt->execute();
+
+        // Close the statement
         $stmt->close();
 
-        return redirect()->route('prekes')->with('success', 'Kategorija created successfully!');
+        // Redirect with success message
+        return redirect()->route('kategorija')->with('success', 'Kategorija created successfully!');
     }
 
     public function __destruct()

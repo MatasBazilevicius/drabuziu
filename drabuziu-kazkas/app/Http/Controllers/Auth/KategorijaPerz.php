@@ -6,7 +6,7 @@ use App\Models\Kategorija; // Replace Drabuziai with the actual model name
 
 class KategorijaPerz extends Controller
 {
-    public function preke($id)
+    public function kategorija($id)
     {
         // Retrieve the product from the Drabuziai table using the $id
         $kategorija = Kategorija::find($id);

@@ -48,9 +48,9 @@ Route::get('/krepselis/krepselis', function () {
 })->name('krepsys');
 
 
-/*Route::get('/Kategorijos/kategorijos', function () {
+Route::get('/Kategorijos/kategorijos', function () {
     return view('Kategorijos\Kategorijos');
-})->name('kategorijos');*/
+})->name('kategorijos');
 
 /*Route::get('/Kategorijos/kategorijos_redagavimas', function () {
     return view('Kategorijos\kategorijos_redagavimas');

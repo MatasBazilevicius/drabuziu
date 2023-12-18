@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKategorijosTable1 extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,6 @@ class CreateKategorijosTable1 extends Migration
     {
         Schema::create('kategorijos', function (Blueprint $table) {
             $table->id();
-            $table->string('pavadinimas');
-            $table->string('aprasymas');
             $table->timestamps();
         });
     }
@@ -26,4 +24,4 @@ class CreateKategorijosTable1 extends Migration
     {
         Schema::dropIfExists('kategorijos');
     }
-}
+};

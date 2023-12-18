@@ -4,39 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kategorijos Redagavimas</title>
+    <title>Kategorijos Kurimas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
 
     <div class="container my-5">
-        <h1 class="text-center mb-4">Kategorijos Redagavimas</h1>
+        <h1 class="text-center mb-4">Kurti naują kategorija</h1>
 
-        <div class="mb-4">
-            <h2 class="text-center">Redaguoti kategoriją</h2>
+        <!-- Product Creation Form -->
+        <form method="post" action="{{ route('createCategory') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+            @csrf
+
             <!-- Error Message -->
             <div id="errorMessage" class="alert alert-danger" style="display: none;">
                 Klaida! Patikrinkite įvestus duomenis.
             </div>
-            <!-- Edit Category Form -->
-            <form id="editCategoryForm" onsubmit="return validateEditForm()">
-                <div class="form-group mb-3">
-                    <label for="editedCategoryName" class="form-label">Redaguotas kategorijos pavadinimas:</label>
-                    <input type="text" class="form-control" id="editedCategoryName" name="editedCategoryName" value="Category Name" required>
+
+            <!-- Product Details Section -->
+            <div class="row">
+                <!-- Product Name -->
+                <div class="mb-3">
+                    <label for="pavadinimas" class="form-label">Kategorijos pavadinimas</label>
+                    <input type="text" id="pavadinimas" name="pavadinimas" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Atnaujinti kategoriją</button>
-            </form>
-        </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="aprasymas" class="form-label">Aprašymas</label>
+                    <textarea id="aprasymas" name="aprasymas" class="form-control" required></textarea>
+                </div>
+
+                <!-- Manufacturer ID -->
+                <div class="mb-3">
+                    <label for="fk_Kategorijaid_Kategorija" class="form-label">Kategorijos ID</label>
+                    <input type="text" id="fk_Kategorijaid_Kategorija" name="fk_Kategorijaid_Kategorija" class="form-control" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Sukurti kategorija</button>
+            </div>
+        </form>
 
         <!-- Back Button -->
         <div class="container my-3 text-center">
-            <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
-            <a class="btn btn-warning" href="{{ route('kategorijos') }}">Grįžti į Kategorijas</a>
+            <a class="btn btn-warning" href="{{ route('kategorijos') }}">Grįžti į kategoriju sąrašą</a>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
 
     <script>
         function validateEditForm() {
@@ -71,17 +91,13 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
-    $name = $_POST['Pavadinimas'];
-    $description = $_POST['Aprasas'];
-    $price = $_POST['Kaina'];
-    $quantity = $_POST['Kiekis'];
-    $dateOfCreation = $_POST['Sukurimo_data'];
-    $gender = $_POST['Lytis'];
-    $manufacturerID = $_POST['fk_Gamintojasid_Gamintojas'];
+    $name = $_POST['pavadinimas'];
+    $description = $_POST['aprasymas'];
+    $manufacturerID = $_POST['fk_Kategorijaid_Kategorija'];
 
     // SQL query to insert data into the table
-    $sql = "INSERT INTO drabuziai (Pavadinimas, Aprasas, Nuotrauka, Kaina, Kiekis, Sukurimo_data, Lytis, fk_Gamintojasid_Gamintojas)
-            VALUES ('$name', '$description', '$imageContent', $price, $quantity, '$dateOfCreation', $gender, $manufacturerID)";
+    $sql = "INSERT INTO kategorijos (pavadinimas, aprasymas, fk_Kategorijaid_Kategorija)
+            VALUES ('$name', '$description',  '$manufacturerID')";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
