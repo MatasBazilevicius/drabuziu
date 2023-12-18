@@ -52,7 +52,7 @@ class ProfileController extends Controller
                 'update_data' => $updateData,
             ]);
     
-            return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+            return redirect()->route('profile.edit')->with('success', 'Duomenys sėkmingai atnaujinti!');
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Error updating profile: ' . $e->getMessage());
             return redirect()->route('profile.edit')->with('error', 'An error occurred while updating the profile.');
