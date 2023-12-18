@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KategorijaController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -47,13 +48,13 @@ Route::get('/krepselis/krepselis', function () {
 })->name('krepsys');
 
 
-Route::get('/Kategorijos/kategorijos', function () {
+/*Route::get('/Kategorijos/kategorijos', function () {
     return view('Kategorijos\Kategorijos');
-})->name('kategorijos');
+})->name('kategorijos');*/
 
-Route::get('/Kategorijos/kategorijos_redagavimas', function () {
+/*Route::get('/Kategorijos/kategorijos_redagavimas', function () {
     return view('Kategorijos\kategorijos_redagavimas');
-})->name('kategorijosredag');
+})->name('kategorijosredag');*/
 
 Route::get('/views/welcome', function () {
     return view('welcome');
@@ -108,13 +109,13 @@ Route::get('/krepselis/NePavAutentifikacija/', function () {
     return view('krepselis\NePavAutentifikacija');
 })->name('NePavAutentifikacija');
 
-Route::get('/Kategorijos/kategorijos_kurimas/', function () {
+/*Route::get('/Kategorijos/kategorijos_kurimas/', function () {
     return view('Kategorijos\kategorijos_kurimas');
-})->name('kategorijos_k');
+})->name('kategorijos_k');*/
 
-Route::get('/Kategorijos/kategorijos_redagavimas/', function () {
+/*Route::get('/Kategorijos/kategorijos_redagavimas/', function () {
     return view('Kategorijos\kategorijos_redagavimas');
-})->name('kategorijos_r');
+})->name('kategorijos_r');*/
 
 Route::get('/uzsakymai/visiuzsakymai', function () {
     return view('uzsakymai\visiuzsakymai');
@@ -178,12 +179,12 @@ Route::get('payment',[PaymentController::class, 'index'])->name('payment');
 //Kategorijos
 /*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');
 Route::post('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'createCategory'])->name('createCategory');*/
-Route::get('/kategorija', [CategoryController::class, 'index'])->name('kategorija.index');
-Route::get('/kategorija/create', [CategoryController::class, 'create'])->name('kategorija.create');
-Route::post('/kategorija', [CategoryController::class, 'store'])->name('kategorija.store');
-Route::get('/kategorija/{kategorija}/edit', [CategoryController::class, 'edit'])->name('kategorija.edit');
-Route::put('/kategorija/{kategorija}/update', [CategoryController::class, 'update'])->name('kategorija.update');
-Route::delete('/kategorija/{kategorija}/destroy', [CategoryController::class, 'destroy'])->name('kategorija.destroy');
+Route::get('/kategorija', [KategorijaController::class, 'index'])->name('kategorija.index');
+Route::get('/kategorija/create', [KategorijaController::class, 'create'])->name('kategorija.create');
+Route::post('/kategorija', [KategorijaController::class, 'store'])->name('kategorija.store');
+Route::get('/kategorija/{kategorija}/edit', [KategorijaController::class, 'edit'])->name('kategorija.edit');
+Route::put('/kategorija/{kategorija}/update', [KategorijaController::class, 'update'])->name('kategorija.update');
+Route::delete('/kategorija/{kategorija}/destroy', [KategorijaController::class, 'destroy'])->name('kategorija.destroy');
 
 
 
