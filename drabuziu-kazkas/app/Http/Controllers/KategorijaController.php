@@ -2,59 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\Manufacturer;
+use Illuminate\Http\Response;
 use App\Models\Kategorija;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class KategorijaController extends Controller
 {
-    private $conn;
 
-    public function __construct()
+    public function index(): View
     {
-        // Database connection parameters
-        $servername = "localhost";
-        $username = "root";
-        $password = ""; // Replace with your actual database password
-        $dbname = "parde"; // Replace with your actual database name
-
-        // Create connection
-        $this->conn = new \mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        }
+        $kategorijos = Kategorija::all();
+        return view ('kategorijos.index')->with('kategorijos', $kategorijos);
     }
 
-    public function createKategorija(Request $request)
+ 
+    public function create(): View
     {
-        // Retrieve form data
-        $name = $request->input('pavadinimas');
-        $description = $request->input('aprasymas');
-        $manufacturerID = $request->input('fk_Kategorijaid_Kategorija');
-
-        // Insert data into the database
-        $query = "INSERT INTO kategorijos (pavadinimas, aprasymas, fk_Kategorijaid_Kategorija) VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-
-        // Bind parameters
-        $stmt->bind_param("sss", $name, $description, $manufacturerID);
-
-        // Execute the statement
-        $stmt->execute();
-
-        // Close the statement
-        $stmt->close();
-
-        // Redirect with success message
-        return redirect()->route('kategorija')->with('success', 'Kategorija created successfully!');
+        return view('kategorijos.create');
     }
 
-    public function __destruct()
+  
+    public function store(Request $request): RedirectResponse
     {
-        // Close the database connection when the controller is destroyed
-        $this->conn->close();
+        $input = $request->all();
+        Kategorija::create($input);
+        return redirect('kategorija')->with('flash_message', 'Student Addedd!');
+    }
+
+    public function show(string $id): View
+    {
+        $kategorija = Kategorija::find($id);
+        return view('kategorijos.show')->with('kategorijos', $kategorija);
+    }
+
+    public function edit(string $id): View
+    {
+        $kategorija = Kategorija::find($id);
+        return view('kategorijos.edit')->with('kategorijos', $kategorija);
+    }
+
+    public function update(Request $request, string $id): RedirectResponse
+    {
+        $kategorija = Kategorija::find($id);
+        $input = $request->all();
+        $kategorija->update($input);
+        return redirect('kategorija')->with('flash_message', 'student Updated!');  
+    }
+
+    
+    public function destroy(string $id): RedirectResponse
+    {
+        Kategorija::destroy($id);
+        return redirect('kategorija')->with('flash_message', 'Student deleted!'); 
     }
 }

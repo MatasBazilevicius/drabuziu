@@ -178,4 +178,4 @@ Route::get('/kategorija/{id}/edit', [KategorijaController::class, 'showEditForm'
 Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');
 
-
+Route::resource("/kategorija", KategorijaController::class);
