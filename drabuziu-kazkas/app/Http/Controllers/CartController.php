@@ -79,7 +79,29 @@ public function showPaymentPage()
     }
 }
 
+public function applyDiscount(Request $request)
+    {
+        $discountCode = $request->input('discount_code');
 
+        // Fetch the discount from the database
+        $discount = DB::table('nuolaidu_kodai')
+            ->where('Kodas', $discountCode)
+            ->first();
+
+        // Assume $cartTotal is calculated somewhere in your controller
+        $cartTotal = $this->calculateCartTotal();
+
+        if ($discount) {
+            // Apply the discount to $cartTotal
+            $cartTotal = $cartTotal - $discount->Nuolaidos_kiekis;
+        }
+
+        // Return the updated cart total directly
+        return response()->json(['cartTotal' => $cartTotal]);
+    }
 }
+
+
+
 
 
