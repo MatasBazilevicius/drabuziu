@@ -1,42 +1,47 @@
-<!-- resources/views/products/edit.blade.php -->
+<?php
 
-@extends('layouts.app')
+@extends('layouts.app') <!-- Assuming you have a layout file, adjust this based on your actual layout -->
 
 @section('content')
-<div class="container my-5">
-    <h1 class="text-center mb-4">Redaguoti prekės informacija</h1>
 
-    <!-- Edit Product Form -->
-    <form method="post" action="{{ route('updateProduct', $row['id_Drabuzis']) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+</head>
 
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Product Image -->
-                <div class="mb-3">
-                    <label for="Nuotrauka" class="form-label">Prekės nuotrauka</label>
-                    <input type="file" id="Nuotrauka" name="Nuotrauka" class="form-control">
-                    <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" class="img-fluid" alt="{{ $row['Pavadinimas'] }}">
-                </div>
-            </div>
-            <div class="col-md-6">
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+<!-- Product Edit Form -->
+<form method="post" action="{{ route('updateProduct', $row['id_Drabuzis']) }}" enctype="multipart/form-data">
+    @csrf
+    <!-- Include a hidden input field for the product ID -->
+    <input type="hidden" name="product_id" value="{{ $row['id_Drabuzis'] }}">
+    
+    <div class="col">
+        <div class="card h-10">
+            <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" class="card-img-top" alt="{{ $row['Pavadinimas'] }}" style="width: 300px; height: 200px;">
+            <div class="card-body">
                 <!-- Product Name -->
-                <div class="mb-3">
-                    <label for="Pavadinimas" class="form-label">Prekės pavadinimas</label>
-                    <input type="text" id="Pavadinimas" name="Pavadinimas" class="form-control" value="{{ $row['Pavadinimas'] }}" required>
+                <div class="form-group">
+                    <label for="name">Prekės pavadinimas</label>
+                    <input type="text" id="name" name="name" class="form-control" value="{{ $row['Pavadinimas'] }}" required>
                 </div>
 
                 <!-- Description -->
-                <div class="mb-3">
-                    <label for="Aprasas" class="form-label">Aprašymas</label>
-                    <textarea id="Aprasas" name="Aprasas" class="form-control" required>{{ $row['Aprasas'] }}</textarea>
+                <div class="form-group">
+                    <label for="description">Aprašymas</label>
+                    <textarea id="description" name="description" class="form-control" required>{{ $row['Aprasas'] }}</textarea>
                 </div>
 
                 <!-- Price -->
-                <div class="mb-3">
-                    <label for="Kaina" class="form-label">Kaina</label>
-                    <input type="text" id="Kaina" name="Kaina" class="form-control" value="{{ $row['Kaina'] }}" required>
+                <div class="form-group">
+                    <label for="price">Kaina</label>
+                    <input type="text" id="price" name="price" class="form-control" value="{{ $row['Kaina'] }}" required>
                 </div>
 
                 <!-- Add other fields as needed -->
@@ -45,11 +50,12 @@
                 <button type="submit" class="btn btn-primary">Atnaujinti prekę</button>
             </div>
         </div>
-    </form>
-
-    <!-- Back Button -->
-    <div class="container my-3 text-center">
-        <a class="btn btn-warning" href="{{ route('prekes') }}">Grįžti į prekių sąrašą</a>
     </div>
+</form>
+
+<!-- Back Button -->
+<div>
+    <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
 </div>
+
 @endsection
