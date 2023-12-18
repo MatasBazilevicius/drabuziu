@@ -1,38 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Edit a Product</h1>
-    <div>
-        @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-
-
-        @endif
-    </div>
-    <form method="post" action="{{route('kategorija.update', ['kategorija' => kategorija])}}">
-        @csrf 
-        @method('put')
-        <div>
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Name" value="{{kategorija->pavadinimas}}" />
-        </div>
-        <div>
-            <label>Qty</label>
-            <input type="text" name="qty" placeholder="Qty" value="{{kategorija->aprasymas}}" />
-        </div>
-        <div>
-            <input type="submit" value="Update" />
-        </div>
+@extends('kategorijos.layout')
+@section('content')
+ 
+<div class="card">
+  <div class="card-header">Kategorijos Page</div>
+  <div class="card-body">
+      
+      <form action="{{ url('kategorija/' .$kategorijos->id) }}" method="post">
+        {!! csrf_field() !!}
+        @method("PATCH")
+        <input type="hidden" name="id_Kategorija" id="id_Kategorija" value="{{$students->id_Kategorija}}" id="id_Kategorija" />
+        <label>Name</label></br>
+        <input type="text" name="pavadinimas" id="pavadinimas" value="{{$students->pavadinimas}}" class="form-control"></br>
+        <label>Address</label></br>
+        <input type="text" name="aprasymas" id="aprasymas" value="{{$students->aprasymas}}" class="form-control"></br>
+        <label>Mobile</label></br>
+        <input type="text" name="fk_Kategorijaid_Kategorija" id="fk_Kategorijaid_Kategorija" value="{{$students->fk_Kategorijaid_Kategorija}}" class="form-control"></br>
+        <input type="submit" value="Update" class="btn btn-success"></br>
     </form>
-</body>
-</html>
+   
+  </div>
+</div>
+ 
+@stop

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\KategorijaController;
-use App\Models\Category;
+use App\Models\Kategorija;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,9 +48,9 @@ Route::get('/krepselis/krepselis', function () {
 })->name('krepsys');
 
 
-/*Route::get('/Kategorijos/kategorijos', function () {
+Route::get('/Kategorijos/kategorijos', function () {
     return view('Kategorijos\Kategorijos');
-})->name('kategorijos');*/
+})->name('kategorijos');
 
 /*Route::get('/Kategorijos/kategorijos_redagavimas', function () {
     return view('Kategorijos\kategorijos_redagavimas');
@@ -89,10 +89,6 @@ Route::get('/Zinutes/homezinut/', function () {
     return view('Zinutes\homezinut');
 })->name('homezinut');
 
-
-
-
-
 Route::get('/krepselis/uzsakymas/', function () {
     return view('krepselis\uzsakymas');
 })->name('uzsakymas');
@@ -109,13 +105,13 @@ Route::get('/krepselis/NePavAutentifikacija/', function () {
     return view('krepselis\NePavAutentifikacija');
 })->name('NePavAutentifikacija');
 
-/*Route::get('/Kategorijos/kategorijos_kurimas/', function () {
+Route::get('/Kategorijos/kategorijos_kurimas/', function () {
     return view('Kategorijos\kategorijos_kurimas');
-})->name('kategorijos_k');*/
+})->name('kategorijos_k');
 
-/*Route::get('/Kategorijos/kategorijos_redagavimas/', function () {
+Route::get('/Kategorijos/kategorijos_redagavimas/', function () {
     return view('Kategorijos\kategorijos_redagavimas');
-})->name('kategorijos_r');*/
+})->name('kategorijos_r');
 
 Route::get('/uzsakymai/visiuzsakymai', function () {
     return view('uzsakymai\visiuzsakymai');
@@ -176,17 +172,10 @@ use App\Http\Controllers\PaymentController;
 
 Route::get('payment',[PaymentController::class, 'index'])->name('payment');
 
+use App\Http\Controllers\KategorijaPerz;
+Route::get('/kategorija/{id}', [KategorijaPerz::class, 'kategorija'])->name('kategorija');
+Route::get('/kategorija/{id}/edit', [KategorijaController::class, 'showEditForm'])->name('editKategorija');
+Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])->name('showCreateForm');
+Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');
 
-//Kategorijos
-/*Route::get('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'showCategory'])->name('kategorijos_kurimas');
-Route::post('/Kategorijos/kategorijos_kurimas/', [CategoryController::class, 'createCategory'])->name('createCategory');*/
-Route::get('/kategorija', [KategorijaController::class, 'index'])->name('kategorija.index');
-Route::get('/kategorija/create', [KategorijaController::class, 'create'])->name('kategorija.create');
-Route::post('/kategorija', [KategorijaController::class, 'store'])->name('kategorija.store');
-Route::get('/kategorija/{kategorija}/edit', [KategorijaController::class, 'edit'])->name('kategorija.edit');
-Route::put('/kategorija/{kategorija}/update', [KategorijaController::class, 'update'])->name('kategorija.update');
-Route::delete('/kategorija/{kategorija}/destroy', [KategorijaController::class, 'destroy'])->name('kategorija.destroy');
-
-
-
-
+Route::resource("/kategorija", KategorijaController::class);
