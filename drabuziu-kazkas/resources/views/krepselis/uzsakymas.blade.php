@@ -134,16 +134,17 @@
                     discount_code: discountCode
                 },
                 success: function (response) {
-                    // Update the total amount directly
-                    var updatedTotal = response.cartTotal;
-
-                    // Update the displayed total in the HTML
-                    document.getElementById('totalAmount').innerHTML = '<strong>Kaina su nuolaida:</strong> $' + updatedTotal;
-                },
-                error: function (error) {
-                    console.error('Error applying discount:', error);
-                    // Handle error as needed
-                }
+        // Handle success
+                        document.getElementById('totalAmount').innerHTML = '<strong>Su pritaikyta nuolaida:</strong> $' + response.cartTotal;
+                    },
+                    error: function (xhr) {
+                        // Handle error and display a notification
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            alert('Error: ' + xhr.responseJSON.error);
+                        } else {
+                            alert('An unexpected error occurred.');
+                        }
+                    }
             });
         }
     });
