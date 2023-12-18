@@ -62,7 +62,7 @@
             // For example, check if the entered data is valid
             // For demonstration purposes, let's assume the validation fails
             displayErrorMessage();
-            return false; // Prevent form submission
+            return true; // Prevent form submission
         }
 
         function displayErrorMessage() {

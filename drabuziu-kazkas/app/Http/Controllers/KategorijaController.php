@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Manufacturer;
 use App\Models\Kategorija;
+use Illuminate\Support\Facades\Auth;
 
 class KategorijaController extends Controller
 {
