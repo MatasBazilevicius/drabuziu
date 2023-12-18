@@ -24,48 +24,23 @@ class KategorijaController extends Controller
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
-    public function index(Kategorija $kategorijaModel)
+    public function createProduct(Request $request)
     {
-        $kategorijos = $kategorijaModel::all();
-        return view('kategorijos.index', ['kategorijos' => $kategorijos]);
+        // Retrieve form data
+        $name = $request->input('Pavadinimas');
+        $description = $request->input('Aprasas');
+        $manufacturerID = $request->input('fk_Gamintojasid_Gamintojas');
+
+        // Insert data into the database
+        $query = "INSERT INTO kategorijos (Pavadinimas, Aprasas, fk_Gamintojasid_Gamintojas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("sssdiss", $name, $description, $manufacturerID);
+        $stmt->execute();
+        $stmt->close();
+
+        return redirect()->route('prekes')->with('success', 'Kategorija created successfully!');
     }
 
-    public function create(){
-        return view('kategorijos.create');
-    }
-
-    public function store(Request $request){
-        $data = $request->validate([
-            'pavadinimas' => 'required',
-            'aprasymas' => 'required',
-        ]);
-
-        $newKategorija = Kategorija::create($data);
-
-        return redirect(route('kategorija.index'));
-
-    }
-
-    public function edit(Kategorija $kategorija){
-        return view('kategorijos.edit', ['kategorija' => $kategorija]);
-    }
-
-    public function update(Kategorija $kategorija, Request $request){
-        $data = $request->validate([
-            'pavadinimas' => 'required',
-            'aprasymas' => 'required',
-        ]);
-
-        $kategorija->update($data);
-
-        return redirect(route('kategorija.index'))->with('success', 'Kategorija Updated Succesffully');
-
-    }
-
-    public function destroy(Kategorija $kategorija){
-        $kategorija->delete();
-        return redirect(route('kategorija.index'))->with('success', 'Kategorija deleted Succesffully');
-    }
     public function __destruct()
     {
         // Close the database connection when the controller is destroyed
