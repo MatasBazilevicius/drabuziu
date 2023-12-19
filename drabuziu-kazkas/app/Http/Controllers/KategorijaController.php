@@ -15,16 +15,19 @@ class KategorijaController extends Controller
         return view('kategorijos.index')->with('kategorijos', $kategorijos);
     }
 
-    public function create(): View
+    public function create()
     {
-        return view('kategorijos.create');
+        $kategorijos = Kategorija::all(); // Fetch all categories
+        return view('kategorijos.create', compact('kategorijos'));
     }
+
+
 
     public function store(Request $request): RedirectResponse
     {
         $input = $request->all();
         Kategorija::create($input);
-        return redirect('kategorija')->with('flash_message', 'Student Added!');
+        return redirect('kategorija')->with('flash_message', 'Kategorija Addedd!');
     }
 
     public function show(string $id): View
@@ -44,12 +47,12 @@ class KategorijaController extends Controller
         $kategorija = Kategorija::find($id);
         $input = $request->all();
         $kategorija->update($input);
-        return redirect('kategorija')->with('flash_message', 'student Updated!');
+        return redirect('kategorija')->with('flash_message', 'kategorija Updated!');
     }
 
     public function destroy(string $id): RedirectResponse
     {
         Kategorija::destroy($id);
-        return redirect('kategorija')->with('flash_message', 'Student deleted!');
+        return redirect('kategorija')->with('flash_message', 'kategorija deleted!');
     }
 }
