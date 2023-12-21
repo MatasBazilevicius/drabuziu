@@ -45,8 +45,16 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <br>
+            <div class="row">
+            <div class="col-auto">
+    <button type="submit" class="btn btn-success">Update Category</button>
+</div>
 
-            <button type="submit" class="btn btn-primary">Update Category</button>
+    <div class="col-auto">
+        <a class="btn btn-primary" href="{{ route('kategorija.index') }}">Grįžti į kategorijas</a>
+    </div>
+</div>
+
         </form>
         @else
         <p>Error: Category not found</p>

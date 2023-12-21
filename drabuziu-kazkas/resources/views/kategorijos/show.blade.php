@@ -14,6 +14,9 @@
       @else
         <p class="card-text">Kokiai kategorijai priklauso: None</p>
       @endif
+      <div class="col-auto">
+        <a class="btn btn-primary" href="{{ route('kategorija.index') }}">Grįžti į kategorijas</a>
+    </div>
     </div>
   </div>
 </div>
