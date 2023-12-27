@@ -44,6 +44,7 @@ if ($conn->connect_error) {
             <div>
                 <h2 style="color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Kategorijos</h2>
                 <a class="btn btn-danger" href="{{ route('kategorija.index') }}">Peržiūrėti kategorijas</a>
+
             </div>
             <!-- Category Buttons -->
             <div class="btn-group" role="group">

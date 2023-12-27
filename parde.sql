@@ -63,6 +63,7 @@ INSERT INTO `apmokejimo_budas` (`id_Apmokejimo_budas`) VALUES
 --
 
 CREATE TABLE `drabuziai` (
+  `id_Drabuzis` int(11) NOT NULL AUTO_INCREMENT,
   `Pavadinimas` varchar(255) DEFAULT NULL,
   `Aprasas` varchar(255) DEFAULT NULL,
   `Nuotrauka` longblob DEFAULT NULL,
@@ -70,9 +71,10 @@ CREATE TABLE `drabuziai` (
   `Kiekis` int(11) DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
   `Lytis` int(11) DEFAULT NULL,
-  `id_Drabuzis` int(11) NOT NULL,
-  `fk_Gamintojasid_Gamintojas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `fk_Gamintojasid_Gamintojas` int(11) NOT NULL,
+  PRIMARY KEY (`id_Drabuzis`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2;
+
 
 --
 -- Dumping data for table `drabuziai`
@@ -294,6 +296,7 @@ INSERT INTO `medziagos_tipas` (`id_Medziagos_tipas`, `name`) VALUES
 --
 
 CREATE TABLE `naudotojai` (
+  `id_Naudotojas` int(11) NOT NULL AUTO_INCREMENT,
   `Vardas` varchar(255) DEFAULT NULL,
   `El_Pastas` varchar(255) DEFAULT NULL,
   `Pavarde` varchar(255) DEFAULT NULL,
@@ -304,8 +307,8 @@ CREATE TABLE `naudotojai` (
   `Slaptazodis` varchar(255) DEFAULT NULL,
   `Registracijos_data` date DEFAULT NULL,
   `Paskutinio_prisijungimo_data` date DEFAULT NULL,
-  `Paskyros_tipas` int(11) DEFAULT NULL,
-  `id_Naudotojas` int(11) NOT NULL
+  `Paskyros_tipas` int(11) DEFAULT NULL
+  PRIMARY KEY (`id_Naudotojas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
