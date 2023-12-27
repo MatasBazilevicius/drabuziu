@@ -87,35 +87,46 @@
                     $cartTotal = app('App\Http\Controllers\CartController')->calculateCartTotal();
                 @endphp 
                 <div class="mt-3">
-        <div id="totalAmount"></div>
-        <p><strong>Iš viso:</strong> ${{ $cartTotal }}</p>
-    </div>
-    
+<!-- Display the total amount with or without discount -->
+<div class="mt-3">
+    <div id="totalAmount"></div>
+    <p><strong>Iš viso:</strong> ${{ $cartTotal }}</p>
 </div>
 
-
-            {{-- Payment and Navigation Buttons --}}
-            <div class="d-flex justify-content-between">
-            <div class="d-flex justify-content-between">    
-    <form action="{{ route('paypal')}}" method="post" class="mr-2">
-        @csrf 
-        <!-- Add a hidden input field for the amount -->
-        <input type="hidden" name="price" value="20">
-        <button type="submit" class="btn btn-success btn-block">Apmokėti su Paypal</button>
-    </form>
-
-    <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
-</div>
-
-
-        </div>
+<!-- Payment and Navigation Buttons -->
+<div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between">    
+        <form action="{{ route('paypal') }}" method="post" class="mr-2" id="paypalForm">
+            @csrf 
+            <!-- Hidden input field for the amount -->
+            <input type="hidden" name="price" id="paypalAmount" value="">
+            <button type="button" class="btn btn-success btn-block" onclick="submitPayment()">
+                @if(isset($TotalAmount) && $TotalAmount > 0)
+                    <script>
+                        // Display the updated amount with a note
+                        document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + parseFloat("{{ $TotalAmount }}").toFixed(2);
+                        // Update the PayPal form's hidden input field with the discounted amount
+                        document.getElementById('paypalAmount').value = "{{ $TotalAmount }}";
+                    </script>
+                @else
+                    Apmokėti su Paypal
+                    <!-- Update the PayPal form's hidden input field with the original amount -->
+                    <script>
+                        document.getElementById('totalAmount').innerHTML = '';
+                        document.getElementById('paypalAmount').value = "{{ $cartTotal }}";
+                    </script>
+                @endif
+            </button>
+        </form>
+        <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-   function applyDiscount() {
+
+function applyDiscount() {
     var discountCode = document.getElementById('discount_code').value;
 
     // Make the AJAX call without using a confirm promise
@@ -128,23 +139,35 @@
         },
         success: function (response) {
             // Handle success
-            document.getElementById('totalAmount').innerHTML = '<strong>Su pritaikyta nuolaida:</strong> $' + response.cartTotal;
+            var cartTotal = response.cartTotal;
+
+            // Check if the cartTotal is in cents, and convert it to dollars
+            if (cartTotal > 100) {
+                cartTotal /= 100; // Convert from cents to dollars
+            }
+
+            // Update the totalAmount directly
+            document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + cartTotal.toFixed(2);
+
+            // Update the PayPal form's hidden input field with the correct value
+            document.getElementById('paypalAmount').value = cartTotal.toFixed(2);
 
             // Display a success notification
-            alert('Nuolaida pritaikyta sėkmingai!');
+            alert('Discount applied successfully!');
         },
         error: function (xhr) {
             // Handle error and display a notification
             if (xhr.responseJSON && xhr.responseJSON.error) {
                 alert('Error: ' + xhr.responseJSON.error);
             } else {
-                alert('Nuolaida nebuvo pritaikyta.');
+                alert('Discount could not be applied.');
             }
         }
     });
 }
 
-
-
+function submitPayment() {
+    // Trigger the PayPal form submission
+    document.getElementById('paypalForm').submit();
+}
 </script>
-
