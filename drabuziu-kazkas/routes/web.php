@@ -179,3 +179,11 @@ Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])-
 Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');*/
 
 Route::resource("/kategorija", KategorijaController::class);
+
+
+//bandau zinutes kurti pats
+use App\Http\Controllers\MessageController;
+
+Route::get('/messages', [MessageController::class, 'index']);
+Route::post('/messages', [MessageController::class, 'store']);
+//zinutes iki cia
