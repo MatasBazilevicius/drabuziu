@@ -153,14 +153,14 @@ function applyDiscount() {
             document.getElementById('paypalAmount').value = cartTotal.toFixed(2);
 
             // Display a success notification
-            alert('Discount applied successfully!');
+            alert('Nuolaida pritaikyta sėkmingai!');
         },
         error: function (xhr) {
             // Handle error and display a notification
             if (xhr.responseJSON && xhr.responseJSON.error) {
                 alert('Error: ' + xhr.responseJSON.error);
             } else {
-                alert('Discount could not be applied.');
+                alert('Nuolaida nebuvo pritaikyta.');
             }
         }
     });

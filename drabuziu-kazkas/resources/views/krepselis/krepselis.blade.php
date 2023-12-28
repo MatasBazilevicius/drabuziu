@@ -19,7 +19,7 @@
 
     <div class="mt-3">
     <a href="{{ route('uzsakymas') }}" class="btn btn-success btn-lg" id="formuotiButton">Kurti užsakymą</a>
-    <p id="emptyCartMessage" style="display:none;"> Tavo krepšelis tusčias. Pridėk prekių, jeigu nori kurti užsakymą. </p>
+    <p id="emptyCartMessage" style="display:none;"> Nepavyko sukurti užsakymo. Pridėk prekių, jeigu nori sukurti kurti užsakymą. </p>
 </div>
 
 
@@ -95,7 +95,16 @@
                 
                 // Redirect to the 'uzsakymas' route if the cart is not empty
                 if (!cartIsEmpty) {
-                    window.location.href = '{{ route('uzsakymas') }}';
+                    
+                    var paymentCreatedSuccessfully = true;
+
+                    if (paymentCreatedSuccessfully) {
+                        // Display a success message
+                        alert('Užsakymas sukurtas sėkmingai!');
+}
+
+// Redirect to the 'uzsakymas' route
+window.location.href = '{{ route('uzsakymas') }}';
                 }
             }
         });
@@ -112,6 +121,7 @@
                         id: ele.parents("tr").attr("rowId")
                     },
                     success: function (response) {
+                        alert('Prekė sėkmingai ištrinta!');
                         window.location.reload();
                     }
                 });
