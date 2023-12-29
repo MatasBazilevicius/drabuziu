@@ -180,6 +180,10 @@ Route::post('/create-category', [KategorijaController::class, 'createCategory'])
 
 Route::resource("/kategorija", KategorijaController::class);
 
+use App\Http\Controllers\OrderController;
+
+Route::post('/check-order-information', [OrderController::class, 'checkOrderInformation'])->name('check.order.information');
+
 
 //bandau zinutes kurti pats
 use App\Http\Controllers\MessageController;
