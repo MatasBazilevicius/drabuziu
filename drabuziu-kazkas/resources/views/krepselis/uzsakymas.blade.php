@@ -40,7 +40,7 @@
             <input type="text" id="Uzsakymo_num" name="Uzsakymo_num" class="form-control" value="{{ old('Uzsakymo_num') }}" required>
         </div>
 
-        <!-- <input type="hidden" name="suma" id="paypalAmount" value=""> -->
+        <input type="hidden" name="suma" id="anotherInput" value="anotherInput">
 
 
         <div class="form-group">
@@ -82,8 +82,6 @@
             <label for="busena">Statusas</label>
             <input type="text" id="busena" name="busena" class="form-control" value="{{ old('busena') }}" required>
         </div>
-        <!-- Submit Button -->
-        <button type="button" class="btn btn-primary" onclick="checkOrderInformation()">Submit Order</button>
     </form>
 </div>
 
@@ -130,28 +128,38 @@
 <!-- Payment and Navigation Buttons -->
 <div class="d-flex justify-content-between">
     <div class="d-flex justify-content-between">    
-        <form action="{{ route('paypal') }}" method="post" class="mr-2" id="paypalForm">
-            @csrf 
-            <!-- Hidden input field for the amount -->
-            <input type="hidden" name="price" id="paypalAmount" value="">
-            <button type="button" class="btn btn-success btn-block" onclick="submitPayment()">
-                @if(isset($TotalAmount) && $TotalAmount > 0)
-                    <script>
-                        // Display the updated amount with a note
-                        document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + parseFloat("{{ $TotalAmount }}").toFixed(2);
-                        // Update the PayPal form's hidden input field with the discounted amount
-                        document.getElementById('paypalAmount').value = "{{ $TotalAmount }}";
-                    </script>
-                @else
-                    Apmokėti su Paypal
-                    <!-- Update the PayPal form's hidden input field with the original amount -->
-                    <script>
-                        document.getElementById('totalAmount').innerHTML = '';
-                        document.getElementById('paypalAmount').value = "{{ $cartTotal }}";
-                    </script>
-                @endif
-            </button>
-        </form>
+                    <form action="{{ route('paypal') }}" method="post" class="mr-2" id="paypalForm">
+                    @csrf 
+                    <!-- Hidden input field for the amount -->
+                    <input type="hidden" name="price" id="paypalAmount" value="">
+                    <!-- Another hidden input field for the original amount (if needed) -->
+                    <input type="hidden" name="originalPrice" id="anotherInput" value="">
+                    <button type="button" class="btn btn-success btn-block" onclick="checkOrderInformation()">
+                        @if(isset($TotalAmount) && $TotalAmount > 0)
+                            <script>
+                                // Display the updated amount with a note
+                                var displayedAmount = cartTotal / 100;
+                                    document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + displayedAmount.toFixed(2);
+
+
+                                // Update the PayPal form's hidden input field with the discounted amount in cents
+                                document.getElementById('paypalAmount').value = "{{ $TotalAmount }}";
+                                // Update anotherInput with the original amount in cents (if needed)
+                                document.getElementById('anotherInput').value = "{{ $TotalAmount }}";
+                            </script>
+                        @else
+                            Apmokėti su Paypal
+                            <!-- Update the PayPal form's hidden input field with the original amount -->
+                            <script>
+                                document.getElementById('totalAmount').innerHTML = '';
+                                var originalAmount = parseFloat("{{ $cartTotal }}") / 100; // Convert to dollars for display
+                                document.getElementById('paypalAmount').value = "{{ $cartTotal }}";
+                                // Update anotherInput with the original amount in cents (if needed)
+                                document.getElementById('anotherInput').value = "{{ $cartTotal }}";
+                            </script>
+                        @endif
+                    </button>
+                </form>
         <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
     </div>
 </div>
@@ -175,16 +183,15 @@ function applyDiscount() {
             // Handle success
             var cartTotal = response.cartTotal;
 
-            // Check if the cartTotal is in cents, and convert it to dollars
-            if (cartTotal > 100) {
-                cartTotal /= 100; // Convert from cents to dollars
-            }
+            // Convert the cartTotal to dollars for display purposes
 
             // Update the totalAmount directly
-            document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + cartTotal.toFixed(2);
+           
+            var displayedAmount = cartTotal; // Assuming cartTotal is in dollars
+                document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + displayedAmount.toFixed(2);
 
-            // Update the PayPal form's hidden input field with the correct value
-            document.getElementById('paypalAmount').value = cartTotal.toFixed(2);
+                document.getElementById('paypalAmount').value = cartTotal.toFixed(2); // Assuming cartTotal is in dollars
+                document.getElementById('anotherInput').value = cartTotal.toFixed(2);
 
             // Display a success notification
             alert('Nuolaida pritaikyta sėkmingai!');
@@ -200,6 +207,7 @@ function applyDiscount() {
     });
 }
 
+
 function checkOrderInformation() {
     var formData = new FormData(document.getElementById('orderForm'));
 
@@ -210,12 +218,12 @@ function checkOrderInformation() {
         processData: false,
         contentType: false,
         success: function(response) {
-            // Handle the response, e.g., show a success message
-            alert('Order information checked successfully!');
+            
+            submitPayment()
         },
         error: function(xhr) {
             // Handle errors, e.g., show an error message
-            alert('Failed to check order information. Please try again.');
+            alert('Prisijungimo duomenys neteisingi. Pabandyk dar kartą');
         }
     });
 }
