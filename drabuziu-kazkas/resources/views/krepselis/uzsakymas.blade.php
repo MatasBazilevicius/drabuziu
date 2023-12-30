@@ -13,42 +13,77 @@
         <div class="col-md-6">
         <h2></h2>
             <h2>Užsakymas</h2>
-            <form method="POST" action="{{ route('apmokejimas') }}">
-                @csrf
-                {{-- Billing Information --}}
-                <div class="form-group">
-                    <label for="billing_name">Vardas</label>
-                    <input type="text" id="billing_name" name="billing_name" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="billing_address">Adresas</label>
-                    <input type="text" id="billing_address" name="billing_address" class="form-control" required>
-                </div>
-                {{-- Add more billing fields as needed --}}
-                
-                {{-- Shipping Information (if different) --}}
-                <div class="form-group">
-                    <label for="shipping_name">Siuntos pavadinimas</label>
-                    <input type="text" id="shipping_name" name="shipping_name" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for "shipping_address">Siuntimo adresas</label>
-                    <input type="text" id="shipping_address" name="shipping_address" class="form-control">
-                </div>
-                {{-- Add more shipping fields as needed --}}
-                
-                {{-- Payment Information --}}
-                <div class="form-group">
-                    <label for="card_number">Kortelės numeris</label>
-                    <input type="text" id="card_number" name="card_number" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="expiration_date">Kortelės galiojimo data</label>
-                    <input type="text" id="expiration_date" name="expiration_date" class="form-control" required>
-                </div>
-                {{-- Add more payment fields as needed --}}
-            </form>
+                <!-- Display validation errors if any -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
+
+    @php
+    $cartTotal = app('App\Http\Controllers\CartController')->calculateCartTotal();
+  @endphp 
+  
+</script>
+    <!-- Order Information Form -->
+    <form id="orderForm" method="POST" action="{{ route('check.order.information') }}">
+        @csrf <!-- Add CSRF token for security -->
+
+        <!-- Add order information fields based on the OrderController's validation rules -->
+
+        <div class="form-group">
+            <label for="Uzsakymo_num">Užsakymo numeris</label>
+            <input type="text" id="Uzsakymo_num" name="Uzsakymo_num" class="form-control" value="{{ old('Uzsakymo_num') }}" required>
+        </div>
+
+        <input type="hidden" name="suma" id="anotherInput" value="anotherInput">
+
+
+        <div class="form-group">
+            <label for="Vardas">Vardas</label>
+            <input type="text" id="Vardas" name="Vardas" class="form-control" value="{{ old('Vardas') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Pavarde">Pavardė</label>
+            <input type="text" id="Pavarde" name="Pavarde" class="form-control" value="{{ old('Pavarde') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Gatves_adresas">Gatvės adresas</label>
+            <input type="text" id="Gatves_adresas" name="Gatves_adresas" class="form-control" value="{{ old('Gatves_adresas') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Miestas">Miestas</label>
+            <input type="text" id="Miestas" name="Miestas" class="form-control" value="{{ old('Miestas') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Pasto_kodas">Pašto kodas</label>
+            <input type="text" id="Pasto_kodas" name="Pasto_kodas" class="form-control" value="{{ old('Pasto_kodas') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Pristatymo_salis">Pristatymo šalis</label>
+            <input type="text" id="Pristatymo_salis" name="Pristatymo_salis" class="form-control" value="{{ old('Pristatymo_salis') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pristatymo_budas">Pristatymo budas</label>
+            <input type="text" id="pristatymo_budas" name="pristatymo_budas" class="form-control" value="{{ old('pristatymo_budas') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="busena">Statusas</label>
+            <input type="text" id="busena" name="busena" class="form-control" value="{{ old('busena') }}" required>
+        </div>
+    </form>
+</div>
 
         <div class="col-md-6">
         {{-- Discount Code Section --}}
@@ -83,9 +118,6 @@
                     @endif
                 </ul>
     <!-- Button for Total Amount -->
-                    @php
-                    $cartTotal = app('App\Http\Controllers\CartController')->calculateCartTotal();
-                @endphp 
                 <div class="mt-3">
 <!-- Display the total amount with or without discount -->
 <div class="mt-3">
@@ -96,28 +128,38 @@
 <!-- Payment and Navigation Buttons -->
 <div class="d-flex justify-content-between">
     <div class="d-flex justify-content-between">    
-        <form action="{{ route('paypal') }}" method="post" class="mr-2" id="paypalForm">
-            @csrf 
-            <!-- Hidden input field for the amount -->
-            <input type="hidden" name="price" id="paypalAmount" value="">
-            <button type="button" class="btn btn-success btn-block" onclick="submitPayment()">
-                @if(isset($TotalAmount) && $TotalAmount > 0)
-                    <script>
-                        // Display the updated amount with a note
-                        document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + parseFloat("{{ $TotalAmount }}").toFixed(2);
-                        // Update the PayPal form's hidden input field with the discounted amount
-                        document.getElementById('paypalAmount').value = "{{ $TotalAmount }}";
-                    </script>
-                @else
-                    Apmokėti su Paypal
-                    <!-- Update the PayPal form's hidden input field with the original amount -->
-                    <script>
-                        document.getElementById('totalAmount').innerHTML = '';
-                        document.getElementById('paypalAmount').value = "{{ $cartTotal }}";
-                    </script>
-                @endif
-            </button>
-        </form>
+                    <form action="{{ route('paypal') }}" method="post" class="mr-2" id="paypalForm">
+                    @csrf 
+                    <!-- Hidden input field for the amount -->
+                    <input type="hidden" name="price" id="paypalAmount" value="">
+                    <!-- Another hidden input field for the original amount (if needed) -->
+                    <input type="hidden" name="originalPrice" id="anotherInput" value="">
+                    <button type="button" class="btn btn-success btn-block" onclick="checkOrderInformation()">
+                        @if(isset($TotalAmount) && $TotalAmount > 0)
+                            <script>
+                                // Display the updated amount with a note
+                                var displayedAmount = cartTotal / 100;
+                                    document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + displayedAmount.toFixed(2);
+
+
+                                // Update the PayPal form's hidden input field with the discounted amount in cents
+                                document.getElementById('paypalAmount').value = "{{ $TotalAmount }}";
+                                // Update anotherInput with the original amount in cents (if needed)
+                                document.getElementById('anotherInput').value = "{{ $TotalAmount }}";
+                            </script>
+                        @else
+                            Apmokėti su Paypal
+                            <!-- Update the PayPal form's hidden input field with the original amount -->
+                            <script>
+                                document.getElementById('totalAmount').innerHTML = '';
+                                var originalAmount = parseFloat("{{ $cartTotal }}") / 100; // Convert to dollars for display
+                                document.getElementById('paypalAmount').value = "{{ $cartTotal }}";
+                                // Update anotherInput with the original amount in cents (if needed)
+                                document.getElementById('anotherInput').value = "{{ $cartTotal }}";
+                            </script>
+                        @endif
+                    </button>
+                </form>
         <a href="{{ route('krepsys') }}" class="btn btn-success btn-block">Peržiūrėti krepšelį</a>
     </div>
 </div>
@@ -141,16 +183,15 @@ function applyDiscount() {
             // Handle success
             var cartTotal = response.cartTotal;
 
-            // Check if the cartTotal is in cents, and convert it to dollars
-            if (cartTotal > 100) {
-                cartTotal /= 100; // Convert from cents to dollars
-            }
+            // Convert the cartTotal to dollars for display purposes
 
             // Update the totalAmount directly
-            document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + cartTotal.toFixed(2);
+           
+            var displayedAmount = cartTotal; // Assuming cartTotal is in dollars
+                document.getElementById('totalAmount').innerHTML = '<strong>Suma po pritaikytos nuolaidos:</strong> $' + displayedAmount.toFixed(2);
 
-            // Update the PayPal form's hidden input field with the correct value
-            document.getElementById('paypalAmount').value = cartTotal.toFixed(2);
+                document.getElementById('paypalAmount').value = cartTotal.toFixed(2); // Assuming cartTotal is in dollars
+                document.getElementById('anotherInput').value = cartTotal.toFixed(2);
 
             // Display a success notification
             alert('Nuolaida pritaikyta sėkmingai!');
@@ -166,8 +207,30 @@ function applyDiscount() {
     });
 }
 
+
+function checkOrderInformation() {
+    var formData = new FormData(document.getElementById('orderForm'));
+
+    $.ajax({
+        url: '{{ route('check.order.information') }}',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            
+            submitPayment()
+        },
+        error: function(xhr) {
+            // Handle errors, e.g., show an error message
+            alert('Prisijungimo duomenys neteisingi. Pabandyk dar kartą');
+        }
+    });
+}
+
 function submitPayment() {
     // Trigger the PayPal form submission
     document.getElementById('paypalForm').submit();
 }
+
 </script>

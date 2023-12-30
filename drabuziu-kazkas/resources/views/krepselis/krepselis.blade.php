@@ -101,7 +101,7 @@
                     if (paymentCreatedSuccessfully) {
                         // Display a success message
                         alert('Užsakymas sukurtas sėkmingai!');
-}
+};
 
 // Redirect to the 'uzsakymas' route
 window.location.href = '{{ route('uzsakymas') }}';
