@@ -179,3 +179,17 @@ Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])-
 Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');*/
 
 Route::resource("/kategorija", KategorijaController::class);
+
+use App\Http\Controllers\OrderController;
+
+Route::post('/check-order-information', [OrderController::class, 'checkOrderInformation'])->name('check.order.information');
+
+
+//bandau zinutes kurti pats
+use App\Http\Controllers\MessageController;
+
+Route::get('/messages', [MessageController::class, 'getMessages']);
+Route::post('/messages', [MessageController::class, 'sendMessage']);
+
+
+//zinutes iki cia
