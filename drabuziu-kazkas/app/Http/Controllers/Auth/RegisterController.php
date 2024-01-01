@@ -68,6 +68,8 @@ class RegisterController extends Controller
         Naudotojai::create([
             'Slapyvardis' => $data['name'],  
             'El_Pastas' => $data['email'],
+            'Paskyros_tipas' => 1,
+            'Slaptazodis' => Hash::make($data['password']),
         ]);
 
         return User::create([
