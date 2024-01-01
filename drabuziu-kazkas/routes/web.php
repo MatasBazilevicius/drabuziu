@@ -191,6 +191,9 @@ use App\Http\Controllers\MessageController;
 Route::get('/messages', [MessageController::class, 'getMessages'])->name('messages.get');
 Route::post('/messages', [MessageController::class, 'sendMessage'])->name('messages.send');
 
+// In your routes/web.php or routes/api.php file
+Route::get('/admin/messages', [AdminMessageController::class, 'showAdminMessages'])->name('admin.messages');
+
 
 //zinutes iki cia
 
