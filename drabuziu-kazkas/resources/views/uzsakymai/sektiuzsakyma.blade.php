@@ -1,13 +1,17 @@
+<!-- resources/views/sektiuzsakyma.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Page</title>
-    <!-- Add any additional styles or scripts as needed -->
+    <title>Užsakymo būsena</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
             text-align: center;
             margin: 20px;
         }
@@ -33,7 +37,7 @@
     </style>
 </head>
 <body>
-    <h1>Užsakymo būsenos sekimas</h1>
+    <h1>Užsakymo būsena</h1>
 
     <div id="search-container">
         <p>Įveskite užsakymo ID</p>
@@ -41,11 +45,10 @@
         <button id="search-button" onclick="performSearch()">Ieškoti</button>
     </div>
 
-    <!-- Add any additional content or scripts as needed -->
-
     <script>
         function performSearch() {
-            window.location.href = '{{ route("sektiuzsakymapvz") }}';
+            var orderId = document.getElementById('search-box').value;
+            window.location.href = '{{ route("sektiuzsakymapvz", ["orderId" => "__orderId__"]) }}'.replace('__orderId__', orderId);
         }
     </script>
 </body>
