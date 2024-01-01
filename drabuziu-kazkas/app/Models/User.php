@@ -1,19 +1,57 @@
 <?php
-// app/Models/User.php
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\CustomResetPasswordNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Model
+class User extends Authenticatable
 {
-    protected $table = 'naudotojai'; // replace with the actual users table name
-    protected $primaryKey = 'id_Naudotojas';
+    use HasApiTokens, HasFactory, Notifiable;
 
-    // Your other model properties...
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
-    public function messages()
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
     {
-        return $this->hasMany(Zinutes::class, 'fk_Naudotojasid_Naudotojas');
+        $this->notify(new CustomResetPasswordNotification($token));
     }
 }

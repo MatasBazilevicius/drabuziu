@@ -81,7 +81,7 @@
                         <div class="dropdown-content">
                             <a href="{{ route('profile.edit') }}">Redaguoti paskyrą</a>
                             <a href="{{ route('sektiuzsakyma') }}">Sekti užsakymo būseną</a>
-                            <a href="{{ route('pildytiuzsakyma') }}">Darbuotojui: pildyti užsakymo būseną</a>
+                            <a href="{{ route('order.status.form') }}">Darbuotojui: pildyti užsakymo būseną</a>
                             <a href="{{ route('profile.delete') }}">Ištrinti paskyrą</a>
                             <a href="{{ route('ivykdytiuzsakymai') }}">Peržiūrėti įvykdytus užsakymus</a>
                             <a href="{{ route('visiuzsakymai') }}">Administratoriui: visi užsakymai</a>
