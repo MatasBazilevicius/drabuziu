@@ -200,3 +200,4 @@ Route::get('/uzsakymai/sektiuzsakymapvz/{orderId}', [OrderController::class, 'vi
 Route::get('/uzsakymai/pildytiuzsakyma', [OrderController::class, 'showOrderStatusForm'])->name('order.status.form');
 Route::get('/uzsakymai/pildytiuzsakymapvz/{orderId}', [OrderController::class, 'editOrderStatusForm'])->name('order.edit.form');
 Route::post('/uzsakymai/update-status/{orderId}', [OrderController::class, 'updateOrderStatus'])->name('order.update.status');
+Route::get('/uzsakymai/view/{orderId}', [OrderController::class, 'viewOrderInformation'])->name('order.view');

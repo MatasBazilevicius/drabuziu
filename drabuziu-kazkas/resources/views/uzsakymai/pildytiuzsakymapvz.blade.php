@@ -38,6 +38,17 @@
     <h1>Užsakymo būsena</h1>
 
     <div class="order-details">
+        <!-- Display error messages if there are any -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!-- Display order details -->
         <form method="POST" action="{{ route('order.update.status', ['orderId' => $order->id_Uzsakymas]) }}">
             @csrf

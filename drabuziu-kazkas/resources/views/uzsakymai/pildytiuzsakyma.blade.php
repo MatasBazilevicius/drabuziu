@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Page</title>
+    <title>Užsakymo būsenos pildymas</title>
     <!-- Add any additional styles or scripts as needed -->
     <style>
         body {
@@ -38,6 +38,12 @@
     <h1>Užsakymo būsenos pildymas</h1>
 
     <div id="search-container">
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <p>Įveskite užsakymo ID</p>
         <input type="text" id="search-box" placeholder="Užsakymo ID">
         <button id="search-button" onclick="performSearch()">Ieškoti</button>
@@ -52,7 +58,7 @@
             if (orderId.trim() !== '') {
                 window.location.href = '{{ route("order.edit.form", ["orderId" => "__orderId__"]) }}'.replace('__orderId__', orderId);
             } else {
-                alert('Please enter a valid order ID.');
+                alert('Įveskite taisyklingą užsakymo numerį.');
             }
         }
     </script>
