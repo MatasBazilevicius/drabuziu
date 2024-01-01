@@ -193,3 +193,6 @@ Route::post('/messages', [MessageController::class, 'sendMessage']);
 
 
 //zinutes iki cia
+
+Route::get('/uzsakymai/sektiuzsakyma', [OrderController::class, 'enterOrderIdForm'])->name('sektiuzsakyma');
+Route::get('/uzsakymai/sektiuzsakymapvz/{orderId}', [OrderController::class, 'viewOrderInformation'])->name('sektiuzsakymapvz');

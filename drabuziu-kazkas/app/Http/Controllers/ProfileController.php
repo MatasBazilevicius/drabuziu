@@ -29,21 +29,21 @@ class ProfileController extends Controller
             }
     
             $request->validate([
-                'Slapyvardis' => 'required|string|max:255',
-                'Vardas' => 'required|string|max:255',
-                'El_Pastas' => 'required|email|max:255',
-                'Pavarde' => 'required|string|max:255',
-                'telefono_numeris' => 'required|string|max:255',
-                'Adresas' => 'required|string|max:255',
-                'Gimimo_data' => 'required|date',
+                'Slapyvardis' => 'nullable|string|max:255',
+                'Vardas' => 'nullable|string|max:255',
+                'El_Pastas' => 'nullable|email|max:255',
+                'Pavarde' => 'nullable|string|max:255',
+                'telefono_numeris' => 'nullable|string|max:255',
+                'Adresas' => 'nullable|string|max:255',
+                'Gimimo_data' => 'nullable|date',
             ]);
     
             $updateData = $request->only(['Slapyvardis', 'Vardas', 'El_Pastas', 'Pavarde', 'telefono_numeris', 'Adresas', 'Gimimo_data']);
             
             $user->update([
-                'email' => $request->El_Pastas, // Use $request->Slapyvardis instead of $request->name
-                'name' => $request->Slapyvardis
-            ]);
+                'email' => $request->filled('El_Pastas') ? $request->El_Pastas : $user->email,
+                'name' => $request->filled('Slapyvardis') ? $request->Slapyvardis : $user->name,
+            ]);            
 
             $naudotojai->update($updateData);
     

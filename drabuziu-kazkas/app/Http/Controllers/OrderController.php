@@ -77,6 +77,23 @@ class OrderController extends Controller
         return rand(10000, 99999);
     }
 
+    public function enterOrderIdForm()
+    {
+        return view('uzsakymai.sektiuzsakyma');
+    }
 
+    public function viewOrderInformation($orderId)
+    {
+        // Fetch order information from the database
+        $order = Uzsakymai::where('id_Uzsakymas', $orderId)->first();
+
+        if (!$order) {
+            return view('uzsakymai.order-not-found');
+        }
+
+        return view('uzsakymai.view-order-information', [
+            'order' => $order,
+        ]);
+    }
 }
 
