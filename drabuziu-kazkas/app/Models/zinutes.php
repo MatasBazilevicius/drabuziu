@@ -1,16 +1,18 @@
 <?php
-// zinutes.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Drabuziai extends Model
+class Zinutes extends Model
 {
     protected $connection = 'parde'; // specify the database connection
-    protected $table = 'zinutes'; // specify the table name if it's different from the model name
-    protected $primaryKey = 'id_Zinute'; // specify the primary key if it's different
-    protected $fillable = [ 'Turinys', 'fk_Naudotojasid_Naudotojas', 'fk_Naudotojasid_Naudotojas1'];
+    protected $table = 'zinutes'; // specify the correct table name
+    protected $primaryKey = 'id_Zinute'; // specify the correct primary key
+    protected $fillable = ['Turinys', 'Laikas', 'id_Zinute', 'fk_Naudotojasid_Naudotojas', 'fk_Naudotojasid_Naudotojas1'];
     
     // other model properties...
+
+    // Assuming you want to use timestamps
+    public $timestamps = false; // Set to true if you have 'created_at' and 'updated_at' columns in your table
 }
