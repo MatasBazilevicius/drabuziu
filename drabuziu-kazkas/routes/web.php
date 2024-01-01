@@ -125,17 +125,17 @@ Route::get('/uzsakymai/sektiuzsakyma', function () {
     return view('uzsakymai\sektiuzsakyma');
 })->name('sektiuzsakyma');
 
-Route::get('/uzsakymai/pildytiuzsakyma', function () {
-    return view('uzsakymai\pildytiuzsakyma');
-})->name('pildytiuzsakyma');
-
 Route::get('/uzsakymai/sektiuzsakymapvz', function () {
     return view('uzsakymai\sektiuzsakymapvz');
 })->name('sektiuzsakymapvz');
 
-Route::get('/uzsakymai/pildytiuzsakymapvz', function () {
-    return view('uzsakymai\pildytiuzsakymapvz');
-})->name('pildytiuzsakymapvz');
+#Route::get('/uzsakymai/pildytiuzsakyma', function () {
+#    return view('uzsakymai\pildytiuzsakyma');
+#})->name('pildytiuzsakyma');
+
+#Route::get('/uzsakymai/pildytiuzsakymapvz', function () {
+#    return view('uzsakymai\pildytiuzsakymapvz');
+#})->name('pildytiuzsakymapvz');
 
 
 use App\Http\Controllers\PaypalController;
@@ -188,11 +188,15 @@ Route::post('/check-order-information', [OrderController::class, 'checkOrderInfo
 //bandau zinutes kurti pats
 use App\Http\Controllers\MessageController;
 
-Route::get('/messages', [MessageController::class, 'getMessages']);
-Route::post('/messages', [MessageController::class, 'sendMessage']);
+Route::get('/messages', [MessageController::class, 'getMessages'])->name('messages.get');
+Route::post('/messages', [MessageController::class, 'sendMessage'])->name('messages.send');
 
 
 //zinutes iki cia
 
 Route::get('/uzsakymai/sektiuzsakyma', [OrderController::class, 'enterOrderIdForm'])->name('sektiuzsakyma');
 Route::get('/uzsakymai/sektiuzsakymapvz/{orderId}', [OrderController::class, 'viewOrderInformation'])->name('sektiuzsakymapvz');
+
+Route::get('/uzsakymai/pildytiuzsakyma', [OrderController::class, 'showOrderStatusForm'])->name('order.status.form');
+Route::get('/uzsakymai/pildytiuzsakymapvz/{orderId}', [OrderController::class, 'editOrderStatusForm'])->name('order.edit.form');
+Route::post('/uzsakymai/update-status/{orderId}', [OrderController::class, 'updateOrderStatus'])->name('order.update.status');

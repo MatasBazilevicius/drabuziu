@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +33,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Užsakymo būsenos pildymas</h1>
 
@@ -45,8 +47,15 @@
 
     <script>
         function performSearch() {
-            window.location.href = '{{ route("pildytiuzsakymapvz") }}';
+            var orderId = document.getElementById('search-box').value;
+
+            if (orderId.trim() !== '') {
+                window.location.href = '{{ route("order.edit.form", ["orderId" => "__orderId__"]) }}'.replace('__orderId__', orderId);
+            } else {
+                alert('Please enter a valid order ID.');
+            }
         }
     </script>
 </body>
+
 </html>
