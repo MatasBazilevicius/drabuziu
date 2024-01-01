@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 
 
 class OrderController extends Controller
@@ -94,6 +95,71 @@ class OrderController extends Controller
         return view('uzsakymai.view-order-information', [
             'order' => $order,
         ]);
+    }
+
+    /**
+     * Show the form to enter the order ID.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showOrderStatusForm()
+    {
+        return view('uzsakymai.pildytiuzsakyma');
+    }
+
+    /**
+     * Show the form to edit the order status.
+     *
+     * @param int $orderId
+     * @return \Illuminate\View\View
+     */
+    public function editOrderStatusForm($orderId)
+    {
+        $order = Uzsakymai::where('id_Uzsakymas', $orderId)->first();
+    
+        if (!$order) {
+            // Redirect back to the previous page with a flash message
+            return redirect()->route('order.status.form')->with('error', 'Užsakymas nerastas.');
+        }
+    
+        return view('uzsakymai.pildytiuzsakymapvz', compact('order'));
+    }
+    
+
+    /**
+     * Update the order status.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $orderId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateOrderStatus(Request $request, $orderId)
+    {
+        // Validation logic if needed
+        $request->validate([
+            'new_status' => 'required|string|min:1', // Add other validation rules as needed
+        ], [
+            'new_status.required' => 'Užsakymo būsena būtina užpildyti.',
+            'new_status.min' => 'Please enter a valid statusas.',
+            // Add other custom error messages for specific rules
+        ]);
+
+        // Find the order
+        $order = Uzsakymai::where('id_Uzsakymas', $orderId)->first();   
+
+        if (!$order) {
+            // Handle case where the order is not found
+            abort(404);
+        }
+
+        // Update the order status
+        $order->busena = $request->input('new_status');
+        $order->save();
+
+        // Respond with a success message (you can customize this part based on your needs
+        Session::flash('success', 'Būsena sėkmingai atnaujinta.');
+        // Redirect back to the previous page
+        return redirect()->back();
     }
 }
 

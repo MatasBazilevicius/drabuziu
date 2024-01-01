@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,48 +33,35 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Užsakymo būsena</h1>
 
     <div class="order-details">
+        <!-- Display error messages if there are any -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <!-- Separate input fields for location and estimated arrival -->
-        <div>
-            <label for="editable-input-location">Vieta:</label>
-            <input type="text" id="editable-input-location" value="Vilniaus gatvė 20, 03-332, Varšuva, Lenkija" class="form-control editable-input" readonly>
-            <button onclick="enableEdit('editable-input-location', 'edit-btn-location', 'save-btn-location')">Redaguoti</button>
-            <button onclick="saveChanges('editable-input-location', 'edit-btn-location', 'save-btn-location')">Išsaugoti</button>
-        </div>
+        <!-- Display order details -->
+        <form method="POST" action="{{ route('order.update.status', ['orderId' => $order->id_Uzsakymas]) }}">
+            @csrf
+            <div class="form-group">
+                <label for="editable-input-status">Būsena:</label>
+                <input type="text" id="editable-input-status" name="new_status" value="{{ $order->busena }}" class="form-control editable-input">
+            </div>
 
-        <div>
-            <label for="editable-input-arrival">Numatoma likusi siuntimo trukmė:</label>
-            <input type="text" id="editable-input-arrival" value="2-3 dienos" class="form-control editable-input" readonly>
-            <button onclick="enableEdit('editable-input-arrival', 'edit-btn-arrival', 'save-btn-arrival')">Redaguoti</button>
-            <button onclick="saveChanges('editable-input-arrival', 'edit-btn-arrival', 'save-btn-arrival')">Išsaugoti</button>
-        </div>
-
+            <button type="submit" class="btn btn-primary">Išsaugoti</button>
+        </form>
     </div>
 
     <!-- Add any additional content or scripts as needed -->
-    <script>
-        // Function to enable editing
-        function enableEdit(inputId, editBtnId, saveBtnId) {
-            document.getElementById(inputId).readOnly = false;
-            document.getElementById(editBtnId).style.display = 'none';
-            document.getElementById(saveBtnId).style.display = 'inline-block';
-        }
-
-        // Function to save changes
-        function saveChanges(inputId, editBtnId, saveBtnId) {
-            var inputValue = document.getElementById(inputId).value;
-
-            // Perform any save action you need here (e.g., send data to a server)
-
-            // Disable editing after saving
-            document.getElementById(inputId).readOnly = true;
-            document.getElementById(editBtnId).style.display = 'inline-block';
-            document.getElementById(saveBtnId).style.display = 'none';
-        }
-    </script>
 </body>
+
 </html>
