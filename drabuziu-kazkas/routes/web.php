@@ -188,8 +188,8 @@ Route::post('/check-order-information', [OrderController::class, 'checkOrderInfo
 //bandau zinutes kurti pats
 use App\Http\Controllers\MessageController;
 
-Route::get('/messages', [MessageController::class, 'getMessages']);
-Route::post('/messages', [MessageController::class, 'sendMessage']);
+Route::get('/messages', [MessageController::class, 'getMessages'])->name('messages.get');
+Route::post('/messages', [MessageController::class, 'sendMessage'])->name('messages.send');
 
 
 //zinutes iki cia

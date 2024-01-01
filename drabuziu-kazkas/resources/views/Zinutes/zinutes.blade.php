@@ -59,11 +59,10 @@
             },
             methods: {
                 getMessages() {
-                    // Fetch messages from the server
-                    axios.get('/messages')
+                    // Fetch messages directly from the server using the named route
+                    axios.get('{{ route('messages.get') }}')
                         .then(response => {
-                            // Assuming your Laravel controller returns messages nested under the 'messages' key
-                            this.messages = response.data.messages; // Update this line
+                            this.messages = response.data;
                         })
                         .catch(error => {
                             console.error('Error fetching messages', error);
@@ -75,8 +74,8 @@
                         return;
                     }
 
-                    // Send a new message
-                    axios.post('/messages', { Turinys: this.newMessage, fk_Naudotojasid_Naudotojas: 1801 })
+                    // Send a new message using the named route
+                    axios.post('{{ route('messages.send') }}', { Turinys: this.newMessage, fk_Naudotojasid_Naudotojas: 1801 })
                         .then(response => {
                             this.newMessage = ''; // Clear the input
                             this.getMessages(); // Refresh messages

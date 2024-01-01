@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Zinutes;
-use Illuminate\Http\Request;
+
+
 
 class MessageController extends Controller
 {
@@ -53,9 +55,20 @@ class MessageController extends Controller
 
     public function getMessages()
     {
-        // Fetch all messages from the database
-        $messages = Zinutes::all();
-
-        return response()->json(['messages' => $messages]);
+        try {
+            // Fetch messages for a specific user (e.g., with fk_Naudotojasid_Naudotojas = 1801)
+            $user = User::find(1801);
+            $messages = $user->messages;
+    
+            return response()->json(['messages' => $messages]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error fetching messages: ' . $e->getMessage());
+    
+            // Return a response indicating an error
+            return response()->json(['error' => 'Error fetching messages'], 500);
+        }
     }
+    
+    
 }
