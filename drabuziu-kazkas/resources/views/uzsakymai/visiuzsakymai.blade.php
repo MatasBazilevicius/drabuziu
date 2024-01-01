@@ -1,5 +1,8 @@
+<!-- resources/views/uzsakymai/all-orders.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,27 +60,17 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Visi įvykdyti užsakymai</h1>
 
     <div id="order-container">
-        <!-- Order 1 -->
-        <div class="order-card" onclick="showOrderDetails('001', 'Matas Bazilevičius', 'Į namus', 'Lenkija', 'Vilniaus g. 123, LT-01234, Vilnius, Lietuva')">
-            <h2>Užsakymo ID: 001</h2>
-            <p>Klientas: Matas Bazilevičius</p>
-        </div>
-
-        <!-- Order 2 -->
-        <div class="order-card" onclick="showOrderDetails('002', 'Matas Bazilevičius', 'Į paštomatą', 'Vokietija', 'Gedimino pr. 45-7A, LT-01109, Vilnius, Lietuva')">
-            <h2>Užsakymo ID: 002</h2>
-            <p>Klientas: Matas Bazilevičius</p>
-        </div>
-
-        <!-- Order 3 -->
-        <div class="order-card" onclick="showOrderDetails('003', 'Om Prakash', 'Į namus', 'Suomija', 'Vytauto g. 87-2B, LT-44221, Kaunas, Lithuania')">
-            <h2>Užsakymo ID: 003</h2>
-            <p>Klientas: Om Prakash</p>
-        </div>
+        @foreach ($orders as $order)
+            <div class="order-card" onclick="showOrderDetails('{{ $order->id_Uzsakymas }}', '{{ $order->Vardas }} {{ $order->Pavarde }}', '{{ $order->pristatymo_budas }}', '{{ $order->Pristatymo_salis }}', '{{ $order->Gatves_adresas }}, {{ $order->Pasto_kodas }}, {{ $order->Miestas }}, Lietuva')">
+                <h2>Užsakymo ID: {{ $order->id_Uzsakymas }}</h2>
+                <p>Klientas: {{ $order->Vardas }} {{ $order->Pavarde }}</p>
+            </div>
+        @endforeach
     </div>
 
     <!-- The Modal -->
@@ -115,4 +108,5 @@
         }
     </script>
 </body>
+
 </html>

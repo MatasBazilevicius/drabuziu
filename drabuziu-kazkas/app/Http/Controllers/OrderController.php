@@ -161,5 +161,16 @@ class OrderController extends Controller
         // Redirect back to the previous page
         return redirect()->back();
     }
+
+    public function showAllOrders()
+{
+    // Retrieve all orders from the database
+    $orders = Uzsakymai::all();
+
+    // Pass orders to the view
+    return view('uzsakymai.visiuzsakymai', ['orders' => $orders]);
+}
+
+    
 }
 

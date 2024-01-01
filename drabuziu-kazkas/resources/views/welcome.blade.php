@@ -84,7 +84,7 @@
                             <a href="{{ route('order.status.form') }}">Darbuotojui: pildyti užsakymo būseną</a>
                             <a href="{{ route('profile.delete') }}">Ištrinti paskyrą</a>
                             <a href="{{ route('ivykdytiuzsakymai') }}">Peržiūrėti įvykdytus užsakymus</a>
-                            <a href="{{ route('visiuzsakymai') }}">Administratoriui: visi užsakymai</a>
+                            <a href="{{ route('order.show.all') }}">Administratoriui: visi užsakymai</a>
                             <a href="{{ route('zinut')}}">Pagalba klientams</a>
                             <a href="{{ route('logout') }}"                            
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
