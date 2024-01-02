@@ -63,7 +63,11 @@
     <script>
         function performSearch() {
             var orderId = document.getElementById('search-box').value;
-            window.location.href = '{{ route("sektiuzsakymapvz", ["orderId" => "__orderId__"]) }}'.replace('__orderId__', orderId);
+            if (orderId.trim() !== '') {
+                window.location.href = '{{ route("sektiuzsakymapvz", ["orderId" => "__orderId__"]) }}'.replace('__orderId__', orderId);
+            } else {
+                alert('Įveskite taisyklingą užsakymo numerį.');
+            }
         }
     </script>
 </body>
