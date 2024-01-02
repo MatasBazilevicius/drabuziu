@@ -14,6 +14,7 @@
             color: #495057;
             text-align: center;
             margin: 20px;
+            position: relative; /* Add relative positioning */
         }
 
         .order-details {
@@ -31,11 +32,34 @@
             padding: 5px;
             margin-bottom: 10px;
         }
+
+        #welcome-button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            position: absolute; /* Set absolute positioning */
+            top: 10px; /* Adjust top position */
+            left: 10px; /* Adjust left position */
+        }
+
+        #custom-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px; /* Add margin to the top */
+        }
     </style>
 </head>
 
 <body>
     <h1>Užsakymo būsena</h1>
+
+    <!-- "Welcome Page" button -->
+    <a href="{{ url('/views/welcome') }}" id="welcome-button">Grįžti į pagrindinį meniu</a>
 
     <div class="order-details">
         <!-- Display error messages if there are any -->
@@ -60,6 +84,9 @@
             <button type="submit" class="btn btn-primary">Išsaugoti</button>
         </form>
     </div>
+
+    <!-- "Custom Button" to go to a specific URL -->
+    <a href="http://localhost/drabuziu/drabuziu-kazkas/public/uzsakymai/pildytiuzsakyma" id="custom-button">Užsakymo pasirinkimas</a>
 
     <!-- Add any additional content or scripts as needed -->
 </body>
