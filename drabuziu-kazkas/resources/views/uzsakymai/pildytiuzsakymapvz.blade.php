@@ -73,6 +73,12 @@
             </div>
         @endif
 
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
         <!-- Display order details -->
         <form method="POST" action="{{ route('order.update.status', ['orderId' => $order->id_Uzsakymas]) }}">
             @csrf
