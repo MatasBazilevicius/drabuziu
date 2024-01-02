@@ -38,6 +38,9 @@
             <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Enter your message...">
             <button @click="sendMessageButton">Send Message</button>
         </div>
+        <div>
+        <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+    </div>
     </div>
 
     <!-- Vue.js and Axios scripts -->

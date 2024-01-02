@@ -86,6 +86,7 @@
                             <a href="{{ route('ivykdytiuzsakymai') }}">Peržiūrėti įvykdytus užsakymus</a>
                             <a href="{{ route('order.show.all') }}">Administratoriui: visi užsakymai</a>
                             <a href="{{ route('zinut')}}">Pagalba klientams</a>
+                            <a href="{{ route('zinut1')}}">Administratorius klientams</a>
                             <a href="{{ route('logout') }}"                            
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Atsijungti
