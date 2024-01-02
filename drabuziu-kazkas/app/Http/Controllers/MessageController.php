@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request; // Import the Request class
-use App\Models\UserZ; // Change User to UserZ
+use Illuminate\Http\Request;
+use App\Models\Naudotojai;
 use App\Models\Zinutes;
-use Illuminate\Support\Str;
 
 class MessageController extends Controller
 {
@@ -28,15 +27,16 @@ class MessageController extends Controller
         }
     }
 
-    // Rest of your code...
-
-    // ...
-
     public function sendMessage(Request $request)
     {
         $validatedData = $request->validate([
             'Turinys' => 'required|string|max:255',
         ]);
+
+        // Get the current user ID
+        $user = auth()->user();
+        $naudotojas = Naudotojai::find($user->id);
+        $currentUserId = $naudotojas ? $naudotojas->id_Naudotojas : null;
 
         // Generate a unique ID
         $randomId = random_int(100000, 999999); // Adjust the range as needed
@@ -45,9 +45,9 @@ class MessageController extends Controller
         $message = new Zinutes([
             'id_Zinute' => $randomId,
             'Turinys' => $validatedData['Turinys'],
-            'fk_Naudotojasid_Naudotojas' => 1801,
-            'fk_Naudotojasid_Naudotojas1' => 1802
-                // Add other fields if necessary
+            'fk_Naudotojasid_Naudotojas' => $currentUserId,
+            'fk_Naudotojasid_Naudotojas1' => 1802, // Assuming 1802 is a fixed value
+            // Add other fields if necessary
         ]);
 
         $message->save();
@@ -58,21 +58,25 @@ class MessageController extends Controller
     public function getMessages()
     {
         try {
-            // Fetch messages for a specific user with the given conditions
+            // Get the current user ID
+            $user = auth()->user();
+            $naudotojas = Naudotojai::find($user->id);
+            $currentUserId = $naudotojas ? $naudotojas->id_Naudotojas : null;
+
+            // Fetch messages for the current user with the given conditions
             $messages = Zinutes::where([
-                'fk_Naudotojasid_Naudotojas' => 1801,
-                'fk_Naudotojasid_Naudotojas1' => 1802
+                'fk_Naudotojasid_Naudotojas' => $currentUserId,
+                'fk_Naudotojasid_Naudotojas1' => 1802,
             ])->get();
-    
+
             return response()->json(['messages' => $messages]);
-    
+
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error fetching messages: ' . $e->getMessage());
-    
+
             // Return a response indicating an error
             return response()->json(['error' => 'Error fetching messages'], 500);
         }
-    }    
-
+    }
 }

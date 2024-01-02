@@ -75,27 +75,41 @@
                 @auth
                     <!-- Replace "Home" with the dropdown -->
                     <div class="dropdown">
-                        <button class="dropdown-button" id="navbarDropdown">
-                            {{ Auth::user()->name }}
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="{{ route('profile.edit') }}">Redaguoti paskyrą</a>
-                            <a href="{{ route('sektiuzsakyma') }}">Sekti užsakymo būseną</a>
-                            <a href="{{ route('order.status.form') }}">Darbuotojui: pildyti užsakymo būseną</a>
-                            <a href="{{ route('profile.delete') }}">Ištrinti paskyrą</a>
-                            <a href="{{ route('ivykdytiuzsakymai') }}">Peržiūrėti įvykdytus užsakymus</a>
-                            <a href="{{ route('order.show.all') }}">Administratoriui: visi užsakymai</a>
-                            <a href="{{ route('zinut')}}">Pagalba klientams</a>
-                            <a href="{{ route('zinut1')}}">Administratorius klientams</a>
-                            <a href="{{ route('logout') }}"                            
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Atsijungti
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
+    <button class="dropdown-button" id="navbarDropdown">
+        {{ Auth::user()->name }}
+    </button>
+    <div class="dropdown-content">
+        <a href="{{ route('profile.edit') }}">Redaguoti paskyrą</a>
+        <a href="{{ route('sektiuzsakyma') }}">Sekti užsakymo būseną</a>
+
+        @php
+            $user = auth()->user();
+            $naudotojas = \App\Models\Naudotojai::find($user->id);
+            $accountType = $naudotojas ? $naudotojas->Paskyros_tipas : null;
+        @endphp
+
+        @if($accountType == 2 || $accountType == 3)
+        <a href="{{ route('order.status.form') }}">Pildyti užsakymo būseną</a>
+        @endif
+        <a href="{{ route('profile.delete') }}">Ištrinti paskyrą</a>
+
+
+
+        @if($accountType == 3)
+            <a href="{{ route('order.show.all') }}">Peržiūrėti visus užsakymus</a>
+        @endif
+
+        <a href="{{ route('zinut')}}">Pagalba klientams</a>
+        <a href="{{ route('zinut1')}}">Administratorius klientams</a>
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Atsijungti
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </div>
+</div>
+
                 @else
                     <!-- Other authentication links (Login, Register) remain the same -->
                     <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Prisijungti</a>
@@ -119,7 +133,7 @@
 <body>
     
     <div class="container my-5">
-        <h1 style="color: #e74c3c;">Drabužių parduotuvė AMMA V:0.17</h1>
+        <h1 style="color: #e74c3c;">Drabužių parduotuvė AMMA V:0.145</h1>
 
         <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;">Prekės</h2>
         <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
