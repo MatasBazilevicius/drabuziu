@@ -78,7 +78,7 @@
 
     <div id="order-container">
         @foreach ($orders as $order)
-            <div class="order-card" onclick="showOrderDetails('{{ $order->id_Uzsakymas }}', '{{ $order->Vardas }} {{ $order->Pavarde }}', '{{ $order->pristatymo_budas }}', '{{ $order->Pristatymo_salis }}', '{{ $order->Gatves_adresas }}, {{ $order->Pasto_kodas }}, {{ $order->Miestas }}, Lietuva')">
+            <div class="order-card" onclick="showOrderDetails('{{ $order->id_Uzsakymas }}', '{{ $order->Vardas }} {{ $order->Pavarde }}', '{{ $order->pristatymo_budas }}', '{{ $order->Pristatymo_salis }}', '{{ $order->Gatves_adresas }}, {{ $order->Pasto_kodas }}, {{ $order->Miestas }}', '{{ $order->busena }}')">
                 <h2>Užsakymo ID: {{ $order->id_Uzsakymas }}</h2>
                 <p>Klientas: {{ $order->Vardas }} {{ $order->Pavarde }}</p>
             </div>
@@ -95,6 +95,7 @@
             <p id="modalDeliveryType"></p>
             <p id="modalDeliveryCountry"></p>
             <p id="modalAddress"></p>
+            <p id="modalOrderStatus"></p>
         </div>
     </div>
 
@@ -102,12 +103,14 @@
 
     <script>
         // Function to show order details in the modal
-        function showOrderDetails(orderID, clientName, deliveryType, deliveryCountry, address) {
+        function showOrderDetails(orderID, clientName, deliveryType, deliveryCountry, address, orderStatus) {
             document.getElementById("modalOrderID").innerText = "Užsakymo ID: " + orderID;
             document.getElementById("modalClientName").innerText = "Klientas: " + clientName;
             document.getElementById("modalDeliveryType").innerText = "Pristatymo būdas: " + deliveryType;
             document.getElementById("modalDeliveryCountry").innerText = "Pristatymo šalis: " + deliveryCountry;
             document.getElementById("modalAddress").innerText = "Pristatymo adresas: " + address;
+            document.getElementById("modalOrderStatus").innerText = "Būsena: " + orderStatus;
+            
 
             // Display the modal
             document.getElementById("orderModal").style.display = "block";

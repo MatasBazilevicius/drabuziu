@@ -10,6 +10,12 @@
                 <div class="card-header">{{ __('Ištrinti profilį') }}</div>
 
                 <div class="card-body">
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <p>
                         {{ __('Įveskite savo prisijungimo slaptažodį, tam kad ištrintumėte savo profilį.') }}
                     </p>
@@ -22,9 +28,9 @@
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
 
                             @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
 
