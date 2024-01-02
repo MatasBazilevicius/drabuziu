@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Drabuziai;
-use App\Models\Kategorija; // Make sure to import the relevant models
+// Make sure to import the relevant models
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\View;
-use Illuminate\Support\Facades\DB;
+/*use Illuminate\Support\Facades\DB;*/
 
 
-class ProductController extends Controller
+class ProductController1 extends Controller
 {
     public function createProduct(Request $request)
     {
@@ -23,7 +24,6 @@ class ProductController extends Controller
             'Lytis' => 'required|string',
             'Sukurimo_data' => 'required|date',
             'fk_Gamintojasid_Gamintojas' => 'required|exists:manufacturers,id', // Make sure the manufacturer exists
-            'selected_category' => 'required|exists:kategorijos,id', // Make sure the category exists
         ]);
 
         // Handle file upload
@@ -40,25 +40,9 @@ class ProductController extends Controller
         $product->fk_Gamintojasid_Gamintojas = $request->input('fk_Gamintojasid_Gamintojas');
         $product->save();
 
-        // Retrieve categories
-        $kategorijos = Kategorija::orderBy("name", "ASC")->get();
+        
 
-        // Get the selected category from the request
-        $selectedCategory = $request->input('selected_category');
-
-        // Filter products by category
-        $filteredProducts = Drabuziai::where('fk_Kategorijosid_Kategorija', $selectedCategory)->get();
-
-        return view('prekes', ['products' => $filteredProducts, 'kategorijos' => $kategorijos])
+        return view('prekes')
             ->with('success', 'Product created successfully!');
     }
-    // ProductController.php
-
-    
-
-
-
-
-
-    
 }

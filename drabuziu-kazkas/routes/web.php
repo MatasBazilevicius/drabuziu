@@ -4,6 +4,12 @@ use App\Http\Controllers\KategorijaController;
 use App\Models\Kategorija;
 use App\Http\Controllers\MedziagaController;
 use App\Models\Medziaga;
+use App\Models\Gamintojas;
+use App\Models\Dydis;
+use App\Models\Spalva;
+use App\Http\Controllers\GamintojasController;
+use App\Http\Controllers\SpalvaController;
+use App\Http\Controllers\DydisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -150,6 +156,7 @@ Route::get('paypal/cancel',[PaypalController::class, 'cancel'])->name('paypal.ca
 // routes/web.php
 use App\Http\Controllers\ProductController1;
 use App\Http\Controllers\DrabuziaiPerz;
+
 //bandau duomenu baze prijugnti cia 
 Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 //Prekiu editinimas 
@@ -159,6 +166,11 @@ Route::get('/prekes/{id}/edit', [ProductController1::class, 'showEditForm'])->na
 //Cia del produktu kurimo
 Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
+
+use App\Http\Controllers\ProductController3;
+
+Route::get('/create-product', [ProductController3::class, 'create'])->name('createProduct');
+Route::post('/create-product', [ProductController3::class, 'store']);
 
 // Krepselis
 
@@ -182,6 +194,10 @@ Route::post('/create-category', [KategorijaController::class, 'createCategory'])
 
 Route::resource("/kategorija", KategorijaController::class);
 Route::resource("/medziaga", MedziagaController::class);
+Route::resource("/gamintojas", GamintojasController::class);
+Route::resource("/dydis", DydisController::class);
+Route::resource("/spalva", SpalvaController::class);
+
 
 use App\Http\Controllers\OrderController;
 
@@ -193,6 +209,8 @@ use App\Http\Controllers\MessageController;
 
 Route::get('/messages', [MessageController::class, 'getMessages'])->name('messages.get');
 Route::post('/messages', [MessageController::class, 'sendMessage'])->name('messages.send');
+
+Route::get('/messages/user-ids', [MessageController::class, 'getUserIds'])->name('messages.userIds');
 
 // In your routes/web.php or routes/api.php file
 use App\Http\Controllers\AdminMessageController;
@@ -209,6 +227,8 @@ Route::get('/admin/get-messages', [AdminMessageController::class, 'getMessages']
 // Route to get messages by a specific user
 Route::get('/admin/get-messages-by-user/{userId}', [AdminMessageController::class, 'getMessagesByUser'])->name('admin.get-messages-by-user');
 
+Route::get('/messages/user-ids', [AdminMessageController::class, 'getUserIds'])->name('messages.userIds');
+
 
 //zinutes iki cia
 
@@ -224,7 +244,7 @@ Route::get('/uzsakymai/visi', [OrderController::class, 'showAllOrders'])->name('
 
 // web.php
 
-use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\FilterController;
 
 // Route for filtering products

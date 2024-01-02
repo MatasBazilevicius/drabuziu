@@ -100,7 +100,10 @@
         @endif
 
         <a href="{{ route('zinut')}}">Pagalba klientams</a>
+        @if($accountType == 3)
         <a href="{{ route('zinut1')}}">Administratorius klientams</a>
+        @endif
+
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             Atsijungti
         </a>

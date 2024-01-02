@@ -12,6 +12,22 @@ class AdminController extends Controller
     {
         return view('admin.index'); // Assuming you have an admin index view
     }
+    public function getUserIds()
+{
+    try {
+        // Fetch all user IDs
+        $userIds = Naudotojai::pluck('id_Naudotojas')->toArray();
+
+        return response()->json(['users' => $userIds]);
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error('Error fetching user IDs: ' . $e->getMessage());
+
+        // Return a response indicating an error
+        return response()->json(['error' => 'Error fetching user IDs'], 500);
+    }
+}
+
 
     public function getMessages()
     {

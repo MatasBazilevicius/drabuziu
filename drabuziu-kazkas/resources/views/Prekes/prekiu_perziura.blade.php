@@ -17,14 +17,49 @@ if ($conn->connect_error) {
 
 $kategorijaSql = "SELECT * FROM kategorijos";
 $kategorijaResult = $conn->query($kategorijaSql);
-
-// Check if there are any categories
 $kategorijos = [];
 if ($kategorijaResult->num_rows > 0) {
     while ($kategorijaRow = $kategorijaResult->fetch_assoc()) {
         $kategorijos[] = $kategorijaRow;
     }
 }
+
+$medziagaSql = "SELECT * FROM medziagos";
+$medziagaResult = $conn->query($medziagaSql);
+$medziagos = [];
+if ($medziagaResult->num_rows > 0) {
+    while ($gamintojasRow = $medziagaResult->fetch_assoc()) {
+        $medziagos[] = $gamintojasRow;
+    }
+}
+
+$gamintojasSql = "SELECT * FROM gamintojai";
+$gamintojasResult = $conn->query($gamintojasSql);
+$gamintojai = [];
+if ($gamintojasResult->num_rows > 0) {
+    while ($gamintojasRow = $gamintojasResult->fetch_assoc()) {
+        $gamintojai[] = $gamintojasRow;
+    }
+}
+
+$spalvaSql = "SELECT * FROM spalvos";
+$spalvaResult = $conn->query($spalvaSql);
+$spalvos = [];
+if ($spalvaResult->num_rows > 0) {
+    while ($spalvaRow = $spalvaResult->fetch_assoc()) {
+        $spalvos[] = $spalvaRow;
+    }
+}
+
+$dydisSql = "SELECT * FROM dydis";
+$dydisResult = $conn->query($dydisSql);
+$dydziai = [];
+if ($dydisResult->num_rows > 0) {
+    while ($dydisRow = $dydisResult->fetch_assoc()) {
+        $dydziai[] = $dydisRow;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,6 +101,10 @@ if ($kategorijaResult->num_rows > 0) {
                 <h2 style="color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Kategorijos</h2>
                 <a class="btn btn-danger" href="{{ route('kategorija.index') }}">Peržiūrėti kategorijas</a>
                 <a class="btn btn-danger" href="{{ route('medziaga.index') }}">Peržiūrėti medžiagas</a>
+                <a class="btn btn-danger" href="{{ route('gamintojas.index') }}">Peržiūrėti gamintojus</a>
+                <a class="btn btn-danger" href="{{ route('dydis.index') }}">Peržiūrėti dydžius</a>
+                <a class="btn btn-danger" href="{{ route('spalva.index') }}">Peržiūrėti spalvas</a>
+
             </div>
         </div>
 
@@ -88,8 +127,8 @@ if ($kategorijaResult->num_rows > 0) {
                                 <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" class="card-img-top" alt="{{ $row['Pavadinimas'] }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $row['Pavadinimas'] }}</h5>
-                                    <p class="card-text">{{ $row['Aprasas'] }}</p>
-                                    <p class="card-text">${{ $row['Kaina'] }}</p>
+                                    <h5 class="card-text">{{ $row['Aprasas'] }}</h5>
+                                    <h5 class="card-text">${{ $row['Kaina'] }}</h5>
                                     <a href="{{ route('preke1', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-success">Perziureti preke</a>
                                     <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                                     <p class="btn-holder">
@@ -142,6 +181,34 @@ if ($kategorijaResult->num_rows > 0) {
                         <option value="">Visos kategorijos</option>
                         @foreach ($kategorijos as $kategorija)
                             <option value="{{ $kategorija['id_Kategorija'] }}">{{ $kategorija['pavadinimas'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="medziaga">Pasirinkite medžiagą:</label>
+                    <select class="form-select" id="medziaga" name="medziaga">
+                        <option value="">Visos medziagos</option>
+                        @foreach ($medziagos as $medziaga)
+                            <option value="{{ $medziaga['id_Medziaga'] }}">{{ $medziaga['Medziaga'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="gamintojas">Pasirinkite gamintoją:</label>
+                    <select class="form-select" id="gamintojas" name="gamintojas">
+                        <option value="">Visi gamintojai</option>
+                        @foreach ($gamintojai as $gamintojas)
+                            <option value="{{ $gamintojas['id_Gamintojas'] }}">{{ $gamintojas['Gamintojas'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="spalva">Pasirinkite spalvą:</label>
+                    <select class="form-select" id="spalva" name="spalva">
+                        <option value="">Visi gamintojai</option>
+                        @foreach ($spalvos as $spalva)
+                            <option value="{{ $spalva['id_Spalva'] }}">{{ $spalva['Spalva'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="dydis">Pasirinkite dydį:</label>
+                    <select class="form-select" id="dydis" name="dydis">
+                        <option value="">Visi dydziai</option>
+                        @foreach ($dydziai as $dydis)
+                            <option value="{{ $dydis['id_Dydis'] }}">{{ $dydis['name'] }}</option>
                         @endforeach
                     </select>
 

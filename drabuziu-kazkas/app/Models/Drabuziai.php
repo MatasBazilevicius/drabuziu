@@ -13,4 +13,9 @@ class Drabuziai extends Model
     protected $fillable = ['Pavadinimas', 'Aprasas', 'Nuotrauka', 'Kaina', 'Kiekis', 'Sukurimo_data', 'Lytis', 'fk_Gamintojasid_Gamintojas'];
     
     // other model properties...
+    public function medziaga()
+{
+    return $this->belongsTo(Medziaga::class, 'fk_Medziagaid_Medziaga');
+}
+
 }

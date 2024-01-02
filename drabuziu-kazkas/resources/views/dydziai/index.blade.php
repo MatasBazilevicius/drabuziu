@@ -1,14 +1,14 @@
-@extends('medziagos.layout')
+@extends('dydziai.layout')
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Medziagos</h2>
+                        <h2>Dydziai</h2>
                     </div>
                     <div class="card-body">
-                        <a href="{{ url('/medziaga/create') }}" class="btn btn-success btn-sm" title="Add New medziaga">
+                        <a href="{{ url('/dydis/create') }}" class="btn btn-success btn-sm" title="Add New dydis">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
                         
@@ -29,27 +29,27 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Medziaga</th>
-                                        <th>id_Medziaga</th>
+                                        <th>name</th>
+                                        <th>id_Dydis</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($medziagos as $item)
+                                    @foreach($dydziai as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->Medziaga }}</td>
-                                            <td>{{ $item->id_Medziaga }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->id_Dydis }}</td>
                                             <td>
-                                                <a href="{{ url('/medziaga/' . $item->id_Medziaga) }}" title="View medziaga">
+                                                <a href="{{ url('/dydis/' . $item->id_Dydis) }}" title="View dydis">
                                                     <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>View</button>
                                                 </a>
-                                                <a href="{{ url('/medziaga/' . $item->id_Medziaga . '/edit') }}" title="Edit medziaga">
+                                                <a href="{{ url('/dydis/' . $item->id_Dydis . '/edit') }}" title="Edit dydis">
                                                     <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
                                                 </a>
-                                                <form method="POST" action="{{ url('/medziaga' . '/' . $item->id_Medziaga) }}" accept-charset="UTF-8" style="display:inline">
+                                                <form method="POST" action="{{ url('/dydis' . '/' . $item->id_Dydis) }}" accept-charset="UTF-8" style="display:inline">
                                                     {{ method_field('DELETE') }}
                                                     {{ csrf_field() }}
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete medziaga" onclick="return confirm(&quot;Confirm delete?&quot;)">
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete dydis" onclick="return confirm(&quot;Confirm delete?&quot;)">
                                                         <i class="fa fa-trash-o" aria-hidden="true"></i>Delete
                                                     </button>
                                                 </form>
