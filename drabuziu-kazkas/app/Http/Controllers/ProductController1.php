@@ -10,7 +10,7 @@ use App\Http\Controllers\View;
 use Illuminate\Support\Facades\DB;
 
 
-class ProductController extends Controller
+class ProductController1 extends Controller
 {
     public function createProduct(Request $request)
     {
@@ -52,7 +52,7 @@ class ProductController extends Controller
         return view('prekes', ['products' => $filteredProducts, 'kategorijos' => $kategorijos])
             ->with('success', 'Product created successfully!');
     }
-    // ProductController.php
+    
 
     
 

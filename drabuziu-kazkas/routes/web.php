@@ -238,7 +238,7 @@ Route::get('/uzsakymai/visi', [OrderController::class, 'showAllOrders'])->name('
 
 // web.php
 
-use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\FilterController;
 
 // Route for filtering products
