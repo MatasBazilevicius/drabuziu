@@ -9,6 +9,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->Pavadinimas }}</h5>
                         <p class="card-text">{{ $product->Aprasas }}</p>
+                        <p class="card-text">{{ $product->Medziaga }}</p>
+                        <p class="card-text">{{ $product->Gamintojas }}</p>
                         <p class="card-text">${{ $product->Kaina }}</p>
                         <a href="{{ route('preke1', ['id' => $product->id_Drabuzis]) }}" class="btn btn-success">Peržiūrėti prekę</a>
                         <a href="{{ route('adddrabuzis.to.cart', $product->id_Drabuzis) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
@@ -31,6 +33,3 @@
         </div>
     @endforelse
 </div>
-
-<!-- Input range element for minimum price -->
-

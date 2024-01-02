@@ -25,6 +25,24 @@ if ($kategorijaResult->num_rows > 0) {
         $kategorijos[] = $kategorijaRow;
     }
 }
+
+$medziagaSql = "SELECT * FROM medziagos";
+$medziagaResult = $conn->query($medziagaSql);
+$medziagos = [];
+if ($medziagaResult->num_rows > 0) {
+    while ($gamintojasRow = $medziagaResult->fetch_assoc()) {
+        $medziagos[] = $gamintojasRow;
+    }
+}
+
+$gamintojasSql = "SELECT * FROM gamintojai";
+$gamintojasResult = $conn->query($gamintojasSql);
+$gamintojai = [];
+if ($gamintojasResult->num_rows > 0) {
+    while ($gamintojasRow = $gamintojasResult->fetch_assoc()) {
+        $gamintojai[] = $gamintojasRow;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,6 +164,20 @@ if ($kategorijaResult->num_rows > 0) {
                         <option value="">Visos kategorijos</option>
                         @foreach ($kategorijos as $kategorija)
                             <option value="{{ $kategorija['id_Kategorija'] }}">{{ $kategorija['pavadinimas'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="medziaga">Pasirinkite medžiagą:</label>
+                    <select class="form-select" id="medziaga" name="medziaga">
+                        <option value="">Visos medziagos</option>
+                        @foreach ($medziagos as $medziaga)
+                            <option value="{{ $medziaga['id_Medziaga'] }}">{{ $medziaga['Medziaga'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="gamintojas">Pasirinkite gamintoją:</label>
+                    <select class="form-select" id="gamintojas" name="gamintojas">
+                        <option value="">Visi gamintojai</option>
+                        @foreach ($gamintojai as $gamintojas)
+                            <option value="{{ $gamintojas['id_Gamintojas'] }}">{{ $gamintojas['Gamintojas'] }}</option>
                         @endforeach
                     </select>
 
