@@ -17,10 +17,10 @@ if ($conn->connect_error) {
 
 $kategorijaSql = "SELECT * FROM kategorijos";
 $kategorijaResult = $conn->query($kategorijaSql);
-$spalva = [];
+$kategorijos = [];
 if ($kategorijaResult->num_rows > 0) {
-    while ($spalvaRow = $kategorijaResult->fetch_assoc()) {
-        $spalva[] = $spalvaRow;
+    while ($kategorijaRow = $kategorijaResult->fetch_assoc()) {
+        $kategorijos[] = $kategorijaRow;
     }
 }
 
@@ -176,7 +176,13 @@ if ($dydisResult->num_rows > 0) {
                 <!-- Your filter form -->
                 <form id="filterForm" action="{{ route('Prekes.filter') }}" method="post">
                     @csrf
-                   
+                    <label for="category">Pasirinkite kategoriją:</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="">Visos kategorijos</option>
+                        @foreach ($kategorijos as $kategorija)
+                            <option value="{{ $kategorija['id_Kategorija'] }}">{{ $kategorija['pavadinimas'] }}</option>
+                        @endforeach
+                    </select>
                     <label for="medziaga">Pasirinkite medžiagą:</label>
                     <select class="form-select" id="medziaga" name="medziaga">
                         <option value="">Visos medziagos</option>
