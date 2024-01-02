@@ -156,6 +156,7 @@ Route::get('paypal/cancel',[PaypalController::class, 'cancel'])->name('paypal.ca
 // routes/web.php
 use App\Http\Controllers\ProductController1;
 use App\Http\Controllers\DrabuziaiPerz;
+
 //bandau duomenu baze prijugnti cia 
 Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 //Prekiu editinimas 
@@ -165,6 +166,11 @@ Route::get('/prekes/{id}/edit', [ProductController1::class, 'showEditForm'])->na
 //Cia del produktu kurimo
 Route::get('/create-product', [ProductController1::class, 'showCreateForm'])->name('showCreateForm');
 Route::post('/create-product', [ProductController1::class, 'createProduct'])->name('createProduct');
+
+use App\Http\Controllers\ProductController3;
+
+Route::get('/create-product', [ProductController3::class, 'create'])->name('createProduct');
+Route::post('/create-product', [ProductController3::class, 'store']);
 
 // Krepselis
 

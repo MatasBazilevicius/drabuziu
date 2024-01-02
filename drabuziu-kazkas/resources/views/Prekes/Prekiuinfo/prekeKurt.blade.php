@@ -56,8 +56,26 @@
 
                 <!-- Manufacturer ID -->
                 <div class="mb-3">
-                    <label for="fk_Gamintojasid_Gamintojas" class="form-label">Gamintojo ID</label>
-                    <input type="text" id="fk_Gamintojasid_Gamintojas" name="fk_Gamintojasid_Gamintojas" class="form-control" required>
+                    <label for="fk_id_Gamintojas_Gamintojai" class="form-label">Gamintojo ID</label>
+                    <input type="text" id="fk_id_Gamintojas_Gamintojai" name="fk_id_Gamintojas_Gamintojai" class="form-control" required>
+                </div>
+
+                <!-- Color ID -->
+                <div class="mb-3">
+                    <label for="fk_id_Spalva_spalvos" class="form-label">Spalvos ID</label>
+                    <input type="text" id="fk_id_Spalva_spalvos" name="fk_id_Spalva_spalvos" class="form-control" required>
+                </div>
+
+                <!-- Size ID -->
+                <div class="mb-3">
+                    <label for="fk_id_Dydis_dydis" class="form-label">Dydžio ID</label>
+                    <input type="text" id="fk_id_Dydis_dydis" name="fk_id_Dydis_dydis" class="form-control" required>
+                </div>
+
+                <!-- Material ID -->
+                <div class="mb-3">
+                    <label for="fk_id_Medziagos_medziagos" class="form-label">Medžiagos ID</label>
+                    <input type="text" id="fk_id_Medziagos_medziagos" name="fk_id_Medziagos_medziagos" class="form-control" required>
                 </div>
 
                 <!-- Submit Button -->
@@ -107,11 +125,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantity = $_POST['Kiekis'];
     $dateOfCreation = $_POST['Sukurimo_data'];
     $gender = $_POST['Lytis'];
-    $manufacturerID = $_POST['fk_Gamintojasid_Gamintojas'];
+    $manufacturerID = $_POST['fk_id_Gamintojas_Gamintojai'];
+    $colorID = $_POST['fk_id_Spalva_spalvos'];
+    $sizeID = $_POST['fk_id_Dydis_dydis'];
+    $materialID = $_POST['fk_id_Medziagos_medziagos'];
 
     // SQL query to insert data into the table
-    $sql = "INSERT INTO drabuziai (Pavadinimas, Aprasas, Nuotrauka, Kaina, Kiekis, Sukurimo_data, Lytis, fk_Gamintojasid_Gamintojas)
-            VALUES ('$name', '$description', '$imageContent', $price, $quantity, '$dateOfCreation', $gender, $manufacturerID)";
+    $sql = "INSERT INTO drabuziai (Pavadinimas, Aprasas, Nuotrauka, Kaina, Kiekis, Sukurimo_data, Lytis, fk_id_Gamintojas_Gamintojai, fk_id_Spalva_spalvos, fk_id_Dydis_dydis, fk_id_Medziagos_medziagos)
+            VALUES ('$name', '$description', '$imageContent', $price, $quantity, '$dateOfCreation', $gender, $manufacturerID, $colorID, $sizeID, $materialID)";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";

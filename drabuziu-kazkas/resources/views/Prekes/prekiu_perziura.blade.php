@@ -110,8 +110,8 @@ if ($gamintojasResult->num_rows > 0) {
                                 <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" class="card-img-top" alt="{{ $row['Pavadinimas'] }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $row['Pavadinimas'] }}</h5>
-                                    <p class="card-text">{{ $row['Aprasas'] }}</p>
-                                    <p class="card-text">${{ $row['Kaina'] }}</p>
+                                    <h5 class="card-text">{{ $row['Aprasas'] }}</h5>
+                                    <h5 class="card-text">${{ $row['Kaina'] }}</h5>
                                     <a href="{{ route('preke1', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-success">Perziureti preke</a>
                                     <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                                     <p class="btn-holder">
