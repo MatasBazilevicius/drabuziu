@@ -100,7 +100,10 @@
         @endif
 
         <a href="{{ route('zinut')}}">Pagalba klientams</a>
+        @if($accountType == 3)
         <a href="{{ route('zinut1')}}">Administratorius klientams</a>
+        @endif
+
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             Atsijungti
         </a>
@@ -133,7 +136,7 @@
 <body>
     
     <div class="container my-5">
-        <h1 style="color: #e74c3c;">Drabužių parduotuvė AMMA V:0.17</h1>
+        <h1 style="color: #e74c3c;">Drabužių parduotuvė AMMA V:0.145</h1>
 
         <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;">Prekės</h2>
         <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>

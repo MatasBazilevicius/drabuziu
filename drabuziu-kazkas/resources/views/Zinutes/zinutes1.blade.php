@@ -1,36 +1,33 @@
-<!-- resources/views/zinutes1.blade.php -->
+<!-- resources/views/select_user.blade.php -->
 
-@extends('layouts.app') {{-- Assuming you have a common layout file --}}
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-    <div id="admin-messages">
-        <h1>Admin Messages</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select User</title>
+</head>
 
-        <!-- Display list of users -->
-        <ul>
-            @foreach($users as $user)
-                <li>
-                    <a href="{{ route('admin.messages.user', ['user_id' => $user->id_Naudotojas]) }}">
-                        {{ $user->username }}
-                    </a>
-                </li>
+<body>
+
+    <h2>Select User</h2>
+
+    <form action="" method="post">
+        @csrf
+
+        <label for="userDropdown">Select User:</label>
+        <select name="user_id" id="userDropdown">
+            @foreach ($userIds as $userId)
+                <option value="{{ $userId }}">{{ $userId }}</option>
             @endforeach
-        </ul>
+        </select>
 
-        <!-- Display messages and reply form -->
-        <div v-if="selectedUserId">
-            <h2>Messages with {{ selectedUser.username }}</h2>
+        <br>
 
-            <ul>
-                <li v-for="message in messages">
-                    {{ message.Turinys }}
-                </li>
-            </ul>
+        <input type="submit" value="Submit">
+    </form>
 
-            <form @submit.prevent="reply">
-                <textarea v-model="replyMessage" placeholder="Type your reply..."></textarea>
-                <button type="submit">Send Reply</button>
-            </form>
-        </div>
-    </div>
-@endsection
+</body>
+
+</html>

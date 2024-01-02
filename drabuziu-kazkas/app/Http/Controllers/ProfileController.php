@@ -37,6 +37,10 @@ class ProfileController extends Controller
                 'telefono_numeris' => 'nullable|string|max:255',
                 'Adresas' => 'nullable|string|max:255',
                 'Gimimo_data' => 'nullable|date',
+            ], [
+                'Slapyvardis.required' => 'Slapyvardis turi būti užpildytas.',
+                'El_Pastas.required' => 'El. paštas turi būti užpildytas.',
+                'El_Pastas.email' => 'El_Pastas turi būti galiojantis el. pašto adresas.',
             ]);
     
             $updateData = $request->only(['Slapyvardis', 'Vardas', 'El_Pastas', 'Pavarde', 'telefono_numeris', 'Adresas', 'Gimimo_data']);
@@ -56,7 +60,7 @@ class ProfileController extends Controller
             return redirect()->route('profile.edit')->with('success', 'Duomenys sėkmingai atnaujinti!');
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Error updating profile: ' . $e->getMessage());
-            return redirect()->route('profile.edit')->with('error', 'An error occurred while updating the profile.');
+            return redirect()->route('profile.edit')->with('error', 'Klaidingai suvesti duomenys.');
         }
     }
 
@@ -77,16 +81,14 @@ class ProfileController extends Controller
         if (Hash::check($request->password, $user->password)) {
             // Delete entries from both 'users' and 'naudotojai' tables
             User::where('id', $user->id)->delete();
-    
-            // Assuming 'Naudotojai' model is used for the 'naudotojai' table
             Naudotojai::where('id_Naudotojas', $user->id)->delete();
-            
     
             Auth::logout();
     
             return redirect('/')->with('success', 'Your profile has been deleted.');
         }
     
-        return redirect()->back()->with('klaida', 'Įvestas neteisingas slaptažodis.');
+        // If the password doesn't match, return back with an error message
+        return redirect()->back()->withErrors(['password' => 'Įvestas neteisingas slaptažodis.']);
     }
 }
