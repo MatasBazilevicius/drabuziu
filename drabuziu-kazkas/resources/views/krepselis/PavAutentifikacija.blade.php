@@ -23,16 +23,6 @@
         </div>
     </div>
 </div>
-
-
- @php 
-
-$orderController = app('App\Http\Controllers\OrderController');
-$orderInformation = $orderController->generateOrderInformation();
-
-@endphp
-
-{{$orderInformation}}
     <!-- Include any necessary scripts at the end of the body -->
 </body>
 </html>
