@@ -192,7 +192,19 @@ Route::get('/messages', [MessageController::class, 'getMessages'])->name('messag
 Route::post('/messages', [MessageController::class, 'sendMessage'])->name('messages.send');
 
 // In your routes/web.php or routes/api.php file
-Route::get('/admin/messages', [AdminMessageController::class, 'showAdminMessages'])->name('admin.messages');
+use App\Http\Controllers\AdminMessageController;
+
+// Route to display the admin dashboard
+Route::get('/admin', [AdminMessageController::class, 'adminDashboard'])->name('admin.dashboard');
+
+// Route to send a message
+Route::post('/admin/send-message', [AdminMessageController::class, 'sendMessage'])->name('admin.send-message');
+
+// Route to get all messages
+Route::get('/admin/get-messages', [AdminMessageController::class, 'getMessages'])->name('admin.get-messages');
+
+// Route to get messages by a specific user
+Route::get('/admin/get-messages-by-user/{userId}', [AdminMessageController::class, 'getMessagesByUser'])->name('admin.get-messages-by-user');
 
 
 //zinutes iki cia
