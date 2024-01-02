@@ -44,7 +44,7 @@
     <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
         <a class="btn btn-warning" href="{{ route('prekeRedag') }}">Redaguoti prekę</a>
         <h2 style="color: #2ecc71; border-bottom: 2px solid #2ecc71; padding-bottom: 5px;"></h2>
-        <a class="btn btn-warning" href="{{ route('prekes') }}">Gryžti į prekių peržiūrą</a>
+        <a class="btn btn-warning" href="{{ route('prekes') }}">Grįžti į prekių peržiūrą</a>
     </div>
 
 </div>

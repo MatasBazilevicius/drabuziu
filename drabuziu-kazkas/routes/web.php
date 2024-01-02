@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\KategorijaController;
 use App\Models\Kategorija;
+use App\Http\Controllers\MedziagaController;
+use App\Models\Medziaga;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -179,6 +181,7 @@ Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])-
 Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');*/
 
 Route::resource("/kategorija", KategorijaController::class);
+Route::resource("/medziaga", MedziagaController::class);
 
 use App\Http\Controllers\OrderController;
 
@@ -218,3 +221,18 @@ Route::post('/uzsakymai/update-status/{orderId}', [OrderController::class, 'upda
 Route::get('/uzsakymai/view/{orderId}', [OrderController::class, 'viewOrderInformation'])->name('order.view');
 // web.php
 Route::get('/uzsakymai/visi', [OrderController::class, 'showAllOrders'])->name('order.show.all');
+
+// web.php
+
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FilterController;
+
+// Route for filtering products
+// routes/web.php
+
+// Route for filtering products
+
+
+Route::post('Prekes', [FilterController::class, 'filterProducts'])->name('Prekes.filter');
+Route::post('/Prekes/filtered_products', [FilterController::class, 'filterProducts']);
+

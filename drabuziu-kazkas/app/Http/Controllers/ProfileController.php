@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Naudotojai;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -29,9 +30,9 @@ class ProfileController extends Controller
             }
     
             $request->validate([
-                'Slapyvardis' => 'nullable|string|max:255',
+                'Slapyvardis' => 'string|max:255',
                 'Vardas' => 'nullable|string|max:255',
-                'El_Pastas' => 'nullable|email|max:255',
+                'El_Pastas' => 'email|max:255',
                 'Pavarde' => 'nullable|string|max:255',
                 'telefono_numeris' => 'nullable|string|max:255',
                 'Adresas' => 'nullable|string|max:255',
@@ -75,16 +76,17 @@ class ProfileController extends Controller
     
         if (Hash::check($request->password, $user->password)) {
             // Delete entries from both 'users' and 'naudotojai' tables
-            $user->delete();
+            User::where('id', $user->id)->delete();
     
             // Assuming 'Naudotojai' model is used for the 'naudotojai' table
             Naudotojai::where('id_Naudotojas', $user->id)->delete();
+            
     
             Auth::logout();
     
             return redirect('/')->with('success', 'Your profile has been deleted.');
         }
     
-        return redirect()->back()->with('error', 'Incorrect password. Please try again.');
+        return redirect()->back()->with('klaida', 'Įvestas neteisingas slaptažodis.');
     }
 }

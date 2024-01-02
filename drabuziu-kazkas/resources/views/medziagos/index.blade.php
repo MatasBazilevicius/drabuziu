@@ -1,14 +1,14 @@
-@extends('kategorijos.layout')
+@extends('medziagos.layout')
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Kategorijos</h2>
+                        <h2>medziagos</h2>
                     </div>
                     <div class="card-body">
-                        <a href="{{ url('/kategorija/create') }}" class="btn btn-success btn-sm" title="Add New Kategorija">
+                        <a href="{{ url('/medziaga/create') }}" class="btn btn-success btn-sm" title="Add New medziaga">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
                         
@@ -29,38 +29,28 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Pavadinimas</th>
-                                        <th>Aprasymas</th>
-                                        <th>id_Kategorija</th>
-                                        <th>Priklauso kategorijai:</th>
+                                        <th>Medziaga</th>
+                                        <th>id_Medziaga</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($kategorijos as $item)
+                                    @foreach($medziagos as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->pavadinimas }}</td>
-                                            <td>{{ $item->aprasymas }}</td>
-                                            <td>{{ $item->id_Kategorija }}</td>
+                                            <td>{{ $item->Medziaga }}</td>
+                                            <td>{{ $item->id_Medziaga }}</td>
                                             <td>
-                                                @if ($item->fkKategorija)
-                                                    {{ $item->fkKategorija->pavadinimas }}
-                                                @else
-                                                    None
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ url('/kategorija/' . $item->id_Kategorija) }}" title="View kategorija">
-                                                    <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
+                                                <a href="{{ url('/medziaga/' . $item->id_Medziaga) }}" title="View medziaga">
+                                                    <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>View</button>
                                                 </a>
-                                                <a href="{{ url('/kategorija/' . $item->id_Kategorija . '/edit') }}" title="Edit kategorija">
-                                                    <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                                                <a href="{{ url('/medziaga/' . $item->id_Medziaga . '/edit') }}" title="Edit medziaga">
+                                                    <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
                                                 </a>
-                                                <form method="POST" action="{{ url('/kategorija' . '/' . $item->id_Kategorija) }}" accept-charset="UTF-8" style="display:inline">
+                                                <form method="POST" action="{{ url('/medziaga' . '/' . $item->id_Medziaga) }}" accept-charset="UTF-8" style="display:inline">
                                                     {{ method_field('DELETE') }}
                                                     {{ csrf_field() }}
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Kategorija" onclick="return confirm(&quot;Confirm delete?&quot;)">
-                                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete medziaga" onclick="return confirm(&quot;Confirm delete?&quot;)">
+                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>Delete
                                                     </button>
                                                 </form>
                                             </td>
