@@ -194,6 +194,8 @@ use App\Http\Controllers\MessageController;
 Route::get('/messages', [MessageController::class, 'getMessages'])->name('messages.get');
 Route::post('/messages', [MessageController::class, 'sendMessage'])->name('messages.send');
 
+Route::get('/messages/user-ids', [MessageController::class, 'getUserIds'])->name('messages.userIds');
+
 // In your routes/web.php or routes/api.php file
 use App\Http\Controllers\AdminMessageController;
 
@@ -208,6 +210,31 @@ Route::get('/admin/get-messages', [AdminMessageController::class, 'getMessages']
 
 // Route to get messages by a specific user
 Route::get('/admin/get-messages-by-user/{userId}', [AdminMessageController::class, 'getMessagesByUser'])->name('admin.get-messages-by-user');
+
+Route::get('/messages/user-ids', [AdminMessageController::class, 'getUserIds'])->name('messages.userIds');
+
+// Add this line to define the missing route
+Route::get('/messages/user/{userId}', [MessageController::class, 'getUserMessages'])->name('messages.user');
+Route::get('/messages/user-ids', [MessageController::class, 'getUserIds'])->name('messages.userIds');
+
+// routes/web.php
+
+use App\Models\Naudotojai;
+
+Route::get('/select-user', function () {
+    try {
+        // Fetch all user IDs using the Naudotojai model
+        $userIds = Naudotojai::pluck('id_Naudotojas')->toArray();
+
+        return view('select_user', ['userIds' => $userIds]);
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error('Error fetching user IDs: ' . $e->getMessage());
+
+        // Return a response indicating an error
+        return response()->json(['error' => 'Error fetching user IDs'], 500);
+    }
+});
 
 
 //zinutes iki cia
