@@ -71,7 +71,7 @@
             data: {
                 messages: [],       // Change to an array
                 newMessage: '',
-                fakeText: 'čia yra naujo pokalbio su administratoriumi pradžia',
+                fakeText: 'Atsakyk naudojams iškilusius klausimus',
                 manualUserId: '',   // Added manualUserId for entering user ID manually
             },
             methods: {

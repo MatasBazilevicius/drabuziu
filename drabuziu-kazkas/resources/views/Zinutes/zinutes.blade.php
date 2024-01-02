@@ -64,7 +64,7 @@
             data: {
                 messages: [],       // Change to an array
                 newMessage: '',
-                fakeText: 'čia yra naujo pokalbio su administratoriumi pradžia',
+                fakeText: 'čia parašykite žinute administratoriui norint išs su administratoriumi pradžia',
             },
             mounted() {
                 // Fetch initial messages
