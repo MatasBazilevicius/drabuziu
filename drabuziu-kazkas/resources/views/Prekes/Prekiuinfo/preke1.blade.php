@@ -33,54 +33,79 @@ $result = $stmt->get_result();
 ?>
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Prekės Redagavimas</h1>
+    <h1 class="text-center mb-4">Prekės Informacija</h1>
 
     <form action="{{ route('updateProduct', $product_id) }}" method="post">
         @csrf
         @method('post')
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Pavadinimas</th>
-                    <th>Aprasas</th>
-                    <th>Nuotrauka</th>
-                    <th>Kaina</th>
-                    <th>Kiekis</th>
-                    <th>Sukurimo data</th>
-                    <th>Lytis</th>
-                    <th>Gamintojas ID</th>
-                    <th>Spalva ID</th>
-                    <th>Dydis ID</th>
-                    <th>Medziagos ID</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="row">
+            <div class="col-md-6">
                 @if ($row = $result->fetch_assoc())
-                    <tr>
-                        <td>{{ $row['id_Drabuzis'] }}</td>
-                        <td><input type="text" name="Pavadinimas" value="{{ $row['Pavadinimas'] }}"></td>
-                        <td><input type="text" name="Aprasas" value="{{ $row['Aprasas'] }}"></td>
-                        <td><input type="file" name="Nuotrauka"></td>
-                        <td><input type="text" name="Kaina" value="{{ $row['Kaina'] }}"></td>
-                        <td><input type="text" name="Kiekis" value="{{ $row['Kiekis'] }}"></td>
-                        <td><input type="date" name="Sukurimo_data" value="{{ $row['Sukurimo_data'] }}"></td>
-                        <td>
-                            <select name="Lytis">
-                                <option value="1" {{ $row['Lytis'] == 1 ? 'selected' : '' }}>Men</option>
-                                <option value="2" {{ $row['Lytis'] == 2 ? 'selected' : '' }}>Women</option>
-                            </select>
-                        </td>
-                        <td><input type="text" name="fk_id_Gamintojas_Gamintojai" value="{{ $row['fk_id_Gamintojas_Gamintojai'] }}"></td>
-                        <td><input type="text" name="fk_id_Spalva_spalvos" value="{{ $row['fk_id_Spalva_spalvos'] }}"></td>
-                        <td><input type="text" name="fk_id_Dydis_dydis" value="{{ $row['fk_id_Dydis_dydis'] }}"></td>
-                        <td><input type="text" name="fk_id_Medziagos_medziagos" value="{{ $row['fk_id_Medziagos_medziagos'] }}"></td>
-                    </tr>
+                    <div class="mb-3">
+                        <label>ID:</label>
+                        <span>{{ $row['id_Drabuzis'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pavadinimas:</label>
+                        <span>{{ $row['Pavadinimas'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Aprasas:</label>
+                        <span>{{ $row['Aprasas'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Kaina:</label>
+                        <span>{{ $row['Kaina'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Kiekis:</label>
+                        <span>{{ $row['Kiekis'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sukurimo data:</label>
+                        <span>{{ $row['Sukurimo_data'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Lytis:</label>
+                        <span>
+                            @if ($row['Lytis'] == 1)
+                                Men
+                            @elseif ($row['Lytis'] == 2)
+                                Women
+                            @endif
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Gamintojas ID:</label>
+                        <span>{{ $row['fk_id_Gamintojas_Gamintojai'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Spalva ID:</label>
+                        <span>{{ $row['fk_id_Spalva_spalvos'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Dydis ID:</label>
+                        <span>{{ $row['fk_id_Dydis_dydis'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Medziagos ID:</label>
+                        <span>{{ $row['fk_id_Medziagos_medziagos'] }}</span>
+                    </div>
                 @endif
-            </tbody>
-        </table>
-
-        <button type="submit" class="btn btn-primary">Išsaugoti pakeitimus</button>
+            </div>
+            <div class="col-md-6">
+                @if ($row = $result->fetch_assoc())
+                    <div class="mb-3">
+                        <label>Nuotrauka:</label>
+                        @if ($row['Nuotrauka'])
+                            <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" alt="Product Image" class="img-fluid">
+                        @else
+                            <p>No image available</p>
+                        @endif
+                    </div>
+                @endif
+            </div>
+        </div>
     </form>
 </div>
 

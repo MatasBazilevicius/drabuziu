@@ -60,6 +60,14 @@ class ProductController3 extends Controller
         return view('Prekes.Prekiuinfo.prekeRedag', ['productName' => $product->Pavadinimas]);
     }
     
+    public function destroy($id)
+{
+    // Delete the product from the database
+    DB::table('drabuziai')->where('id_Drabuzis', $id)->delete();
+
+    return redirect()->route('prekes')->with('success', 'Produktas sėkmingai ištrintas!');
+}
+
 
     
     

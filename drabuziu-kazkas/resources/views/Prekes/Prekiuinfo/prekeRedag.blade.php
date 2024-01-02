@@ -93,10 +93,45 @@ $result = $stmt->get_result();
                     <th>Medziagos ID</th>
                     <td><input type="text" name="fk_id_Medziagos_medziagos" value="{{ $row['fk_id_Medziagos_medziagos'] }}"></td>
                 </tr>
+
+                <!-- Add a new row for delete button -->
+                <tr>
+                    <th>Veiksmai</th>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                            Ištrinti produktą
+                        </button>
+                    </td>
+                </tr>
             </table>
 
             <button type="submit" class="btn btn-primary">Išsaugoti pakeitimus</button>
         </form>
+
+        <!-- Delete confirmation modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Ištrinti produktą</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Ar tikrai norite ištrinti šį produktą?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
+                        <form action="{{ route('deleteProduct', $product_id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger">Ištrinti</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endif
 </div>
 

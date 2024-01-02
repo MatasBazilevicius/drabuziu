@@ -174,6 +174,9 @@ Route::post('/create-product', [ProductController3::class, 'store']);
 
 Route::get('/products/{id}/edit', [ProductController3::class, 'edit'])->name('editProduct');
 Route::post('/products/{id}/update', [ProductController3::class, 'update'])->name('updateProduct');
+
+Route::get('/products/{id}/delete', [ProductController3::class, 'destroy'])->name('deleteProduct');
+
 // Krepselis
 
 use App\Http\Controllers\CartController;
