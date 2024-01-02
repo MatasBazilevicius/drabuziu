@@ -93,12 +93,7 @@
         <a class="btn btn-warning" href="{{ route('prekes') }}">Grįžti į prekių sąrašą</a>
     </div>
 </div>
-<!-- Add this button inside the form -->
-<form action="{{ route('deleteProduct', $row['id_Drabuzis']) }}" method="post" class="d-inline">
-    @csrf
-    @method('delete')
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Ištrinti produktą</button>
-</form>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
