@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\KategorijaController;
 use App\Models\Kategorija;
+use App\Http\Controllers\MedziagaController;
+use App\Models\Medziaga;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -179,6 +181,7 @@ Route::get('/create-category', [KategorijaController::class, 'showCreateForm'])-
 Route::post('/create-category', [KategorijaController::class, 'createCategory'])->name('createCategory');*/
 
 Route::resource("/kategorija", KategorijaController::class);
+Route::resource("/medziaga", MedziagaController::class);
 
 use App\Http\Controllers\OrderController;
 

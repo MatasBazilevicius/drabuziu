@@ -65,6 +65,7 @@ if ($kategorijaResult->num_rows > 0) {
             <div>
                 <h2 style="color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Kategorijos</h2>
                 <a class="btn btn-danger" href="{{ route('kategorija.index') }}">Peržiūrėti kategorijas</a>
+                <a class="btn btn-danger" href="{{ route('medziaga.index') }}">Peržiūrėti medžiagas</a>
             </div>
         </div>
 
@@ -162,17 +163,36 @@ if ($kategorijaResult->num_rows > 0) {
 </div>
 
 <!-- JavaScript to update the displayed price range value -->
+<!-- JavaScript to update the displayed price range value -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var priceRange = document.getElementById('priceRange');
         var priceRangeValue = document.getElementById('priceRangeValue');
 
+        // Set the initial minimum and maximum values
+        var initialMinValue = 1; // Set your initial minimum value here
+        var initialMaxValue = 500; // Set your initial maximum value here
+
+        // Set the minimum and maximum values for the price range input
+        priceRange.min = initialMinValue;
+        priceRange.max = initialMaxValue;
+        priceRange.value = initialMaxValue; // Set an initial value (e.g., the maximum)
+
         // Update the displayed value when the range input changes
         priceRange.addEventListener('input', function () {
-            priceRangeValue.innerText = '0 - ' + this.value;
+            // Ensure that the minimum value is less than or equal to the maximum value
+            if (parseInt(priceRange.min) >= parseInt(priceRange.max)) {
+                // If not, set the minimum and maximum values to be equal
+                priceRange.min = priceRange.value;
+                priceRange.max = priceRange.value;
+            }
+
+            // Update the displayed value
+            priceRangeValue.innerText = '0 - ' + priceRange.value;
         });
     });
 </script>
+
 
 @yield ('scripts')
 </body>
