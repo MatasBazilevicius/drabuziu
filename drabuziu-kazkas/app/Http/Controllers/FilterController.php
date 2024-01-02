@@ -24,6 +24,6 @@ class FilterController extends Controller
         ->get();
 
         // You may return a view with the filtered products or handle it as needed
-        return view('products.filtered', ['products' => $filteredProducts]);
+        return view('Prekes.filtered_products', ['products' => $filteredProducts]);
     }
 }

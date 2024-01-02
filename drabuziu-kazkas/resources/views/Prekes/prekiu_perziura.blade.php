@@ -1,4 +1,3 @@
-<!-- Replace your existing index.blade.php content with this code -->
 <?php
 // Database connection parameters
 $servername = "localhost";
@@ -36,13 +35,13 @@ if ($kategorijaResult->num_rows > 0) {
     <title>Clothing Shop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-</script>
+    <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    </script>
 
 </head>
 
@@ -135,7 +134,7 @@ if ($kategorijaResult->num_rows > 0) {
             </div>
             <div class="modal-body">
                 <!-- Your filter form -->
-                <form id="filterForm" action="{{ route('products.filter') }}" method="post">
+                <form id="filterForm" action="{{ route('Prekes.filter') }}" method="post">
                     @csrf
                     <label for="category">Pasirinkite kategoriją:</label>
                     <select class="form-select" id="category" name="category">
@@ -145,8 +144,9 @@ if ($kategorijaResult->num_rows > 0) {
                         @endforeach
                     </select>
 
-                    <label for="priceRange">Pasirinkite kainos intervalą:</label>
-                    <input type="range" class="form-range" id="priceRange" name="priceRange" min="0" max="1000">
+                    <!-- Updated price range input -->
+                    <label for="priceRange">Pasirinkite kainos intervalą: <span id="priceRangeValue">0 - 500</span></label>
+                    <input type="range" class="form-range" id="priceRange" name="priceRange" min="0" max="1000" value="500" step="1">
 
                     <!-- Other filter options can be added here -->
 
@@ -161,33 +161,18 @@ if ($kategorijaResult->num_rows > 0) {
     </div>
 </div>
 
-<!-- Add this script to handle the form submission and update the product listing -->
+<!-- JavaScript to update the displayed price range value -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Handle applyFilters button click
-        document.getElementById('applyFilters').addEventListener('click', function () {
-            // Get selected category and price range values
-            var selectedCategory = document.getElementById('category').value;
-            var selectedPriceRange = document.getElementById('priceRange').value;
+        var priceRange = document.getElementById('priceRange');
+        var priceRangeValue = document.getElementById('priceRangeValue');
 
-            // Send AJAX request
-            axios.post('/products/filter', {
-                category: selectedCategory,
-                priceRange: selectedPriceRange
-            })
-            .then(function (response) {
-                // Update the product listing with the filtered results
-                document.getElementById('productList').innerHTML = response.data;
-                // Close the modal
-                $('#filterModal').modal('hide');
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
+        // Update the displayed value when the range input changes
+        priceRange.addEventListener('input', function () {
+            priceRangeValue.innerText = '0 - ' + this.value;
         });
     });
 </script>
-
 
 @yield ('scripts')
 </body>

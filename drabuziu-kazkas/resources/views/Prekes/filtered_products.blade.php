@@ -1,6 +1,6 @@
 <!-- Create a new file named filtered_products.blade.php and add this content -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach($filteredProducts as $product)
+    @foreach($products as $product)
         <!-- Product Card -->
         <div class="col">
             <a href="{{ route('preke', ['id' => $product->id_Drabuzis]) }}">

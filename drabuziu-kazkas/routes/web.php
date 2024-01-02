@@ -213,6 +213,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FilterController;
 
 // Route for filtering products
-/*Route::post('/products/filter', [FilterController::class, 'filterProducts'])->name('products.filter');*/
-Route::post('/products/filter', [FilterController::class, 'filterProducts']);
+// routes/web.php
+
+// Route for filtering products
+
+
+Route::post('Prekes', [FilterController::class, 'filterProducts'])->name('Prekes.filter');
+Route::post('/Prekes/filtered_products', [FilterController::class, 'filterProducts']);
 
