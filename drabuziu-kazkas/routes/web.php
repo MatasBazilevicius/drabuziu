@@ -160,7 +160,7 @@ use App\Http\Controllers\DrabuziaiPerz;
 //bandau duomenu baze prijugnti cia 
 Route::get('/preke/{id}', [DrabuziaiPerz::class, 'preke'])->name('preke');
 //Prekiu editinimas 
-Route::get('/prekes/{id}/edit', [ProductController1::class, 'showEditForm'])->name('editProduct');
+//Route::get('/prekes/{id}/edit', [ProductController1::class, 'showEditForm'])->name('editProduct');
 //Route::get('/preke/{id}', 'DrabuziaiPerz@preke')->name('preke3');
 
 //Cia del produktu kurimo
@@ -172,6 +172,8 @@ use App\Http\Controllers\ProductController3;
 Route::get('/create-product', [ProductController3::class, 'create'])->name('createProduct');
 Route::post('/create-product', [ProductController3::class, 'store']);
 
+Route::get('/products/{id}/edit', [ProductController3::class, 'edit'])->name('editProduct');
+Route::post('/products/{id}/update', [ProductController3::class, 'update'])->name('updateProduct');
 // Krepselis
 
 use App\Http\Controllers\CartController;

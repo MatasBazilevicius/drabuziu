@@ -1,61 +1,103 @@
-<?php
-
-@extends('layouts.app') <!-- Assuming you have a layout file, adjust this based on your actual layout -->
+@extends('layouts.app')
 
 @section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = ""; // Replace with your actual database password
+$dbname = "parde"; // Replace with your actual database name
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+// Using the Illuminate\Http\Request instance
+use Illuminate\Http\Request;
 
-<!-- Product Edit Form -->
-<form method="post" action="{{ route('updateProduct', $row['id_Drabuzis']) }}" enctype="multipart/form-data">
-    @csrf
-    <!-- Include a hidden input field for the product ID -->
-    <input type="hidden" name="product_id" value="{{ $row['id_Drabuzis'] }}">
-    
-    <div class="col">
-        <div class="card h-10">
-            <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" class="card-img-top" alt="{{ $row['Pavadinimas'] }}" style="width: 300px; height: 200px;">
-            <div class="card-body">
-                <!-- Product Name -->
-                <div class="form-group">
-                    <label for="name">Prekės pavadinimas</label>
-                    <input type="text" id="name" name="name" class="form-control" value="{{ $row['Pavadinimas'] }}" required>
-                </div>
+// Get the product ID from the URL
+$product_id = request('id');
 
-                <!-- Description -->
-                <div class="form-group">
-                    <label for="description">Aprašymas</label>
-                    <textarea id="description" name="description" class="form-control" required>{{ $row['Aprasas'] }}</textarea>
-                </div>
+// Create a database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-                <!-- Price -->
-                <div class="form-group">
-                    <label for="price">Kaina</label>
-                    <input type="text" id="price" name="price" class="form-control" value="{{ $row['Kaina'] }}" required>
-                </div>
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-                <!-- Add other fields as needed -->
+// Use prepared statement to prevent SQL injection
+$sql = "SELECT * FROM drabuziai WHERE id_Drabuzis = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $product_id);
+$stmt->execute();
 
-                <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Atnaujinti prekę</button>
-            </div>
-        </div>
-    </div>
-</form>
+// Get the result
+$result = $stmt->get_result();
+?>
 
-<!-- Back Button -->
-<div>
-    <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Prekės Redagavimas</h1>
+
+    @if ($row = $result->fetch_assoc())
+        <form action="{{ route('updateProduct', $product_id) }}" method="post">
+            @csrf
+            @method('post')
+            <table class="table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <td>{{ $row['id_Drabuzis'] }}</td>
+                </tr>
+                <tr>
+                    <th>Pavadinimas</th>
+                    <td><input type="text" name="Pavadinimas" value="{{ $row['Pavadinimas'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Aprasas</th>
+                    <td><input type="text" name="Aprasas" value="{{ $row['Aprasas'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Nuotrauka</th>
+                    <td><input type="file" name="Nuotrauka"></td>
+                </tr>
+                <tr>
+                    <th>Kaina</th>
+                    <td><input type="text" name="Kaina" value="{{ $row['Kaina'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Kiekis</th>
+                    <td><input type="text" name="Kiekis" value="{{ $row['Kiekis'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Sukurimo data</th>
+                    <td><input type="date" name="Sukurimo_data" value="{{ $row['Sukurimo_data'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Lytis</th>
+                    <td>
+                        <select name="Lytis">
+                            <option value="1" {{ $row['Lytis'] == 1 ? 'selected' : '' }}>Men</option>
+                            <option value="2" {{ $row['Lytis'] == 2 ? 'selected' : '' }}>Women</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Gamintojas ID</th>
+                    <td><input type="text" name="fk_id_Gamintojas_Gamintojai" value="{{ $row['fk_id_Gamintojas_Gamintojai'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Spalva ID</th>
+                    <td><input type="text" name="fk_id_Spalva_spalvos" value="{{ $row['fk_id_Spalva_spalvos'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Dydis ID</th>
+                    <td><input type="text" name="fk_id_Dydis_dydis" value="{{ $row['fk_id_Dydis_dydis'] }}"></td>
+                </tr>
+                <tr>
+                    <th>Medziagos ID</th>
+                    <td><input type="text" name="fk_id_Medziagos_medziagos" value="{{ $row['fk_id_Medziagos_medziagos'] }}"></td>
+                </tr>
+            </table>
+
+            <button type="submit" class="btn btn-primary">Išsaugoti pakeitimus</button>
+        </form>
+    @endif
 </div>
 
 @endsection

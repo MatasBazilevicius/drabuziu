@@ -97,7 +97,7 @@ if ($kategorijaResult->num_rows > 0) {
                                     <a href="{{ route('preke1', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-success">Perziureti preke</a>
                                     <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                                     <p class="btn-holder">
-                                        <a href="{{ route('prekeRedag', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-primary">Redaguoti preke</a>
+                                        <a href="{{ route('editProduct', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-primary">Redaguoti preke</a>
                                     <p class="btn-holder">
                                 </div>
                             </div>

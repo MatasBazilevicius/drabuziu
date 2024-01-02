@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <?php
 $servername = "localhost";
 $username = "root";
@@ -18,8 +22,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-
 // Use prepared statement to prevent SQL injection
 $sql = "SELECT * FROM drabuziai WHERE id_Drabuzis = ?";
 $stmt = $conn->prepare($sql);
@@ -28,52 +30,58 @@ $stmt->execute();
 
 // Get the result
 $result = $stmt->get_result();
-
-// Check if there is a product with the given id_Drabuzis
-if ($result->num_rows > 0) {
-    // Fetch the data for the specific product
-    $row = $result->fetch_assoc();
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Prekės Redagavimas</h1>
 
-@if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @yield('content')
-    @yield ('scripts')
+    <form action="{{ route('updateProduct', $product_id) }}" method="post">
+        @csrf
+        @method('post')
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pavadinimas</th>
+                    <th>Aprasas</th>
+                    <th>Nuotrauka</th>
+                    <th>Kaina</th>
+                    <th>Kiekis</th>
+                    <th>Sukurimo data</th>
+                    <th>Lytis</th>
+                    <th>Gamintojas ID</th>
+                    <th>Spalva ID</th>
+                    <th>Dydis ID</th>
+                    <th>Medziagos ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($row = $result->fetch_assoc())
+                    <tr>
+                        <td>{{ $row['id_Drabuzis'] }}</td>
+                        <td><input type="text" name="Pavadinimas" value="{{ $row['Pavadinimas'] }}"></td>
+                        <td><input type="text" name="Aprasas" value="{{ $row['Aprasas'] }}"></td>
+                        <td><input type="file" name="Nuotrauka"></td>
+                        <td><input type="text" name="Kaina" value="{{ $row['Kaina'] }}"></td>
+                        <td><input type="text" name="Kiekis" value="{{ $row['Kiekis'] }}"></td>
+                        <td><input type="date" name="Sukurimo_data" value="{{ $row['Sukurimo_data'] }}"></td>
+                        <td>
+                            <select name="Lytis">
+                                <option value="1" {{ $row['Lytis'] == 1 ? 'selected' : '' }}>Men</option>
+                                <option value="2" {{ $row['Lytis'] == 2 ? 'selected' : '' }}>Women</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="fk_id_Gamintojas_Gamintojai" value="{{ $row['fk_id_Gamintojas_Gamintojai'] }}"></td>
+                        <td><input type="text" name="fk_id_Spalva_spalvos" value="{{ $row['fk_id_Spalva_spalvos'] }}"></td>
+                        <td><input type="text" name="fk_id_Dydis_dydis" value="{{ $row['fk_id_Dydis_dydis'] }}"></td>
+                        <td><input type="text" name="fk_id_Medziagos_medziagos" value="{{ $row['fk_id_Medziagos_medziagos'] }}"></td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
 
-    <!-- Product Card -->
-    <div class="col">
-        <div class="card h-10">
-        <img src="data:image/png;base64,<?php echo base64_encode($row['Nuotrauka']); ?>" class="card-img-top" alt="<?php echo $row['Pavadinimas']; ?>" style="width: 300px; height: 200px;">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo $row['Pavadinimas']; ?></h5>
-                <p class="card-text"><?php echo $row['Aprasas']; ?></p>
-                <p class="card-text">Price: $<?php echo $row['Kaina']; ?></p>
-                <p class="card-text">Quantity: <?php echo $row['Kiekis']; ?></p>
-                <p class="card-text">Creation Date: <?php echo $row['Sukurimo_data']; ?></p>
-                <p class="card-text">Gender: <?php echo $row['Lytis']; ?></p>
-                <!-- Add more details as needed -->
-                <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
-                <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
-            </div>
-        </div>
-    </div>
-    <div>
-<?php
-} else {
-    // Display a message if the product is not found
-    echo '<p>No product found with id_Drabuzis=' . $product_id . '.</p>';
-}
+        <button type="submit" class="btn btn-primary">Išsaugoti pakeitimus</button>
+    </form>
+</div>
 
-// Close the prepared statement and the connection
-$stmt->close();
-$conn->close();
-?>
+@endsection
