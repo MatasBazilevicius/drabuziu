@@ -16,16 +16,7 @@ class OrderController extends Controller
 
     public function checkOrderInformation(Request $request)
      {
-        $order_id = $this->generateOrderId();
-        // Generate values for non-user input fields
-        $request->merge([
-            'Uzsakymo_num' => $order_id,
-            'id_Uzsakymas' => $order_id,
-            'fk_Krepselisid_Krepselis' => $this->generateBasketId(),
-            'fk_Nuolaidų_Kodaiid_Nuolaidų_Kodai' => $this->generateDiscountCodeId(),
-            'fk_Apmokejimasid_Apmokejimas' => $this->generatePaymentId(),
-            'busena' => 'Vykdomas', // Set default value for 'busena'
-        ]);
+        $request->merge($this->generateOrderInformation());
     
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
@@ -179,6 +170,28 @@ class OrderController extends Controller
     return view('uzsakymai.visiuzsakymai', ['orders' => $orders]);
 }
 
-    
+public function showOrderId()
+{
+    $orderInformation = $this->generateOrderInformation();
+    $id_Uzsakymas = $orderInformation['id_Uzsakymas'];
+
+    return view('krepselis.PavAutentifikacija', ['id_Uzsakymas' => $id_Uzsakymas]);
+}
+
+private function generateOrderInformation()
+{
+    $order_id = $this->generateOrderId();
+
+    return [
+        'Uzsakymo_num' => $order_id,
+        'id_Uzsakymas' => $order_id,
+        'fk_Krepselisid_Krepselis' => $this->generateBasketId(),
+        'fk_Nuolaidų_Kodaiid_Nuolaidų_Kodai' => $this->generateDiscountCodeId(),
+        'fk_Apmokejimasid_Apmokejimas' => $this->generatePaymentId(),
+        'busena' => 'Vykdomas',
+    ];
+}
+
+
 }
 

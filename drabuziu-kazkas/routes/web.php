@@ -186,7 +186,7 @@ Route::resource("/medziaga", MedziagaController::class);
 use App\Http\Controllers\OrderController;
 
 Route::post('/check-order-information', [OrderController::class, 'checkOrderInformation'])->name('check.order.information');
-
+Route::get('/show-order-id', [OrderController::class, 'showOrderId'])->name('show.order.id');
 
 //bandau zinutes kurti pats
 use App\Http\Controllers\MessageController;
