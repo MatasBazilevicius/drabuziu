@@ -11,6 +11,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
+            position: relative; /* Add relative positioning */
         }
 
         #search-container {
@@ -31,6 +32,17 @@
             border: none;
             cursor: pointer;
         }
+
+        #welcome-button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            position: absolute; /* Set absolute positioning */
+            top: 10px; /* Adjust top position */
+            left: 10px; /* Adjust left position */
+        }
     </style>
 </head>
 
@@ -43,6 +55,9 @@
                 {{ session('error') }}
             </div>
         @endif
+
+        <!-- Button to go to the welcome page -->
+        <button id="welcome-button" onclick="goToWelcomePage()">Grįžti į pagrindinį meniu</button>
 
         <p>Įveskite užsakymo ID</p>
         <input type="text" id="search-box" placeholder="Užsakymo ID">
@@ -60,6 +75,11 @@
             } else {
                 alert('Įveskite taisyklingą užsakymo numerį.');
             }
+        }
+
+        // Function to go to the welcome page
+        function goToWelcomePage() {
+            window.location.href = '{{ url("/views/welcome") }}'; 
         }
     </script>
 </body>

@@ -1,5 +1,3 @@
-<!-- resources/views/view-order-information.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,14 +28,35 @@
             margin-bottom: 20px;
             color: #007bff;
         }
+
+        .welcome-button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+        }
+
+        #first-welcome {
+            left: 10px;
+        }
+
+        #second-welcome {
+            left: 150px; /* Adjust the left position as needed */
+        }
     </style>
 </head>
 <body>
+    <!-- Welcome buttons -->
+    <a href="{{ url('/drabuziu/drabuziu-kazkas/public/views/welcome') }}" class="welcome-button" id="first-welcome">Grįžti į pagrindinį meniu</a>
+    <a href="{{ url('/uzsakymai/sektiuzsakyma') }}" class="welcome-button" id="second-welcome">Sekti kitą užsakymą</a>
+
     <h1>Užsakymo būsena</h1>
 
     <div id="order-details">
-    <p id="order-status">Busena: {{ $order->busena ?? '' }}</p>
-</div>
-        
+        <p id="order-status">Busena: {{ $order->busena ?? '' }}</p>
+    </div>
 </body>
 </html>

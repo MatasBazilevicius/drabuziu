@@ -58,10 +58,22 @@
             border: 1px solid #888;
             width: 80%;
         }
+
+        #welcome-button {
+            margin-bottom: 20px;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Button to go to the welcome page -->
+    <button id="welcome-button" onclick="goToWelcomePage()">Grįžti į pagrindinį meniu</button>
+
     <h1>Visi įvykdyti užsakymai</h1>
 
     <div id="order-container">
@@ -106,6 +118,11 @@
             // Hide the modal
             document.getElementById("orderModal").style.display = "none";
         }
+
+        // Function to go to the welcome page
+        function goToWelcomePage() {
+        window.location.href = '/drabuziu/drabuziu-kazkas/public/views/welcome'; // Directly navigating to /welcome
+    }
     </script>
 </body>
 
