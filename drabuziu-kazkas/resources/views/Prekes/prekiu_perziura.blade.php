@@ -17,12 +17,10 @@ if ($conn->connect_error) {
 
 $kategorijaSql = "SELECT * FROM kategorijos";
 $kategorijaResult = $conn->query($kategorijaSql);
-
-// Check if there are any categories
-$kategorijos = [];
+$spalva = [];
 if ($kategorijaResult->num_rows > 0) {
-    while ($kategorijaRow = $kategorijaResult->fetch_assoc()) {
-        $kategorijos[] = $kategorijaRow;
+    while ($spalvaRow = $kategorijaResult->fetch_assoc()) {
+        $spalva[] = $spalvaRow;
     }
 }
 
@@ -43,6 +41,25 @@ if ($gamintojasResult->num_rows > 0) {
         $gamintojai[] = $gamintojasRow;
     }
 }
+
+$spalvaSql = "SELECT * FROM spalvos";
+$spalvaResult = $conn->query($spalvaSql);
+$spalvos = [];
+if ($spalvaResult->num_rows > 0) {
+    while ($spalvaRow = $spalvaResult->fetch_assoc()) {
+        $spalvos[] = $spalvaRow;
+    }
+}
+
+$dydisSql = "SELECT * FROM dydis";
+$dydisResult = $conn->query($dydisSql);
+$dydziai = [];
+if ($dydisResult->num_rows > 0) {
+    while ($dydisRow = $dydisResult->fetch_assoc()) {
+        $dydziai[] = $dydisRow;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -159,13 +176,7 @@ if ($gamintojasResult->num_rows > 0) {
                 <!-- Your filter form -->
                 <form id="filterForm" action="{{ route('Prekes.filter') }}" method="post">
                     @csrf
-                    <label for="category">Pasirinkite kategoriją:</label>
-                    <select class="form-select" id="category" name="category">
-                        <option value="">Visos kategorijos</option>
-                        @foreach ($kategorijos as $kategorija)
-                            <option value="{{ $kategorija['id_Kategorija'] }}">{{ $kategorija['pavadinimas'] }}</option>
-                        @endforeach
-                    </select>
+                   
                     <label for="medziaga">Pasirinkite medžiagą:</label>
                     <select class="form-select" id="medziaga" name="medziaga">
                         <option value="">Visos medziagos</option>
@@ -178,6 +189,20 @@ if ($gamintojasResult->num_rows > 0) {
                         <option value="">Visi gamintojai</option>
                         @foreach ($gamintojai as $gamintojas)
                             <option value="{{ $gamintojas['id_Gamintojas'] }}">{{ $gamintojas['Gamintojas'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="spalva">Pasirinkite spalvą:</label>
+                    <select class="form-select" id="spalva" name="spalva">
+                        <option value="">Visi gamintojai</option>
+                        @foreach ($spalvos as $spalva)
+                            <option value="{{ $spalva['id_Spalva'] }}">{{ $spalva['Spalva'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="dydis">Pasirinkite dydį:</label>
+                    <select class="form-select" id="dydis" name="dydis">
+                        <option value="">Visi dydziai</option>
+                        @foreach ($dydziai as $dydis)
+                            <option value="{{ $dydis['id_Dydis'] }}">{{ $dydis['name'] }}</option>
                         @endforeach
                     </select>
 
