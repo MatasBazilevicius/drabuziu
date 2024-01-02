@@ -35,11 +35,6 @@
 
         <!-- Add order information fields based on the OrderController's validation rules -->
 
-        <div class="form-group">
-            <label for="Uzsakymo_num">Užsakymo numeris</label>
-            <input type="text" id="Uzsakymo_num" name="Uzsakymo_num" class="form-control" value="{{ old('Uzsakymo_num') }}" required>
-        </div>
-
         <input type="hidden" name="suma" id="anotherInput" value="anotherInput">
 
 
@@ -74,13 +69,8 @@
         </div>
 
         <div class="form-group">
-            <label for="pristatymo_budas">Pristatymo budas</label>
+            <label for="pristatymo_budas">Pristatymo būdas</label>
             <input type="text" id="pristatymo_budas" name="pristatymo_budas" class="form-control" value="{{ old('pristatymo_budas') }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="busena">Statusas</label>
-            <input type="text" id="busena" name="busena" class="form-control" value="{{ old('busena') }}" required>
         </div>
     </form>
 </div>
@@ -170,7 +160,7 @@
 
 function applyDiscount() {
     var discountCode = document.getElementById('discount_code').value;
-
+    console.log('Discount Code:', discountCode);
     // Make the AJAX call without using a confirm promise
     $.ajax({
         url: '{{ route('apply.discount') }}',

@@ -14,17 +14,19 @@ use Illuminate\Support\Facades\Session;
 class OrderController extends Controller
 {
 
-
     public function checkOrderInformation(Request $request)
-    {
+     {
+        $order_id = $this->generateOrderId();
         // Generate values for non-user input fields
         $request->merge([
-            'id_Uzsakymas' => $this->generateOrderId(),
+            'Uzsakymo_num' => $order_id,
+            'id_Uzsakymas' => $order_id,
             'fk_Krepselisid_Krepselis' => $this->generateBasketId(),
             'fk_Nuolaidų_Kodaiid_Nuolaidų_Kodai' => $this->generateDiscountCodeId(),
             'fk_Apmokejimasid_Apmokejimas' => $this->generatePaymentId(),
+            'busena' => 'Vykdomas', // Set default value for 'busena'
         ]);
-
+    
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
             'Uzsakymo_num' => 'required|integer',
@@ -36,12 +38,16 @@ class OrderController extends Controller
             'Pasto_kodas' => 'required|string',
             'Pristatymo_salis' => 'required|string',
             'pristatymo_budas' => 'required|string',
-            'busena' => 'required|string',
+            'busena' => 'required|string|in:Vykdomas', // Set default value for 'busena'
             'id_Uzsakymas' => 'required|integer|unique:uzsakymai',
             'fk_Krepselisid_Krepselis' => 'nullable|integer',
             'fk_Nuolaidų_Kodaiid_Nuolaidų_Kodai' => 'nullable|integer',
             'fk_Apmokejimasid_Apmokejimas' => 'required|integer',
         ]);
+    
+        // Rest of your code...
+    
+        
 
         // Handle validation failure
         if ($validator->fails()) {
@@ -52,8 +58,10 @@ class OrderController extends Controller
         uzsakymai::create($request->all());
 
         return response()->json(['message' => 'Order information checked successfully!']);
-    }
+        }
 
+    
+    
     private function generateOrderId()
     {
         // Generate a random 8-digit order ID

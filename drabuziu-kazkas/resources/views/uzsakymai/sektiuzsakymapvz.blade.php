@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
             color: #495057;
             text-align: center;
             margin: 20px;
+            position: relative; /* Add relative positioning */
         }
 
         #order-details {
@@ -34,9 +36,23 @@
             font-size: 1.2em;
             color: #28a745;
         }
+
+        #welcome-button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            position: absolute; /* Set absolute positioning */
+            top: 10px; /* Adjust top position */
+            left: 10px; /* Adjust left position */
+        }
     </style>
 </head>
 <body>
+    <!-- Welcome button -->
+    <a href="{{ url('/views/welcome') }}" id="welcome-button">Grįžti į pagrindinį meniu</a>
+
     <h1>Užsakymo būsena</h1>
 
     <div id="order-details">
@@ -48,4 +64,5 @@
 
     <!-- Add any additional content or scripts as needed -->
 </body>
+
 </html>
