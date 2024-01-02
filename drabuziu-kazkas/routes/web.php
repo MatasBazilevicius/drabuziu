@@ -206,3 +206,13 @@ Route::post('/uzsakymai/update-status/{orderId}', [OrderController::class, 'upda
 Route::get('/uzsakymai/view/{orderId}', [OrderController::class, 'viewOrderInformation'])->name('order.view');
 // web.php
 Route::get('/uzsakymai/visi', [OrderController::class, 'showAllOrders'])->name('order.show.all');
+
+// web.php
+
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FilterController;
+
+// Route for filtering products
+/*Route::post('/products/filter', [FilterController::class, 'filterProducts'])->name('products.filter');*/
+Route::post('/products/filter', [FilterController::class, 'filterProducts']);
+

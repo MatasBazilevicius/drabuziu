@@ -1,7 +1,10 @@
 <?php
+
+namespace App\Http\Controllers; // Make sure to include the correct namespace
+
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends Controller // Extend the base Controller class
 {
     public function preke1(Request $request)
     {

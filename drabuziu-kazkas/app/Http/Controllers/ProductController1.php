@@ -3,56 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Manufacturer;
 use App\Models\Drabuziai;
+use App\Models\Kategorija; // Make sure to import the relevant models
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\View;
+use Illuminate\Support\Facades\DB;
 
-class ProductController1 extends Controller
+
+class ProductController extends Controller
 {
-    private $conn;
-
-    public function __construct()
-    {
-        // Database connection parameters
-        $servername = "localhost";
-        $username = "root";
-        $password = ""; // Replace with your actual database password
-        $dbname = "parde"; // Replace with your actual database name
-
-        // Create connection
-        $this->conn = new \mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        }
-    }
-
     public function createProduct(Request $request)
     {
-        // Retrieve form data
-        $image = $request->file('Nuotrauka');
-        $imageContent = addslashes(file_get_contents($image->getRealPath()));
-        $name = $request->input('Pavadinimas');
-        $description = $request->input('Aprasas');
-        $price = $request->input('Kaina');
-        $gender = $request->input('Lytis');
-        $dateOfCreation = $request->input('Sukurimo_data');
-        $manufacturerID = $request->input('fk_Gamintojasid_Gamintojas');
+        // Validate the request
+        $request->validate([
+            'Nuotrauka' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'Pavadinimas' => 'required|string',
+            'Aprasas' => 'required|string',
+            'Kaina' => 'required|numeric',
+            'Lytis' => 'required|string',
+            'Sukurimo_data' => 'required|date',
+            'fk_Gamintojasid_Gamintojas' => 'required|exists:manufacturers,id', // Make sure the manufacturer exists
+            'selected_category' => 'required|exists:kategorijos,id', // Make sure the category exists
+        ]);
 
-        // Insert data into the database
-        $query = "INSERT INTO drabuziai (Pavadinimas, Aprasas, Nuotrauka, Kaina, Lytis, Sukurimo_data, fk_Gamintojasid_Gamintojas) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sssdiss", $name, $description, $imageContent, $price, $gender, $dateOfCreation, $manufacturerID);
-        $stmt->execute();
-        $stmt->close();
+        // Handle file upload
+        $imagePath = $request->file('Nuotrauka')->store('images'); // Store the image in the storage directory
 
-        return redirect()->route('prekes')->with('success', 'Product created successfully!');
+        // Create product using Eloquent
+        $product = new Drabuziai();
+        $product->Pavadinimas = $request->input('Pavadinimas');
+        $product->Aprasas = $request->input('Aprasas');
+        $product->Nuotrauka = $imagePath;
+        $product->Kaina = $request->input('Kaina');
+        $product->Lytis = $request->input('Lytis');
+        $product->Sukurimo_data = $request->input('Sukurimo_data');
+        $product->fk_Gamintojasid_Gamintojas = $request->input('fk_Gamintojasid_Gamintojas');
+        $product->save();
+
+        // Retrieve categories
+        $kategorijos = Kategorija::orderBy("name", "ASC")->get();
+
+        // Get the selected category from the request
+        $selectedCategory = $request->input('selected_category');
+
+        // Filter products by category
+        $filteredProducts = Drabuziai::where('fk_Kategorijosid_Kategorija', $selectedCategory)->get();
+
+        return view('prekes', ['products' => $filteredProducts, 'kategorijos' => $kategorijos])
+            ->with('success', 'Product created successfully!');
     }
+    // ProductController.php
 
-    public function __destruct()
-    {
-        // Close the database connection when the controller is destroyed
-        $this->conn->close();
-    }
+    
+
+
+
+
+
+    
 }
