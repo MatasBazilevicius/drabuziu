@@ -1,5 +1,8 @@
+<!-- resources/views/messages.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,23 +27,32 @@
         #app input {
             width: 300px; /* Adjust the width as needed */
         }
+
+        .message-container {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
+
 <body>
     <div id="app">
         <!-- Display existing messages -->
         <ul>
-            <li v-for="message in messages">@{{ message.Turinys }}</li>
+            <li v-for="message in messages" v-html="message.Turinys" class="message-container"></li>
         </ul>
+
+        <!-- Fake text -->
+        <div v-html="fakeText"></div>
 
         <!-- Input for new message and send button -->
         <div>
             <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Enter your message...">
             <button @click="sendMessageButton">Send Message</button>
         </div>
+
         <div>
-        <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
-    </div>
+            <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+        </div>
     </div>
 
     <!-- Vue.js and Axios scripts -->
@@ -50,8 +62,9 @@
         new Vue({
             el: '#app',
             data: {
-                messages: [],       // Array to store messages
-                newMessage: '',      // Input for new message
+                messages: [],       // Change to an array
+                newMessage: '',
+                fakeText: 'čia yra naujo pokalbio su administratoriumi pradžia',
             },
             mounted() {
                 // Fetch initial messages
@@ -62,23 +75,26 @@
             },
             methods: {
                 getMessages() {
-                    // Fetch messages directly from the server using the named route
                     axios.get('{{ route('messages.get') }}')
                         .then(response => {
-                            this.messages = response.data;
+                            console.log(response);  // Log the response
+                            this.messages = response.data.messages || [];
                         })
                         .catch(error => {
                             console.error('Error fetching messages', error);
                         });
                 },
+
                 sendMessage() {
                     if (this.newMessage.trim() === '') {
                         alert('Please enter a message.');
                         return;
                     }
 
-                    // Send a new message using the named route
-                    axios.post('{{ route('messages.send') }}', { Turinys: this.newMessage, fk_Naudotojasid_Naudotojas: 1801 })
+                    axios.post('{{ route('messages.send') }}', {
+                            Turinys: this.newMessage,
+                            fk_Naudotojasid_Naudotojas: 1801
+                        })
                         .then(response => {
                             this.newMessage = ''; // Clear the input
                             this.getMessages(); // Refresh messages
@@ -89,9 +105,10 @@
                 },
                 sendMessageButton() {
                     this.sendMessage();
-                }
+                },
             }
         });
     </script>
 </body>
+
 </html>

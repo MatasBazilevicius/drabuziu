@@ -47,7 +47,7 @@ class MessageController extends Controller
             'Turinys' => $validatedData['Turinys'],
             'fk_Naudotojasid_Naudotojas' => 1801,
             'fk_Naudotojasid_Naudotojas1' => 1802
-            // Add other fields if necessary
+                // Add other fields if necessary
         ]);
 
         $message->save();
@@ -58,17 +58,21 @@ class MessageController extends Controller
     public function getMessages()
     {
         try {
-            // Fetch messages for a specific user (e.g., with fk_Naudotojasid_Naudotojas = 1801)
-            $user = UserZ::find(1801); // Change User to UserZ
-            $messages = $user->messages;
-
+            // Fetch messages for a specific user with the given conditions
+            $messages = Zinutes::where([
+                'fk_Naudotojasid_Naudotojas' => 1801,
+                'fk_Naudotojasid_Naudotojas1' => 1802
+            ])->get();
+    
             return response()->json(['messages' => $messages]);
+    
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error fetching messages: ' . $e->getMessage());
-
+    
             // Return a response indicating an error
             return response()->json(['error' => 'Error fetching messages'], 500);
         }
-    }
+    }    
+
 }
