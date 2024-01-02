@@ -1,22 +1,18 @@
 <?php
-// app/Models/Gamintojas.php
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gamintojas extends Model
+class Dydis extends Model
 {
-    use HasFactory;
-
-    protected $table = 'gamintojai';
-    protected $primaryKey = 'id_Gamintojas';
+    protected $table = 'dydis';
+    protected $primaryKey = 'id_Dydis';
     public $timestamps = false; // Set to false if your table doesn't have created_at and updated_at columns
 
     protected $fillable = [
-        'Gamintojas',
-        'id_Gamintojas'
+        'id_Dydis',
+        'name',
     ];
 
     // Other model properties, relationships, and methods can be defined here
