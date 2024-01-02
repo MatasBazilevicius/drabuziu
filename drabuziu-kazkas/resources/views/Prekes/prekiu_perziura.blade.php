@@ -66,6 +66,10 @@ if ($kategorijaResult->num_rows > 0) {
                 <h2 style="color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Kategorijos</h2>
                 <a class="btn btn-danger" href="{{ route('kategorija.index') }}">Peržiūrėti kategorijas</a>
                 <a class="btn btn-danger" href="{{ route('medziaga.index') }}">Peržiūrėti medžiagas</a>
+                <a class="btn btn-danger" href="{{ route('gamintojas.index') }}">Peržiūrėti gamintojus</a>
+                <a class="btn btn-danger" href="{{ route('dydis.index') }}">Peržiūrėti dydžius</a>
+                <a class="btn btn-danger" href="{{ route('spalva.index') }}">Peržiūrėti spalvas</a>
+
             </div>
         </div>
 

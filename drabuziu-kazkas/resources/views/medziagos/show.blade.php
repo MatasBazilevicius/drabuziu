@@ -8,7 +8,7 @@
       <h5 class="card-title">Medziaga: {{ $medziagos->pavadinimas }}</h5>
       <p class="card-text">id_Medziaga: {{ $medziagos->id_Medziaga }}</p>
       <div class="col-auto">
-        <a class="btn btn-primary" href="{{ route('medziaga.index') }}">Grįžti į medziagas</a>
+        <a class="btn btn-primary" href="{{ route('medziaga.index') }}">Grįžti į Medziagas</a>
     </div>
     </div>
   </div>

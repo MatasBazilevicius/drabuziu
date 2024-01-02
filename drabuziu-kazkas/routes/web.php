@@ -4,6 +4,12 @@ use App\Http\Controllers\KategorijaController;
 use App\Models\Kategorija;
 use App\Http\Controllers\MedziagaController;
 use App\Models\Medziaga;
+use App\Models\Gamintojas;
+use App\Models\Dydis;
+use App\Models\Spalva;
+use App\Http\Controllers\GamintojasController;
+use App\Http\Controllers\SpalvaController;
+use App\Http\Controllers\DydisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -182,6 +188,10 @@ Route::post('/create-category', [KategorijaController::class, 'createCategory'])
 
 Route::resource("/kategorija", KategorijaController::class);
 Route::resource("/medziaga", MedziagaController::class);
+Route::resource("/gamintojas", GamintojasController::class);
+Route::resource("/dydis", DydisController::class);
+Route::resource("/spalva", SpalvaController::class);
+
 
 use App\Http\Controllers\OrderController;
 
@@ -228,7 +238,7 @@ Route::get('/uzsakymai/visi', [OrderController::class, 'showAllOrders'])->name('
 
 // web.php
 
-use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\FilterController;
 
 // Route for filtering products
