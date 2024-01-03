@@ -29,10 +29,11 @@
         <!-- No products found message -->
         <div class="col">
             <div class="alert alert-warning" role="alert">
-                <strong>No products found</strong>
+                <strong>Prekės nerastos</strong>
             </div>
+               
             <a href="{{ route('prekes') }}" class="btn btn-primary btn-sm" title="Go to Products">
-                <i class="fa fa-bars" aria-hidden="true"></i> Products
+                <i class="fa fa-bars" aria-hidden="true"></i> Grįžti atgal
             </a>
         </div>
     @endforelse
