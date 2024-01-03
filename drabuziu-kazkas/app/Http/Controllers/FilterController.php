@@ -29,20 +29,23 @@ class FilterController extends Controller
         if ($selectedCategory) {
             $query->where('fk_Kategorijosid_Kategorija', $selectedCategory);
         }
-
+        
         if ($selectedMedziaga) {
-            $query->where('fk_Medziagaid_Medziaga', $selectedMedziaga);
+            $query->where('fk_id_Medziagos_medziagos', $selectedMedziaga);
         }
+        
         if ($selectedGamintojas) {
-            $query->where('fk_Gamintojasid_Gamintojas', $selectedGamintojas);
+            $query->where('fk_id_Gamintojas_Gamintojai', $selectedGamintojas);
         }
+        
         if ($selectedSpalva) {
-            $query->where('fk_Spalvaid_Spalva', $selectedSpalva);
+            $query->where('fk_id_Spalva_spalvos', $selectedSpalva);
         }
+        
         if ($selectedDydis) {
-            $query->where('fk_Dydisid_Dydis', $selectedDydis);
+            $query->where('fk_id_Dydis_dydis', $selectedDydis);
         }
-
+        
         if ($priceRange) {
             $query->whereBetween('Kaina', [0, $priceRange]);
         }
@@ -56,9 +59,8 @@ class FilterController extends Controller
         $spalvos = Spalva::orderBy("Spalva", "ASC")->get();
         $dydziai = Dydis::orderBy("name", "ASC")->get();
 
-
         // You may return a view with the filtered products or handle it as needed
-        
-        return view('Prekes.filtered_products', compact('filteredProducts', 'kategorijos', 'medziagos','gamintojai', 'spalvos', 'dydziai'));
+        return view('Prekes.filtered_products', compact('filteredProducts', 'kategorijos', 'medziagos', 'gamintojai', 'spalvos', 'dydziai'));
     }
 }
+
