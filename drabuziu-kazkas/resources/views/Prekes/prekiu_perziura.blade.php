@@ -187,35 +187,35 @@ if ($dydisResult->num_rows > 0) {
                 <form id="filterForm" action="{{ route('Prekes.filter') }}" method="post">
                     @csrf
                     <label for="category">Pasirinkite kategoriją:</label>
-                    <select class="form-select" id="category" name="selected_category">
+                    <select class="form-select" id="category" name="category">
                         <option value="">Visos kategorijos</option>
                         @foreach ($kategorijos as $kategorija)
                             <option value="{{ $kategorija['id_Kategorija'] }}">{{ $kategorija['pavadinimas'] }}</option>
                         @endforeach
                     </select>
                     <label for="medziaga">Pasirinkite medžiagą:</label>
-                    <select class="form-select" id="medziaga" name="selected_medziaga">
+                    <select class="form-select" id="medziaga" name="medziaga">
                         <option value="">Visos medziagos</option>
                         @foreach ($medziagos as $medziaga)
                             <option value="{{ $medziaga['id_Medziaga'] }}">{{ $medziaga['Medziaga'] }}</option>
                         @endforeach
                     </select>
                     <label for="gamintojas">Pasirinkite gamintoją:</label>
-                    <select class="form-select" id="gamintojas" name="selected_gamintojas">
+                    <select class="form-select" id="gamintojas" name="gamintojas">
                         <option value="">Visi gamintojai</option>
                         @foreach ($gamintojai as $gamintojas)
                             <option value="{{ $gamintojas['id_Gamintojas'] }}">{{ $gamintojas['Gamintojas'] }}</option>
                         @endforeach
                     </select>
                     <label for="spalva">Pasirinkite spalvą:</label>
-                    <select class="form-select" id="spalva" name="selected_spalva">
+                    <select class="form-select" id="spalva" name="spalva">
                         <option value="">Visi gamintojai</option>
                         @foreach ($spalvos as $spalva)
                             <option value="{{ $spalva['id_Spalva'] }}">{{ $spalva['Spalva'] }}</option>
                         @endforeach
                     </select>
                     <label for="dydis">Pasirinkite dydį:</label>
-                    <select class="form-select" id="dydis" name="selected_dydis">
+                    <select class="form-select" id="dydis" name="dydis">
                         <option value="">Visi dydziai</option>
                         @foreach ($dydziai as $dydis)
                             <option value="{{ $dydis['id_Dydis'] }}">{{ $dydis['name'] }}</option>

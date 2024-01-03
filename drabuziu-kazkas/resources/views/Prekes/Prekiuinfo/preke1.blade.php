@@ -91,6 +91,7 @@ $result = $stmt->get_result();
                         <label>Medziagos ID:</label>
                         <span>{{ $row['fk_id_Medziagos_medziagos'] }}</span>
                     </div>
+                    <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                 @endif
             </div>
             <div class="col-md-6">
