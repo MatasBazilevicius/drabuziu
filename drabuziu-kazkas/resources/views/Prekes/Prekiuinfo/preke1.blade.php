@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <?php
 $servername = "localhost";
 $username = "root";
@@ -18,8 +22,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-
 // Use prepared statement to prevent SQL injection
 $sql = "SELECT * FROM drabuziai WHERE id_Drabuzis = ?";
 $stmt = $conn->prepare($sql);
@@ -28,52 +30,83 @@ $stmt->execute();
 
 // Get the result
 $result = $stmt->get_result();
-
-// Check if there is a product with the given id_Drabuzis
-if ($result->num_rows > 0) {
-    // Fetch the data for the specific product
-    $row = $result->fetch_assoc();
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Prekės Informacija</h1>
 
-@if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @yield('content')
-    @yield ('scripts')
-
-    <!-- Product Card -->
-    <div class="col">
-        <div class="card h-10">
-        <img src="data:image/png;base64,<?php echo base64_encode($row['Nuotrauka']); ?>" class="card-img-top" alt="<?php echo $row['Pavadinimas']; ?>" style="width: 300px; height: 200px;">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo $row['Pavadinimas']; ?></h5>
-                <p class="card-text"><?php echo $row['Aprasas']; ?></p>
-                <p class="card-text">Price: $<?php echo $row['Kaina']; ?></p>
-                <p class="card-text">Quantity: <?php echo $row['Kiekis']; ?></p>
-                <p class="card-text">Creation Date: <?php echo $row['Sukurimo_data']; ?></p>
-                <p class="card-text">Gender: <?php echo $row['Lytis']; ?></p>
-                <!-- Add more details as needed -->
-                <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
-                <a class="btn btn-warning" href="{{ route('prekes') }}">Peržiūrėti visas prekes</a>
+    <form action="{{ route('updateProduct', $product_id) }}" method="post">
+        @csrf
+        @method('post')
+        <div class="row">
+            <div class="col-md-6">
+                @if ($row = $result->fetch_assoc())
+                    <div class="mb-3">
+                        <label>ID:</label>
+                        <span>{{ $row['id_Drabuzis'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pavadinimas:</label>
+                        <span>{{ $row['Pavadinimas'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Aprasas:</label>
+                        <span>{{ $row['Aprasas'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Kaina:</label>
+                        <span>{{ $row['Kaina'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Kiekis:</label>
+                        <span>{{ $row['Kiekis'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sukurimo data:</label>
+                        <span>{{ $row['Sukurimo_data'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Lytis:</label>
+                        <span>
+                            @if ($row['Lytis'] == 1)
+                                Men
+                            @elseif ($row['Lytis'] == 2)
+                                Women
+                            @endif
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Gamintojas ID:</label>
+                        <span>{{ $row['fk_id_Gamintojas_Gamintojai'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Spalva ID:</label>
+                        <span>{{ $row['fk_id_Spalva_spalvos'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Dydis ID:</label>
+                        <span>{{ $row['fk_id_Dydis_dydis'] }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label>Medziagos ID:</label>
+                        <span>{{ $row['fk_id_Medziagos_medziagos'] }}</span>
+                    </div>
+                @endif
+            </div>
+            <div class="col-md-6">
+                @if ($row = $result->fetch_assoc())
+                    <div class="mb-3">
+                        <label>Nuotrauka:</label>
+                        @if ($row['Nuotrauka'])
+                            <img src="data:image/png;base64,{{ base64_encode($row['Nuotrauka']) }}" alt="Product Image" class="img-fluid">
+                        @else
+                            <p>No image available</p>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
-    </div>
-    <div>
-<?php
-} else {
-    // Display a message if the product is not found
-    echo '<p>No product found with id_Drabuzis=' . $product_id . '.</p>';
-}
+    </form>
+</div>
 
-// Close the prepared statement and the connection
-$stmt->close();
-$conn->close();
-?>
+@endsection

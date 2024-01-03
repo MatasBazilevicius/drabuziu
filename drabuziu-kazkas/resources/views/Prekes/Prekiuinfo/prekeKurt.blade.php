@@ -82,13 +82,18 @@
                 <button type="submit" class="btn btn-primary">Sukurti prekę</button>
             </div>
         </div>
+        
     </form>
+    
+
+
 
     <!-- Back Button -->
     <div class="container my-3 text-center">
         <a class="btn btn-warning" href="{{ route('prekes') }}">Grįžti į prekių sąrašą</a>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
