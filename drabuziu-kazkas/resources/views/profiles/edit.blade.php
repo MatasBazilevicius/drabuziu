@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="Gimimo_data">Gimimo data</label>
-                                <input type="date" id="Gimimo_data" name="Gimimo_data" class="form-control" value="{{ old('Gimimo_data', $naudotojai->Gimimo_data) }}" >
+                                <input type="date" id="Gimimo_data" name="Gimimo_data" class="form-control" value="{{ old('Gimimo_data', $naudotojai->Gimimo_data) }}" max="{{ now()->format('Y-m-d') }}">
                             </div>
 
                             <!-- Add other profile fields as needed -->

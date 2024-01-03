@@ -50,7 +50,7 @@
 </head>
 <body>
     <!-- Welcome buttons -->
-    <a href="{{ url('/drabuziu/drabuziu-kazkas/public/views/welcome') }}" class="welcome-button" id="first-welcome">Grįžti į pagrindinį meniu</a>
+    <a href="{{ url('/views/welcome') }}" class="welcome-button" id="first-welcome">Grįžti į pagrindinį meniu</a>
     <a href="{{ url('/uzsakymai/sektiuzsakyma') }}" class="welcome-button" id="second-welcome">Sekti kitą užsakymą</a>
 
     <h1>Užsakymo būsena</h1>
