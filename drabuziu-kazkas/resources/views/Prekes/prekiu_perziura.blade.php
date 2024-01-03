@@ -132,7 +132,14 @@ if ($dydisResult->num_rows > 0) {
                                     <a href="{{ route('preke1', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-success">Perziureti preke</a>
                                     <a href="{{ route('adddrabuzis.to.cart', $row['id_Drabuzis']) }}" class="btn btn-outline-danger">Pridėti į krepšelį</a>
                                     <p class="btn-holder">
+                                    @php
+            $user = auth()->user();
+            $naudotojas = \App\Models\Naudotojai::find($user->id);
+            $accountType = $naudotojas ? $naudotojas->Paskyros_tipas : null;
+    @endphp
+    @if($accountType == 2 || $accountType == 3)
                                         <a href="{{ route('editProduct', ['id' => $row['id_Drabuzis']]) }}" class="btn btn-primary">Redaguoti preke</a>
+                                        @endif
                                     <p class="btn-holder">
                                 </div>
                             </div>
@@ -156,7 +163,10 @@ if ($dydisResult->num_rows > 0) {
     <a class="btn btn-success" href="{{ route('krepsys') }}">Peržiūrėti krepšelį</a>
     <h2>Grįžti atgal į meniu</h2>
     <a class="btn btn-primary" href="{{ route('meniu') }}">Meniu</a>
+
+    @if($accountType == 2 || $accountType == 3)
     <a class="btn btn-primary" href="{{ route('prekekurt') }}">Kurti naują prekę</a>
+    @endif
     </div>
 </div>
 <!-- Button to trigger the filter modal -->
