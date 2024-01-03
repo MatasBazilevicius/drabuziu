@@ -147,19 +147,7 @@
 
        <!-- <a class="btn btn-success" href="https://wa.me/+36060169800?text=%20Pagalba%20klientui" target="_blank">chatas</a> -->
     </div>
-        <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/657f0f8870c9f2407f80c8e8/1hhs5cop2';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+
     </div>
 
     </div>
